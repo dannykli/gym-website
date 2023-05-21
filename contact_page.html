@@ -1,0 +1,167 @@
+<html>
+<head>
+<title>W3.CSS Template</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">-->
+<script src="https://kit.fontawesome.com/a062df7e69.js" crossorigin="anonymous"></script>
+
+<style>
+.w3-bar .w3-button {
+  padding: 16px;
+}
+
+#myNavbar{
+    background-color: #cc1818d9!important;
+}
+
+body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
+
+body, html {
+  height: 100%;
+  line-height: 1.8;
+}
+
+.dropdown{
+	margin: 0;
+	padding: 0;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  /*min-width: 160px;*/
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+  margin-top: 59px;
+  width: 123px;
+  background-color: #eee;
+  cursor: pointer;
+}
+
+.dropdown-content a{
+	padding: 12px 16px;
+	display: block;
+}
+
+
+.dropdown-content a:hover {background-color: #ccc}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+#ex-button1, #ex-button2, #ex-button3{
+	font-size: 13px;
+	padding-left: 20px;
+}
+
+body{
+	background-color: #eee
+}
+
+#insta:hover{
+	color: blue;
+}
+
+#contact {
+	border: solid 1px #ccc;
+	width: fit-content;
+	margin: auto;
+	padding-top: 10px;
+}
+
+#disclaimer{
+	margin-left: 10%;
+	margin-right: 10%;
+	font-size: 18px;
+}
+</style>
+
+
+<body class="w3-light-grey">
+<!-- Navbar (sit on top) -->
+<div class="w3-top">
+  <div class="w3-bar w3-white w3-card" id="myNavbar">
+    <a class="w3-bar-item w3-button w3-wide" onclick="location.href='./home_page.html'">HOME</a>
+    <!-- Right-sided navbar links -->
+    <div class="w3-right w3-hide-small">
+	<span class="dropdown">
+      <button class="w3-bar-item w3-button"  onclick="location.href='./help_page.html'" id="gymtips-button"><i class="fa-solid fa-dumbbell"></i> GYM TIPS</button><!--</i> GYM TIPS <p class="arrow-down"></p>-->
+	  <div class="dropdown-content">
+	  <a onclick="location.href='./help_page.html#exercises'">Exercises</a>
+	  <a onclick="location.href='./help_page.html#diet'">Diet</a>
+	  <a onclick="location.href='./help_page.html#setsnreps'">Sets 'n' Reps</a>
+	  </div>
+    </span>
+	  
+      <a onclick="location.href='./contact_page.html'" class="w3-bar-item w3-button"><i class="fa fa-envelope"></i> CONTACT</a>
+    </div>
+    <!-- Hide right-floated links on small screens and replace them with a menu icon -->
+
+    <a href="javascript:void(0)" class="w3-bar-item w3-button w3-right w3-hide-large w3-hide-medium" onclick="w3_open()">
+      <i class="fa fa-bars"></i>
+    </a>
+  </div>
+</div>
+
+<!-- Sidebar on small screens when clicking the menu icon -->
+<nav class="w3-sidebar w3-bar-block w3-black w3-card w3-animate-left w3-hide-medium w3-hide-large" style="display:none" id="mySidebar">
+  <a href="javascript:void(0)" onclick="w3_close()" class="w3-bar-item w3-button w3-large w3-padding-16">Close ×</a>
+  <a onclick="location.href='./help_page.html'" onclick="w3_close()" class="w3-bar-item w3-button">GYM TIPS</a>
+  <a onclick="location.href='./help_page.html#exercises'" onclick="w3_close()" class="w3-bar-item w3-button" id="ex-button1">&#x2022 Exercises</a>
+  <a onclick="location.href='./help_page.html#diet'" onclick="w3_close()" class="w3-bar-item w3-button" id="ex-button2">&#x2022 Diet</a>
+  <a onclick="location.href='./help_page.html#setsnreps'" onclick="w3_close()" class="w3-bar-item w3-button" id="ex-button3">&#x2022 Sets 'n' Reps</a>
+  <a onclick="location.href='./contact_page.html'" onclick="w3_close()" class="w3-bar-item w3-button">CONTACT</a>
+</nav>
+<!-- ensure all exercises are on help page, add a prompt on programme page to hit i for more info and alternative exercise, edit home page, and copy template page-->
+
+<div class="w3-container" style="padding:30px 16px; margin-top: 66px;" id="contact">
+  <h3 class="w3-center">CONTACT</h3>
+  <p class="w3-center w3-large" style="border-bottom: solid 1px #bbb">Let's get in touch. Send me a message.</p>
+  <div style="margin-top:20px" id="info">
+    <p><i class="fa fa-envelope fa-fw w3-xxlarge"></i> gymprogrammes05@gmail.com</p>
+    <p><i class="fa fa-map-marker fa-fw w3-xxlarge"></i> United Kingdom</p>
+	<p><i class="fa fa-instagram fa-fw w3-xxlarge"></i> @<a href="https://www.instagram.com/d.kli31/?igshid=d8983r693yyx" id="insta" target="_blank">my instagram</a></p>
+  </div>
+</div>
+<br>
+
+<!--footer-->
+<footer class="w3-center w3-black w3-padding-64">
+  <div id="disclaimer"><strong>Medical disclaimer:</strong> You should be in good physical condition and able to participate in the exercise. If you engage in this exercise or exercise program,
+ you agree that you do so at your own risk, are voluntarily participating in these activities, and assume all risk of injury to yourself.</div>
+ <br>
+  <p>Powered by <a href="https://www.w3schools.com/w3css/default.asp" title="W3.CSS" target="_blank" class="w3-hover-text-green">w3.css</a></p>
+</footer>
+</body>
+
+<script>
+// Modal Image Gallery
+function onClick(element) {
+  document.getElementById("img01").src = element.src;
+  document.getElementById("modal01").style.display = "block";
+  var captionText = document.getElementById("caption");
+  captionText.innerHTML = element.alt;
+}
+
+// Toggle between showing and hiding the sidebar when clicking the menu icon
+var mySidebar = document.getElementById("mySidebar");
+
+function w3_open() {
+  if (mySidebar?.style.display === 'block') {
+    mySidebar.style.display = 'none';
+  } else {
+    mySidebar.style.display = 'block';
+  }
+}
+
+// Close the sidebar with the close button
+function w3_close() {
+    mySidebar.style.display = "none";
+}
+
+</script>

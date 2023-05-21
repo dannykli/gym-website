@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+<head> <!--Next steps: style the form_page with warning box, programme_page and help_page.
+						add a replace function on programme_page with drop-down menu to select exercise and another dropdown that offers similar alternatives
+						also a print/download button on programme_page-->
+<title>W3.CSS Template</title> <!-- add dumbbel icon next to gym tips-->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<script src="https://kit.fontawesome.com/a062df7e69.js" crossorigin="anonymous"></script>
+<style>
+body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
+
+body, html {
+  height: 100%;
+  line-height: 1.8;
+}
+
+/* Full height image header */
+.bgimg-1 {
+  background-position: center;
+  background-size: cover;
+  background-image: url("./images/Homepage/RowInHotel9.jpg");
+  min-height: 100%;
+}
+
+.w3-bar .w3-button {
+  padding: 16px;
+}
+
+#myNavbar{
+    background-color: #cc1818d9!important;
+}
+
+.dropdown{
+	margin: 0;
+	padding: 0;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  /*min-width: 160px;*/
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+  margin-top: 59px;
+  width: 123px;
+  background-color: #eee;
+  cursor: pointer;
+}
+
+.dropdown-content a{
+	padding: 12px 16px;
+	display: block;
+}
+
+
+.dropdown-content a:hover {background-color: #ccc}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+/*.arrow-down{
+  border: solid black;
+  border-width: 0 3px 3px 0;
+  display: inline-block;
+  padding: 3px;
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+  margin: 0;
+  padding-down: 15px;
+}*/
+
+#ex-button1, #ex-button2, #ex-button3{
+	font-size: 13px;
+	padding-left: 20px;
+}
+
+#small-build-now{
+	opacity: 0.9;
+	font-size: 20px;
+    padding: 12px;
+	font-family: "raleway", sans-serif;
+	font-weight: bold;
+	box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+	border-radius: 16px;
+}
+
+#big-build-now{
+	opacity: 0.9;
+	font-size: 36px;
+	font-family: "raleway", sans-serif;
+	font-weight: bold;
+	box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+	border-radius: 16px;
+}
+
+#tagline{
+	font-size: 20px
+}
+
+.big-title{
+	font-size: 80px;
+	font-weight: bold;
+}
+
+.small-title{
+	font-size: 44px;
+	font-weight: bold;
+}
+
+.medium-title{
+	font-size: 64px;
+	font-weight: bold;
+}
+
+.small-tagline{
+	font-size: 18px;
+}
+
+.big-tagline{
+	font-size: 22px;
+}
+
+#disclaimer{
+	margin-left: 10%;
+	margin-right: 10%;
+	font-size: 18px;
+}
+</style>
+</head>
+<body>
+
+<!-- Navbar (sit on top) -->
+<div class="w3-top">
+  <div class="w3-bar w3-white w3-card" id="myNavbar">
+    <a href="#home" class="w3-bar-item w3-button w3-wide">Home</a>
+    <!-- Right-sided navbar links -->
+    <div class="w3-right w3-hide-small">
+      <span class="dropdown">
+		  <button class="w3-bar-item w3-button"  onclick="location.href='./help_page.html#title'"><i class="fa-solid fa-dumbbell"></i> GYM TIPS</button><!--</i> GYM TIPS <p class="arrow-down"></p>-->
+		  <div class="dropdown-content">
+		  <a onclick="location.href='./help_page.html#exercises'">Exercises</a>
+		  <a onclick="location.href='./help_page.html#diet'">Diet</a>
+		  <a onclick="location.href='./help_page.html#setsnreps'">Sets 'n' Reps</a>
+		  </div>
+	  </span>
+      <a onclick="location.href='./contact_page.html'" class="w3-bar-item w3-button"><i class="fa fa-envelope"></i> CONTACT</a>
+    </div>
+    <!-- Hide right-floated links on small screens and replace them with a menu icon -->
+
+    <a href="javascript:void(0)" class="w3-bar-item w3-button w3-right w3-hide-large w3-hide-medium" onclick="w3_open()">
+      <i class="fa fa-bars"></i>
+    </a>
+  </div>
+</div>
+
+<!-- Sidebar on small screens when clicking the menu icon -->
+<nav class="w3-sidebar w3-bar-block w3-black w3-card w3-animate-left w3-hide-medium w3-hide-large" style="display:none" id="mySidebar">
+  <a href="javascript:void(0)" onclick="w3_close()" class="w3-bar-item w3-button w3-large w3-padding-16">Close ×</a>
+  <a onclick="location.href='./help_page.html#title'" onclick="w3_close()" class="w3-bar-item w3-button">GYM TIPS</a>
+  <a onclick="location.href='./help_page.html#exercises'" onclick="w3_close()" class="w3-bar-item w3-button" id="ex-button1">&#x2022 Exercises</a>
+  <a onclick="location.href='./help_page.html#diet'" onclick="w3_close()" class="w3-bar-item w3-button" id="ex-button2">&#x2022 Diet</a>
+  <a onclick="location.href='./help_page.html#setsnreps'" onclick="w3_close()" class="w3-bar-item w3-button" id="ex-button3">&#x2022 Sets 'n' Reps</a>
+  <a onclick="location.href='./contact_page.html'" onclick="w3_close()" class="w3-bar-item w3-button">CONTACT</a>
+</nav>
+
+<!-- Header with full-height image -->
+<header class="bgimg-1 w3-display-container w3-grayscale-min" id="home">
+  <div class="w3-display-left w3-text-white" style="padding:48px">
+    <span class="big-title w3-hide-small w3-hide-medium">Gym Programme Builder</span><br>
+    <span class="medium-title w3-hide-large w3-hide-small">Gym Programme Builder</span><br>
+	<span class="small-title w3-hide-large w3-hide-medium">Gym Programme Builder</span><br>
+    <span class="big-tagline w3-hide-small">Build the perfect fitness programme that suits your needs to build muscle</span>
+	<span class="small-tagline w3-hide-large w3-hide-medium">Build the perfect fitness programme that suits your needs to build muscle</span>
+    <p><a id="big-build-now" class="w3-button w3-white w3-margin-top w3-opacity w3-hover-opacity-off w3-hide-small" onclick="location.href='./form_page.html'">Build my programme now</a></p>
+	<p><a id="small-build-now" class="w3-button w3-white w3-margin-top w3-opacity w3-hover-opacity-off w3-hide-large w3-hide-medium" onclick="location.href='./form_page.html'">Build my programme now</a></p>
+  </div> 
+</header>
+
+
+<!-- Footer -->
+<footer class="w3-center w3-black w3-padding-64">
+  <div id="disclaimer"><strong>Medical disclaimer:</strong> You should be in good physical condition and able to participate in the exercise. If you engage in this exercise or exercise program,
+ you agree that you do so at your own risk, are voluntarily participating in these activities, and assume all risk of injury to yourself.</div>
+ <br>
+  <p>Powered by <a href="https://www.w3schools.com/w3css/default.asp" title="W3.CSS" target="_blank" class="w3-hover-text-green">w3.css</a></p>
+</footer>
+ 
+<script>
+// Modal Image Gallery
+function onClick(element) {
+  document.getElementById("img01").src = element.src;
+  document.getElementById("modal01").style.display = "block";
+  var captionText = document.getElementById("caption");
+  captionText.innerHTML = element.alt;
+}
+
+
+// Toggle between showing and hiding the sidebar when clicking the menu icon
+var mySidebar = document.getElementById("mySidebar");
+
+function w3_open() {
+  if (mySidebar.style.display === 'block') {
+    mySidebar.style.display = 'none';
+  } else {
+    mySidebar.style.display = 'block';
+  }
+}
+
+// Close the sidebar with the close button
+function w3_close() {
+    mySidebar.style.display = "none";
+}
+</script>
+
+</body>
+</html>

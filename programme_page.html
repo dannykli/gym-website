@@ -1,0 +1,1019 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>W3.CSS Template</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">-->
+<link href="https://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<script src="https://kit.fontawesome.com/a062df7e69.js" crossorigin="anonymous"></script>
+<style>
+
+#title{
+	padding-top: 55px;
+	text-align: center;
+	font-size: 40px;
+	font-family: serif;
+}
+
+body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
+
+body, html {
+  height: 100%;
+  line-height: 1.2;
+}
+
+/* Full height image header */
+.bgimg-1 {
+  background-position: center;
+  background-size: cover;
+  background-image: url("/w3images/mac.jpg");
+  min-height: 100%;
+}
+
+.w3-bar .w3-button {
+  padding: 16px;
+}
+
+#myNavbar{
+    background-color: #cc1818d9!important;
+}
+
+th, td{
+  border: 1px solid;
+  border-collapse: collapse;
+  text-align: center;
+}
+
+#table{
+	/*table-layout: auto;*/
+	margin-bottom: 30px;
+}
+
+td{
+	width: 140px;
+	padding-left: 1px;
+	padding-right: 1px;
+}
+
+tr{
+	text-align: center;
+	height: 80px;
+	font-size: 20px;
+}
+
+.heading-row{
+	background-color: #f14343;
+	font-size: 20px;
+}
+
+.row1, .row3, .row5{
+	background-color: #ede9e9;
+}
+
+.row2, .row4, .row6{
+	background-color: #dedada;
+}
+
+.icon-info-sign{
+	font-size: 20px;
+	border-radius: 50px;
+	margin-left: 4px;
+}
+
+.icon-info-sign:hover {
+  background-color: #2196F3;/*#b4dff2*/
+  cursor: pointer;
+}
+
+.reps{
+	color: #c41509;
+	font-family: monospace;
+	font-size: 18px;
+}
+  
+#col-container {
+	left: 0;
+	right: 0;
+}
+	
+.small-table{
+	border: 3px solid black;
+	table-layout: auto;
+	width: 70%;
+	margin: auto
+	
+}
+
+.column{
+	margin-bottom:10px;
+}
+
+.heading-row{
+	font-size: 24px;
+}
+
+.dropdown{
+	margin: 0;
+	padding: 0;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  /*min-width: 160px;*/
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+  margin-top: 50px;
+  width: 123px;
+  background-color: #eee;
+  cursor: pointer;
+}
+
+.dropdown-content a{
+	padding: 12px 16px;
+	display: block;
+}
+
+
+.dropdown-content a:hover {background-color: #ccc}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+/*.arrow-down{
+  border: solid black;
+  border-width: 0 3px 3px 0;
+  display: inline-block;
+  padding: 3px;
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+  margin: 0;
+  padding-down: 15px;
+}*/
+
+#ex-button1, #ex-button2, #ex-button3{
+	font-size: 13px;
+	padding-left: 20px;
+}
+
+.info-prompt{
+	text-align: center;
+}
+
+#info-sign-replica:hover{
+	background-color: white;
+	cursor: auto;
+}
+
+#disclaimer{
+	margin-left: 10%;
+	margin-right: 10%;
+	font-size: 18px;
+}
+</style>
+</head>
+<body>
+
+<!-- Navbar (sit on top) -->
+<div class="w3-top">
+  <div class="w3-bar w3-white w3-card" id="myNavbar">
+    <a class="w3-bar-item w3-button w3-wide" onclick="location.href='./home_page.html'">HOME</a>
+    <!-- Right-sided navbar links -->
+    <div class="w3-right w3-hide-small">
+      <span class="dropdown">
+		  <button class="w3-bar-item w3-button"  onclick="location.href='./help_page.html#title'"><i class="fa-solid fa-dumbbell"></i> GYM TIPS</button><!--</i> GYM TIPS <p class="arrow-down"></p>-->
+		  <div class="dropdown-content">
+		  <a onclick="location.href='./help_page.html#exercises'">Exercises</a>
+		  <a onclick="location.href='./help_page.html#diet'">Diet</a>
+		  <a onclick="location.href='./help_page.html#setsnreps'">Sets 'n' Reps</a>
+		  </div>.
+	  </span>
+      <a onclick="location.href='./contact_page.html'" class="w3-bar-item w3-button"><i class="fa fa-envelope"></i> CONTACT</a>
+    </div>
+    <!-- Hide right-floated links on small screens and replace them with a menu icon -->
+	<a href="javascript:void(0)" class="w3-bar-item w3-button w3-right w3-hide-large w3-hide-medium" onclick="w3_open()">
+      <i class="fa fa-bars"></i>
+    </a>
+  </div>
+</div>
+
+<!-- Sidebar on small screens when clicking the menu icon -->
+<nav class="w3-sidebar w3-bar-block w3-black w3-card w3-animate-left w3-hide-medium w3-hide-large" style="display:none" id="mySidebar">
+  <a href="javascript:void(0)" onclick="w3_close()" class="w3-bar-item w3-button w3-large w3-padding-16">Close ×</a>
+  <a onclick="location.href='./help_page.html#title'" onclick="w3_close()" class="w3-bar-item w3-button">GYM TIPS</a>
+  <a onclick="location.href='./help_page.html#exercises'" onclick="w3_close()" class="w3-bar-item w3-button" id="ex-button1">&#x2022 Exercises</a> <!--onclick="scrollToElement('exercises')"-->
+  <a onclick="location.href='./help_page.html#diet'" onclick="w3_close()" class="w3-bar-item w3-button" id="ex-button2">&#x2022 Diet</a><!--onclick="scrollToElement('exercises')"-->
+  <a onclick="location.href='./help_page.html#setsnreps'" onclick="w3_close()" class="w3-bar-item w3-button" id="ex-button3">&#x2022 Sets 'n' Reps</a> <!--onclick="scrollToElement('exercises')"-->
+  <a onclick="location.href='./contact_page.html'" onclick="w3_close()" class="w3-bar-item w3-button">CONTACT</a>
+</nav>
+<!--programme table-->
+<h1 id="title"></h1>
+<p class="info-prompt">Press<span class="icon-info-sign" id="info-sign-replica"></span> for more info and exercise alternatives</p>
+<table id="table" border="5" cellspacing="0" align="center" class="w3-hide-small w3-hide-medium">
+  <tr class="heading-row">
+    <th><h3>Monday</h3></th>
+    <th><h3>Tuesday</h3></th>
+    <th><h3>Wednesday</h3></th>
+	<th><h3>Thursday</h3></th>
+	<th><h3>Friday</h3></th>
+	<th><h3>Saturday</h3></th>
+	<th><h3>Sunday</h3></th>
+  </tr>																		
+  <tr class="row1">																										
+    <td><span id="mon1"></span><br><span id="reps-mon1" class="reps"></span><span class="icon-info-sign" id="button-mon1" onclick="help_funct('mon1')"></span></td> <!-- get this href to work-->
+    <td><span id="tue1"></span><br><span id="reps-tue1" class="reps"></span><span class="icon-info-sign" id="button-tue1" onclick="help_funct('tue1')"></span></td>
+    <td><span id="wed1"></span><br><span id="reps-wed1" class="reps"></span><span class="icon-info-sign" id="button-wed1" onclick="help_funct('wed1')"></span></td>
+	<td><span id="thu1"></span><br><span id="reps-thu1" class="reps"></span><span class="icon-info-sign" id="button-thu1" onclick="help_funct('thu1')"></span></td>
+	<td><span id="fri1"></span><br><span id="reps-fri1" class="reps"></span><span class="icon-info-sign" id="button-fri1" onclick="help_funct('fri1')"></span></td>
+	<td><span id="sat1"></span><br><span id="reps-sat1" class="reps"></span><span class="icon-info-sign" id="button-sat1" onclick="help_funct('sat1')"></span></td>
+	<td><span id="sun1"></span><br><span id="reps-sun1" class="reps"></span><span class="icon-info-sign" id="button-sun1" onclick="help_funct('sun1')"></span></td>
+  </tr>
+  <tr class="row2">
+    <td><span id="mon2"></span><br><span id="reps-mon2" class="reps"></span><span class="icon-info-sign" id="button-mon2" onclick="help_funct('mon2')"></span></td>
+    <td><span id="tue2"></span><br><span id="reps-tue2" class="reps"></span><span class="icon-info-sign" id="button-tue2" onclick="help_funct('tue2')"></span></td>
+    <td><span id="wed2"></span><br><span id="reps-wed2" class="reps"></span><span class="icon-info-sign" id="button-wed2" onclick="help_funct('wed2')"></span></td>
+	<td><span id="thu2"></span><br><span id="reps-thu2" class="reps"></span><span class="icon-info-sign" id="button-thu2" onclick="help_funct('thu2')"></span></td>
+	<td><span id="fri2"></span><br><span id="reps-fri2" class="reps"></span><span class="icon-info-sign" id="button-fri2" onclick="help_funct('fri2')"></span></td>
+	<td><span id="sat2"></span><br><span id="reps-sat2" class="reps"></span><span class="icon-info-sign" id="button-sat2" onclick="help_funct('sat2')"></span></td>
+	<td><span id="sun2"></span><br><span id="reps-sun2" class="reps"></span><span class="icon-info-sign" id="button-sun2" onclick="help_funct('sun2')"></span></td>
+  </tr>
+  <tr class="row3">
+    <td><span id="mon3"></span><br><span id="reps-mon3" class="reps"></span><span class="icon-info-sign" id="button-mon3" onclick="help_funct('mon3')"></span></td>
+    <td><span id="tue3"></span><br><span id="reps-tue3" class="reps"></span><span class="icon-info-sign" id="button-tue3" onclick="help_funct('tue3')"></span></td>
+    <td><span id="wed3"></span><br><span id="reps-wed3" class="reps"></span><span class="icon-info-sign" id="button-wed3" onclick="help_funct('wed3')"></span></td>
+	<td><span id="thu3"></span><br><span id="reps-thu3" class="reps"></span><span class="icon-info-sign" id="button-thu3" onclick="help_funct('thu3')"></span></td>
+	<td><span id="fri3"></span><br><span id="reps-fri3" class="reps"></span><span class="icon-info-sign" id="button-fri3" onclick="help_funct('fri3')"></span></td>
+	<td><span id="sat3"></span><br><span id="reps-sat3" class="reps"></span><span class="icon-info-sign" id="button-sat3" onclick="help_funct('sat3')"></span></td>
+	<td><span id="sun3"></span><br><span id="reps-sun3" class="reps"></span><span class="icon-info-sign" id="button-sun3" onclick="help_funct('sun3')"></span></td>
+  </tr>
+  <tr class="row4">
+    <td><span id="mon4"></span><br><span id="reps-mon4" class="reps"></span><span class="icon-info-sign" id="button-mon4" onclick="help_funct('mon4')"></span></td>
+    <td><span id="tue4"></span><br><span id="reps-tue4" class="reps"></span><span class="icon-info-sign" id="button-tue4" onclick="help_funct('tue4')"></span></td>
+    <td><span id="wed4"></span><br><span id="reps-wed4" class="reps"></span><span class="icon-info-sign" id="button-wed4" onclick="help_funct('wed4')"></span></td>
+	<td><span id="thu4"></span><br><span id="reps-thu4" class="reps"></span><span class="icon-info-sign" id="button-thu4" onclick="help_funct('thu4')"></span></td>
+	<td><span id="fri4"></span><br><span id="reps-fri4" class="reps"></span><span class="icon-info-sign" id="button-fri4" onclick="help_funct('fri4')"></span></td>
+	<td><span id="sat4"></span><br><span id="reps-sat4" class="reps"></span><span class="icon-info-sign" id="button-sat4" onclick="help_funct('sat4')"></span></td>
+	<td><span id="sun4"></span><br><span id="reps-sun4" class="reps"></span><span class="icon-info-sign" id="button-sun4" onclick="help_funct('sun4')"></span></td>
+  </tr>
+  <tr class="row5">
+    <td><span id="mon5"></span><br><span id="reps-mon5" class="reps"></span><span class="icon-info-sign" id="button-mon5" onclick="help_funct('mon5')"></span></td>
+    <td><span id="tue5"></span><br><span id="reps-tue5" class="reps"></span><span class="icon-info-sign" id="button-tue5" onclick="help_funct('tue5')"></span></td>
+    <td><span id="wed5"></span><br><span id="reps-wed5" class="reps"></span><span class="icon-info-sign" id="button-wed5" onclick="help_funct('wed5')"></span></td>
+	<td><span id="thu5"></span><br><span id="reps-thu5" class="reps"></span><span class="icon-info-sign" id="button-thu5" onclick="help_funct('thu5')"></span></td>
+	<td><span id="fri5"></span><br><span id="reps-fri5" class="reps"></span><span class="icon-info-sign" id="button-fri5" onclick="help_funct('fri5')"></span></td>
+	<td><span id="sat5"></span><br><span id="reps-sat5" class="reps"></span><span class="icon-info-sign" id="button-sat5" onclick="help_funct('sat5')"></span></td>
+	<td><span id="sun5"></span><br><span id="reps-sun5" class="reps"></span><span class="icon-info-sign" id="button-sun5" onclick="help_funct('sun5')"></span></td>
+  </tr>
+  <tr class="row6">
+    <td><span id="mon6"></span><br><span id="reps-mon6" class="reps"></span><span class="icon-info-sign" id="button-mon6" onclick="help_funct('mon6')"></span></td>
+    <td><span id="tue6"></span><br><span id="reps-tue6" class="reps"></span><span class="icon-info-sign" id="button-tue6" onclick="help_funct('tue6')"></span></td>
+    <td><span id="wed6"></span><br><span id="reps-wed6" class="reps"></span><span class="icon-info-sign" id="button-wed6" onclick="help_funct('wed6')"></span></td>
+	<td><span id="thu6"></span><br><span id="reps-thu6" class="reps"></span><span class="icon-info-sign" id="button-thu6" onclick="help_funct('thu6')"></span></td>
+	<td><span id="fri6"></span><br><span id="reps-fri6" class="reps"></span><span class="icon-info-sign" id="button-fri6" onclick="help_funct('fri6')"></span></td>
+	<td><span id="sat6"></span><br><span id="reps-sat6" class="reps"></span><span class="icon-info-sign" id="button-sat6" onclick="help_funct('sat6')"></span></td>
+	<td><span id="sun6"></span><br><span id="reps-sun6" class="reps"></span><span class="icon-info-sign" id="button-sun6" onclick="help_funct('sun6')"></span></td>
+  </tr>
+  <tr class="row7">
+    <td><span id="mon7"></span><br><span id="reps-mon7" class="reps"></span><span class="icon-info-sign" id="button-mon7" onclick="help_funct('mon7')"></span></td>
+    <td><span id="tue7"></span><br><span id="reps-tue7" class="reps"></span><span class="icon-info-sign" id="button-tue7" onclick="help_funct('tue7')"></span></td>
+    <td><span id="wed7"></span><br><span id="reps-wed7" class="reps"></span><span class="icon-info-sign" id="button-wed7" onclick="help_funct('wed7')"></span></td>
+	<td><span id="thu7"></span><br><span id="reps-thu7" class="reps"></span><span class="icon-info-sign" id="button-thu7" onclick="help_funct('thu7')"></span></td>
+	<td><span id="fri7"></span><br><span id="reps-fri7" class="reps"></span><span class="icon-info-sign" id="button-fri7" onclick="help_funct('fri7')"></span></td>
+	<td><span id="sat7"></span><br><span id="reps-sat7" class="reps"></span><span class="icon-info-sign" id="button-sat7" onclick="help_funct('sat7')"></span></td>
+	<td><span id="sun7"></span><br><span id="reps-sun7" class="reps"></span><span class="icon-info-sign" id="button-sun7" onclick="help_funct('sun7')"></span></td>
+  </tr>
+</table><!---->
+<div class="w3-hide-large" id="col-container">
+	  <div class="column">
+	  <table class="small-table" id="s-table1" style="border-collapse: collapse;">
+		<tr class="heading-row"><th><h3>Monday</h3></th></tr>
+		<tr class="row1" style="height: 70px"><td><span id="s-mon1"></span><br><span id="s-reps-mon1" class="reps"></span><span class="icon-info-sign" id="s-button-mon1" onclick="help_funct('mon1')"></span></td></tr>
+		<tr class="row2" style="height: 70px"><td><span id="s-mon2"></span><br><span id="s-reps-mon2" class="reps"></span><span class="icon-info-sign" id="s-button-mon2" onclick="help_funct('mon2')"></span></td></tr>
+		<tr class="row3" style="height: 70px"><td><span id="s-mon3"></span><br><span id="s-reps-mon3" class="reps"></span><span class="icon-info-sign" id="s-button-mon3" onclick="help_funct('mon3')"></span></td></tr>
+		<tr class="row4" style="height: 70px"><td><span id="s-mon4"></span><br><span id="s-reps-mon4" class="reps"></span><span class="icon-info-sign" id="s-button-mon4" onclick="help_funct('mon4')"></span></td></tr>
+		<tr class="row5" style="height: 70px"><td><span id="s-mon5"></span><br><span id="s-reps-mon5" class="reps"></span><span class="icon-info-sign" id="s-button-mon5" onclick="help_funct('mon5')"></span></td></tr>
+		<tr class="row6" style="height: 70px"><td><span id="s-mon6"></span><br><span id="s-reps-mon6" class="reps"></span><span class="icon-info-sign" id="s-button-mon6" onclick="help_funct('mon6')"></span></td></tr>
+		<tr class="row7" style="height: 70px"><td><span id="s-mon7"></span><br><span id="s-reps-mon7" class="reps"></span><span class="icon-info-sign" id="s-button-mon7" onclick="help_funct('mon7')"></span></td></tr>
+	  </table>
+	  </div>
+	  <div class="column">
+	  <table class="small-table" id="s-table2" style="border-collapse: collapse;">
+		<tr class="heading-row"><th><h3>Tuesday</h3></th></tr>
+		<tr class="row1" style="height: 70px"><td><span id="s-tue1"></span><br><span id="s-reps-tue1" class="reps"></span><span class="icon-info-sign" id="s-button-tue1" onclick="help_funct('tue1')"></span></td></tr>
+		<tr class="row2" style="height: 70px"><td><span id="s-tue2"></span><br><span id="s-reps-tue2" class="reps"></span><span class="icon-info-sign" id="s-button-tue2" onclick="help_funct('tue2')"></span></td></tr>
+		<tr class="row3" style="height: 70px"><td><span id="s-tue3"></span><br><span id="s-reps-tue3" class="reps"></span><span class="icon-info-sign" id="s-button-tue3" onclick="help_funct('tue3')"></span></td></tr>
+		<tr class="row4" style="height: 70px"><td><span id="s-tue4"></span><br><span id="s-reps-tue4" class="reps"></span><span class="icon-info-sign" id="s-button-tue4" onclick="help_funct('tue4')"></span></td></tr>
+		<tr class="row5" style="height: 70px"><td><span id="s-tue5"></span><br><span id="s-reps-tue5" class="reps"></span><span class="icon-info-sign" id="s-button-tue5" onclick="help_funct('tue5')"></span></td></tr>
+		<tr class="row6" style="height: 70px"><td><span id="s-tue6"></span><br><span id="s-reps-tue6" class="reps"></span><span class="icon-info-sign" id="s-button-tue6" onclick="help_funct('tue6')"></span></td></tr>
+	    <tr class="row7" style="height: 70px"><td><span id="s-tue7"></span><br><span id="s-reps-tue7" class="reps"></span><span class="icon-info-sign" id="s-button-tue7" onclick="help_funct('tue7')"></span></td></tr>
+	  </table>
+	  </div>
+	  <div class="column">
+	  <table class="small-table" id="s-table3" style="border-collapse: collapse;">
+		<tr class="heading-row"><th><h3>Wednesday</h3></th></tr>
+		<tr class="row1" style="height: 70px"><td><span id="s-wed1"></span><br><span id="s-reps-wed1" class="reps"></span><span class="icon-info-sign" id="s-button-wed1" onclick="help_funct('wed1')"></span></td></tr>
+		<tr class="row2" style="height: 70px"><td><span id="s-wed2"></span><br><span id="s-reps-wed2" class="reps"></span><span class="icon-info-sign" id="s-button-wed2" onclick="help_funct('wed2')"></span></td></tr>
+		<tr class="row3" style="height: 70px"><td><span id="s-wed3"></span><br><span id="s-reps-wed3" class="reps"></span><span class="icon-info-sign" id="s-button-wed3" onclick="help_funct('wed3')"></span></td></tr>
+		<tr class="row4" style="height: 70px"><td><span id="s-wed4"></span><br><span id="s-reps-wed4" class="reps"></span><span class="icon-info-sign" id="s-button-wed4" onclick="help_funct('wed4')"></span></td></tr>
+		<tr class="row5" style="height: 70px"><td><span id="s-wed5"></span><br><span id="s-reps-wed5" class="reps"></span><span class="icon-info-sign" id="s-button-wed5" onclick="help_funct('wed5')"></span></td></tr>
+		<tr class="row6" style="height: 70px"><td><span id="s-wed6"></span><br><span id="s-reps-wed6" class="reps"></span><span class="icon-info-sign" id="s-button-wed6" onclick="help_funct('wed6')"></span></td></tr>
+		<tr class="row7" style="height: 70px"><td><span id="s-wed7"></span><br><span id="s-reps-wed7" class="reps"></span><span class="icon-info-sign" id="s-button-wed7" onclick="help_funct('wed7')"></span></td></tr>
+	  </table>
+	  </div>
+	  <div class="column">
+	  <table class="small-table" id="s-table4" style="border-collapse: collapse;">
+		<tr class="heading-row"><th><h3>Thursday</h3></th></tr>
+		<tr class="row1" style="height: 70px"><td><span id="s-thu1"></span><br><span id="s-reps-thu1" class="reps"></span><span class="icon-info-sign" id="s-button-thu1" onclick="help_funct('thu1')"></span></td></tr>
+		<tr class="row2" style="height: 70px"><td><span id="s-thu2"></span><br><span id="s-reps-thu2" class="reps"></span><span class="icon-info-sign" id="s-button-thu2" onclick="help_funct('thu2')"></span></td></tr>
+		<tr class="row3" style="height: 70px"><td><span id="s-thu3"></span><br><span id="s-reps-thu3" class="reps"></span><span class="icon-info-sign" id="s-button-thu3" onclick="help_funct('thu3')"></span></td></tr>
+		<tr class="row4" style="height: 70px"><td><span id="s-thu4"></span><br><span id="s-reps-thu4" class="reps"></span><span class="icon-info-sign" id="s-button-thu4" onclick="help_funct('thu4')"></span></td></tr>
+		<tr class="row5" style="height: 70px"><td><span id="s-thu5"></span><br><span id="s-reps-thu5" class="reps"></span><span class="icon-info-sign" id="s-button-thu5" onclick="help_funct('thu5')"></span></td></tr>
+		<tr class="row6" style="height: 70px"><td><span id="s-thu6"></span><br><span id="s-reps-thu6" class="reps"></span><span class="icon-info-sign" id="s-button-thu6" onclick="help_funct('thu6')"></span></td></tr>
+		<tr class="row7" style="height: 70px"><td><span id="s-thu7"></span><br><span id="s-reps-thu7" class="reps"></span><span class="icon-info-sign" id="s-button-thu7" onclick="help_funct('thu7')"></span></td></tr>
+	  </table>
+	  </div>
+	  <div class="column">
+	  <table class="small-table" id="s-table5" style="border-collapse: collapse;">
+		<tr class="heading-row"><th><h3>Friday</h3></th></tr>
+		<tr class="row1" style="height: 70px"><td><span id="s-fri1"></span><br><span id="s-reps-fri1" class="reps"></span><span class="icon-info-sign" id="s-button-fri1" onclick="help_funct('fri1')"></span></td></tr>
+		<tr class="row2" style="height: 70px"><td><span id="s-fri2"></span><br><span id="s-reps-fri2" class="reps"></span><span class="icon-info-sign" id="s-button-fri2" onclick="help_funct('fri2')"></span></td></tr>
+		<tr class="row3" style="height: 70px"><td><span id="s-fri3"></span><br><span id="s-reps-fri3" class="reps"></span><span class="icon-info-sign" id="s-button-fri3" onclick="help_funct('fri3')"></span></td></tr>
+		<tr class="row4" style="height: 70px"><td><span id="s-fri4"></span><br><span id="s-reps-fri4" class="reps"></span><span class="icon-info-sign" id="s-button-fri4" onclick="help_funct('fri4')"></span></td></tr>
+		<tr class="row5" style="height: 70px"><td><span id="s-fri5"></span><br><span id="s-reps-fri5" class="reps"></span><span class="icon-info-sign" id="s-button-fri5" onclick="help_funct('fri5')"></span></td></tr>
+		<tr class="row6" style="height: 70px"><td><span id="s-fri6"></span><br><span id="s-reps-fri6" class="reps"></span><span class="icon-info-sign" id="s-button-fri6" onclick="help_funct('fri6')"></span></td></tr>
+		<tr class="row7" style="height: 70px"><td><span id="s-fri7"></span><br><span id="s-reps-fri7" class="reps"></span><span class="icon-info-sign" id="s-button-fri7" onclick="help_funct('fri7')"></span></td></tr>
+	  </table>
+	  </div>
+	  <div class="column">
+	  <table class="small-table" id="s-table6" style="border-collapse: collapse;">
+		<tr class="heading-row"><th><h3>Saturday</h3></th></tr>
+		<tr class="row1" style="height: 70px"><td><span id="s-sat1"></span><br><span id="s-reps-sat1" class="reps"></span><span class="icon-info-sign" id="s-button-sat1" onclick="help_funct('sat1')"></span></td></tr>
+		<tr class="row2" style="height: 70px"><td><span id="s-sat2"></span><br><span id="s-reps-sat2" class="reps"></span><span class="icon-info-sign" id="s-button-sat2" onclick="help_funct('sat2')"></span></td></tr>
+		<tr class="row3" style="height: 70px"><td><span id="s-sat3"></span><br><span id="s-reps-sat3" class="reps"></span><span class="icon-info-sign" id="s-button-sat3" onclick="help_funct('sat3')"></span></td></tr>
+		<tr class="row4" style="height: 70px"><td><span id="s-sat4"></span><br><span id="s-reps-sat4" class="reps"></span><span class="icon-info-sign" id="s-button-sat4" onclick="help_funct('sat4')"></span></td></tr>
+		<tr class="row5" style="height: 70px"><td><span id="s-sat5"></span><br><span id="s-reps-sat5" class="reps"></span><span class="icon-info-sign" id="s-button-sat5" onclick="help_funct('sat5')"></span></td></tr>
+		<tr class="row6" style="height: 70px"><td><span id="s-sat6"></span><br><span id="s-reps-sat6" class="reps"></span><span class="icon-info-sign" id="s-button-sat6" onclick="help_funct('sat6')"></span></td></tr>
+		<tr class="row7" style="height: 70px"><td><span id="s-sat7"></span><br><span id="s-reps-sat7" class="reps"></span><span class="icon-info-sign" id="s-button-sat7" onclick="help_funct('sat7')"></span></td></tr>
+	  </table>
+	  </div>
+	  <div class="column">
+	  <table class="small-table" id="s-table7" style="border-collapse: collapse;">
+		<tr class="heading-row"><th><h3>Sunday</h3></th></tr>
+		<tr class="row1" style="height: 70px"><td><span id="s-sun1"></span><br><span id="s-reps-sun1" class="reps"></span><span class="icon-info-sign" id="s-button-sun1" onclick="help_funct('sun1')"></span></td></tr>
+		<tr class="row2" style="height: 70px"><td><span id="s-sun2"></span><br><span id="s-reps-sun2" class="reps"></span><span class="icon-info-sign" id="s-button-sun2" onclick="help_funct('sun2')"></span></td></tr>
+		<tr class="row3" style="height: 70px"><td><span id="s-sun3"></span><br><span id="s-reps-sun3" class="reps"></span><span class="icon-info-sign" id="s-button-sun3" onclick="help_funct('sun3')"></span></td></tr>
+		<tr class="row4" style="height: 70px"><td><span id="s-sun4"></span><br><span id="s-reps-sun4" class="reps"></span><span class="icon-info-sign" id="s-button-sun4" onclick="help_funct('sun4')"></span></td></tr>
+		<tr class="row5" style="height: 70px"><td><span id="s-sun5"></span><br><span id="s-reps-sun5" class="reps"></span><span class="icon-info-sign" id="s-button-sun5" onclick="help_funct('sun5')"></span></td></tr>
+		<tr class="row6" style="height: 70px"><td><span id="s-sun6"></span><br><span id="s-reps-sun6" class="reps"></span><span class="icon-info-sign" id="s-button-sun6" onclick="help_funct('sun6')"></span></td></tr>
+		<tr class="row7" style="height: 70px"><td><span id="s-sun7"></span><br><span id="s-reps-sun7" class="reps"></span><span class="icon-info-sign" id="s-button-sun7" onclick="help_funct('sun7')"></span></td></tr>
+	  </table>
+	  </div>
+ </div>
+
+<script>
+	const days = parseInt(sessionStorage.getItem("days")) <!-- next step: develop help page-->
+	const time = sessionStorage.getItem("time")
+	const isMon = sessionStorage.getItem("mon")
+	const isTue = sessionStorage.getItem("tue")
+	const isWed = sessionStorage.getItem("wed")
+	const isThu = sessionStorage.getItem("thu")
+	const isFri = sessionStorage.getItem("fri")
+	const isSat = sessionStorage.getItem("sat")
+	const isSun = sessionStorage.getItem("sun")
+	console.log(days + " " + time + " " + isSat)
+	let i = 0
+	let j = 0
+	let numOfExercises = 0
+	var oldExerciseArr = []
+	<!-- if 3 days are entered: -->
+	<!-- do day4prog,5 etc. -->
+	const day3prog = [[["Deadlift","4x(6-10)"],["Squats","4x(6-10)"],["Pull ups","3x(8-12)"],["Tricep dips","3x(8-12)"],["Hammer curls","3x(8-12)"],["Barbell shrugs","3x(8-12)"]],
+		[["Deadlift","4x(6-10)"],["Bench press","3x(6-10)"],["Tricep dips","3x(8-12)"],["Shoulder press","3x(6-10)"],["RDLs","3x(6-12)"],["Lateral raises","3x(10-15)"]],
+		[["Squats","4x(6-10)"],["Bench press","3x(6-10)"],["Shoulder press","3x(6-10)"],["Pull ups","3x(8-12)"],["Calf raises","3x(10-15)"],["Tricep pushdowns","3x(8-12)"]]]
+
+	function writeToTable(weekday, j, exercise, reps)
+	{
+		document.getElementById(weekday+(j+1).toString()).innerHTML = exercise
+		document.getElementById("s-"+weekday+(j+1).toString()).innerHTML = exercise
+		document.getElementById("reps-"+weekday+(j+1).toString()).innerHTML = " " + reps
+		document.getElementById("s-reps-"+weekday+(j+1).toString()).innerHTML = " " + reps
+	}
+
+	function writeRestToTable(weekday)
+	{
+		document.getElementById(weekday+"1").innerHTML = '<span id="rest">Rest</span><style>#rest{font-weight:bold}</style>'
+		document.getElementById("s-"+weekday+"1").innerHTML = '<span id="rest">Rest</span><style>#rest{font-weight:bold}</style>'
+	}
+
+	function hideInfoButton(weekday, j)
+	{
+		document.getElementById("button-"+weekday+(j+1).toString()).style.display = 'none'
+		document.getElementById("s-button-"+weekday+(j+1).toString()).style.display = 'none'
+	}
+
+	if (time === "1")
+	{
+		numOfExercises = 4
+	}
+	else if (time === "2")
+	{
+		numOfExercises = 5
+	}
+	else if (time === "3")
+	{
+		numOfExercises = 6
+	}
+	else if (time === "4")
+	{
+		numOfExercises = 7
+	}
+
+	function progSort(numOfExercises, myArray, weekday)
+	{
+		for (i=0;i<numOfExercises;i++)
+			{
+				let temp = 10
+				for (j=0;j<numOfExercises;j++)
+				{
+					if (myArray[j][2] < temp)
+					{
+						temp = myArray[j][2]
+						exInd = j
+					}
+				}
+				myArray[exInd][2] = 10
+				writeToTable(weekday, i, myArray[exInd][0], myArray[exInd][1])
+			}
+	}
+
+	function getArrayD4(day)
+	{
+		const day4prog1 = [["Bench press","3x(6-10)",1],["Shoulder Press","3x(6-10)",3],["Pull Ups","3x(6-10)",5],["Hammer curls","3x(8-12)",6],["Seated row","3x(8-12)",7],["Incline DB press","3x(6-10)",2],["Tricep pushdowns","3x(8-12)",4]]
+		const day4prog2 = [["Squats","3x(6-10)",1],["Leg press","3x(8-12)",3],["Leg extensions","3x(8-12)",4],["Rear delt flies","3x(10-15)",7],["Split squats", "3x(8-12)",2],["Lateral raises","3x(10-15)",6],["Calf raises","3x(10-15)",5]]
+		const day4prog3 = [["Bench press","3x(6-10)",1],["Tricep dips","3x(8-12)",3],["Lat pulldown","3x(8-12)",5],["Skull crushers","3x(8-12)",4],["Chest flies","3x(6-10)",2],["Preacher curls","3x(8-12)",7],["Seated row","3x(8-12)",6]]
+		const day4prog4 = [["Squats","3x(6-10)",1],["Hamstring curls","3x(8-12)",3],["Calf raises","3x(10-15)",5],["Lateral raises","3x(10-15)",7],["Adductor machine","3x(8-12)",4],["RDLs","3x(6-10)",2],["Shoulder press","3x(6-10)",6]]<!--use numbering to decide order in which exercises appear-->
+		let myarray = []
+		switch (day)
+		{
+			case 1:
+				myArray = day4prog1;
+				break;
+			case 2:
+				myArray = day4prog2;
+				break;
+			case 3:
+				myArray = day4prog3;
+				break;
+			case 4:
+				myArray = day4prog4;
+				break;
+		}
+		return myArray
+	}
+
+	function getArrayD5(day)
+	{
+		const day5prog1 = [["Bench Press","3x(6-10)",1],["Incline DB press","3x(6-10)",3],["Tricep pushdowns","3x(10-15)",7],["Shoulder press","3x(6-10)",2],["Skull crushers","3x(8-12)",6],["Chest flies","3x(6-10)",4],["Tricep dips","3x(6-10)",5]]
+		const day5prog2 = [["Lat pulldown","3x(8-12)",1],["Seated rows","3x(8-12)",3],["Hammer curls","3x(8-12)",4],["Rear delt flies","3x(10-15)",7],["Seated bicep curls","3x(8-12)",5],["Bent-over rows","3x(8-12)",2],["Preacher curls","3x(6-10)",6]]
+		const day5prog3 = [["Squats","3x(6-10)",1],["Leg extensions","3x(8-12)",4],["Hamstring curls","3x(8-12)",5],["Lateral raises","3x(10-15)",7],["Leg press","3x(6-10)",2],["Calf raises","3x(10-15)",6],["RDLs","3x(6-10)",3]]
+		const day5prog4 = [["Bench Press","3x(6-10)",1],["Lat pulldown","3x(8-12)",3],["Hammer curls","3x(8-12)",5],["Tricep pushdowns","3x(10-15)",6],["Barbell shrugs","3x(6-10)",7],["Bent-over rows","3x(8-12)",4],["Incline DB press","3x(6-10)",2]]
+		const day5prog5 = [["Squats","3x(6-10)",1],["Lateral raises","3x(10-15)",7],["Adductor machine","3x(8-12)",3],["Split squats","3x(8-12)",2],["Leg extensions","3x(8-12)",4],["Hamstring curls","3x(8-12)",5],["Calf raises","3x(10-15)",6]]
+		let myarray = []
+		switch (day)
+		{
+			case 1:
+				myArray = day5prog1;
+				break;
+			case 2:
+				myArray = day5prog2;
+				break;
+			case 3:
+				myArray = day5prog3;
+				break;
+			case 4:
+				myArray = day5prog4;
+				break;
+			case 5:
+				myArray = day5prog5;
+				break;
+		}
+		return myArray
+	}
+
+	function getArrayD6(day)
+	{
+		const day6prog1 = [["Bench Press","3x(6-10)",1],["Incline DB press","3x(6-10)",3],["Tricep pushdowns","3x(10-15)",7],["Shoulder press","3x(6-10)",2],["Skull crushers","3x(8-12)",6],["Chest flies","3x(6-10)",4],["Tricep dips","3x(6-10)",5]]
+		const day6prog2 = [["Lat pulldown","3x(8-12)",1],["Seated rows","3x(8-12)",3],["Hammer curls","3x(8-12)",4],["Rear delt flies","3x(10-15)",7],["Seated bicep curls","3x(8-12)",5],["Bent-over rows","3x(8-12)",2],["Preacher curls","3x(6-10)",6]]
+		const day6prog3 = [["Squats","3x(6-10)",1],["Leg extensions","3x(8-12)",4],["Hamstring curls","3x(8-12)",5],["Lateral raises","3x(10-15)",7],["Leg press","3x(6-10)",2],["Calf raises","3x(10-15)",6],["RDLs","3x(6-10)",3]]
+		const day6prog4 = [["Bench Press","3x(6-10)",1],["Incline DB press","3x(6-10)",3],["Skull crushers","3x(8-12)",6],["Shoulder press","3x(6-10)",2],["Tricep pushdowns","3x(10-15)",7],["Chest flies","3x(6-10)",4],["Tricep dips","3x(6-10)",5]]
+		const day6prog5 = [["Lat pulldown","3x(8-12)",1],["Bent-over rows","3x(8-12)",2],["Hammer curls","3x(8-12)",5],["Barbell shrugs","3x(10-15)",4],["Rear delt flies","3x(8-12)",7],["Seated rows","3x(8-12)",3],["Preacher curls","3x(6-10)",6]]
+		const day6prog6 = [["Squats","3x(6-10)",1],["Split squats","3x(6-10)",2],["RDLs","3x(6-10)",3],["Calf raises","3x(10-15)",6],["Adductor machine","3x(8-12)",4],["Hamstring curls","3x(8-12)",5],["Lateral raises","3x(10-15)",7]]
+		let myarray = []
+		switch (day)
+		{
+			case 1:
+				myArray = day6prog1;
+				break;
+			case 2:
+				myArray = day6prog2;
+				break;
+			case 3:
+				myArray = day6prog3;
+				break;
+			case 4:
+				myArray = day6prog4;
+				break;
+			case 5:
+				myArray = day6prog5;
+				break;
+			case 6:
+				myArray = day6prog6;
+		}
+		return myArray
+	}
+
+	function hideButtons(min, weekday)
+	{
+		for (i=min;i<7;i++)
+		{
+			hideInfoButton(weekday, i)
+		}
+	}
+
+	if (days===6)
+	{
+		document.getElementById("title").innerHTML = "Push/Pull/Legs x2"
+		let day=1;
+		if (isMon==="true")
+		{
+			progSort(numOfExercises, getArrayD6(day), "mon")
+			hideButtons(numOfExercises, "mon")
+			day++
+		}
+		else
+		{
+			writeRestToTable("mon")
+			hideButtons(0, "mon")
+		}
+		if (isTue==="true")
+		{
+			progSort(numOfExercises, getArrayD6(day), "tue")
+			hideButtons(numOfExercises, "tue")
+			day++
+		}
+		else
+		{
+			writeRestToTable("tue")
+			hideButtons(0, "tue")
+		}
+		if (isWed==="true")
+		{
+			progSort(numOfExercises, getArrayD6(day), "wed")
+			hideButtons(numOfExercises, "wed")
+			day++
+		}
+		else
+		{
+			writeRestToTable("wed")
+			hideButtons(0, "wed")
+		}
+		if (isThu==="true")
+		{
+			progSort(numOfExercises, getArrayD6(day), "thu")
+			hideButtons(numOfExercises, "thu")
+			day++
+		}
+		else
+		{
+			writeRestToTable("thu")
+			hideButtons(0, "thu")
+		}
+		if (isFri==="true")
+		{
+			progSort(numOfExercises, getArrayD6(day), "fri")
+			hideButtons(numOfExercises, "fri")
+			day++
+		}
+		else
+		{
+			writeRestToTable("fri")
+			hideButtons(0, "fri")
+		}
+		if (isSat==="true")
+		{
+			progSort(numOfExercises, getArrayD6(day), "sat")
+			hideButtons(numOfExercises, "sat")
+			day++
+		}
+		else
+		{
+			writeRestToTable("sat")
+			hideButtons(0, "sat")
+		}
+		if (isSun==="true")
+		{
+			progSort(numOfExercises, getArrayD6(day), "sun")
+			hideButtons(numOfExercises, "sun")
+			day++
+		}
+		else
+		{
+			writeRestToTable("sun")
+			hideButtons(0, "sun")
+		}
+		
+	}
+
+	if (days===5)
+	{
+		document.getElementById("title").innerHTML = "Push/Pull/Legs & Upper/Lower"
+		let day=1;
+		if (isMon==="true")
+		{
+			progSort(numOfExercises, getArrayD5(day), "mon")
+			hideButtons(numOfExercises, "mon")
+			day++
+		}
+		else
+		{
+			writeRestToTable("mon")
+			hideButtons(0, "mon")
+		}
+		if (isTue==="true")
+		{
+			progSort(numOfExercises, getArrayD5(day), "tue")
+			hideButtons(numOfExercises, "tue")
+			day++
+		}
+		else
+		{
+			writeRestToTable("tue")
+			hideButtons(0, "tue")
+		}
+		if (isWed==="true")
+		{
+			progSort(numOfExercises, getArrayD5(day), "wed")
+			hideButtons(numOfExercises, "wed")
+			day++
+		}
+		else
+		{
+			writeRestToTable("wed")
+			hideButtons(0, "wed")
+		}
+		if (isThu==="true")
+		{
+			progSort(numOfExercises, getArrayD5(day), "thu")
+			hideButtons(numOfExercises, "thu")
+			day++
+		}
+		else
+		{
+			writeRestToTable("thu")
+			hideButtons(0, "thu")
+		}
+		if (isFri==="true")
+		{
+			progSort(numOfExercises, getArrayD5(day), "fri")
+			hideButtons(numOfExercises, "fri")
+			day++
+		}
+		else
+		{
+			writeRestToTable("fri")
+			hideButtons(0, "fri")
+		}
+		if (isSat==="true")
+		{
+			progSort(numOfExercises, getArrayD5(day), "sat")
+			hideButtons(numOfExercises, "sat")
+			day++
+		}
+		else
+		{
+			writeRestToTable("sat")
+			hideButtons(0, "sat")
+		}
+		if (isSun==="true")
+		{
+			progSort(numOfExercises, getArrayD5(day), "sun")
+			hideButtons(numOfExercises, "sun")
+			day++
+		}
+		else
+		{
+			writeRestToTable("sun")
+			hideButtons(0, "sun")
+		}
+		
+	}
+
+
+	if (days === 4)<!-- write day4prog2,3,4 arrays and add extra row to table-->
+	{
+		<!-- this is test data-->
+		document.getElementById("title").innerHTML = "Upper/Lower x2"
+		let day=1;
+		if (isMon==="true")
+		{
+			progSort(numOfExercises, getArrayD4(day), "mon")
+			hideButtons(numOfExercises, "mon")
+			day++
+		}
+		else
+		{
+			writeRestToTable("mon")
+			hideButtons(0, "mon")
+		}
+		if (isTue==="true")
+		{
+			progSort(numOfExercises, getArrayD4(day), "tue")
+			hideButtons(numOfExercises, "tue")
+			day++
+		}
+		else
+		{
+			writeRestToTable("tue")
+			hideButtons(0, "tue")
+		}
+		if (isWed==="true")
+		{
+			progSort(numOfExercises, getArrayD4(day), "wed")
+			hideButtons(numOfExercises, "wed")
+			day++
+		}
+		else
+		{
+			writeRestToTable("wed")
+			hideButtons(0, "wed")
+		}
+		if (isThu==="true")
+		{
+			progSort(numOfExercises, getArrayD4(day), "thu")
+			hideButtons(numOfExercises, "thu")
+			day++
+		}
+		else
+		{
+			writeRestToTable("thu")
+			hideButtons(0, "thu")
+		}
+		if (isFri==="true")
+		{
+			progSort(numOfExercises, getArrayD4(day), "fri")
+			hideButtons(numOfExercises, "fri")
+			day++
+		}
+		else
+		{
+			writeRestToTable("fri")
+			hideButtons(0, "fri")
+		}
+		if (isSat==="true")
+		{
+			progSort(numOfExercises, getArrayD4(day), "sat")
+			hideButtons(numOfExercises, "sat")
+			day++
+		}
+		else
+		{
+			writeRestToTable("sat")
+			hideButtons(0, "sat")
+		}
+		if (isSun==="true")
+		{
+			progSort(numOfExercises, getArrayD4(day), "sun")
+			hideButtons(numOfExercises, "sun")
+			day++
+		}
+		else
+		{
+			writeRestToTable("sun")
+			hideButtons(0, "sun")
+		}
+		
+	}
+
+	if (days === 3)
+	{
+		numOfExercises--
+		document.getElementById("title").innerHTML = "Triple Full Body Split"
+		
+		
+		
+		if (isMon==="true")
+		{
+			for (j=0;j<numOfExercises;j++)
+			{
+				writeToTable("mon",j,day3prog[i][j][0],day3prog[i][j][1])
+				if (oldExerciseArr.includes(day3prog[i][j][0])===false)
+				{
+					oldExerciseArr.push(day3prog[i][j][0])
+				}
+				
+				
+			}
+			i = i + 1
+		}
+		else
+		{
+			writeRestToTable("mon")
+			
+		}
+		for (j=j;j<7;j++)
+			{
+				hideInfoButton("mon", j)
+			}
+		j = 0
+		if (isTue==="true")
+		{
+			for (j=0;j<numOfExercises;j++)
+			{
+				writeToTable("tue",j,day3prog[i][j][0],day3prog[i][j][1])
+				if (oldExerciseArr.includes(day3prog[i][j][0])===false)
+				{
+					oldExerciseArr.push(day3prog[i][j][0])
+				}
+			}
+			i = i + 1
+		}
+		else
+		{
+			writeRestToTable("tue")
+		}
+		for (j=j;j<7;j++)
+			{
+				hideInfoButton("tue", j)
+			}
+		j = 0
+		if (isWed==="true")
+		{
+			for (j=0;j<numOfExercises;j++)
+			{
+				writeToTable("wed",j,day3prog[i][j][0],day3prog[i][j][1])
+				if (oldExerciseArr.includes(day3prog[i][j][0])===false)
+				{
+					oldExerciseArr.push(day3prog[i][j][0])
+				}
+			}
+			i = i + 1
+		}
+		else
+		{
+			writeRestToTable("wed")
+		}
+		for (j=j;j<7;j++)
+			{
+				hideInfoButton("wed", j)
+			}
+		j = 0
+		if (isThu==="true")
+		{
+			for (j=0;j<numOfExercises;j++)
+			{
+				writeToTable("thu",j,day3prog[i][j][0],day3prog[i][j][1])
+				if (oldExerciseArr.includes(day3prog[i][j][0])===false)
+				{
+					oldExerciseArr.push(day3prog[i][j][0])
+				}
+			}
+			i = i + 1
+		}
+		else
+		{
+			writeRestToTable("thu")
+		}
+		for (j=j;j<7;j++)
+			{
+				hideInfoButton("thu", j)
+			}
+		j = 0
+		if (isFri==="true")
+		{
+			for (j=0;j<numOfExercises;j++)
+			{
+				writeToTable("fri",j,day3prog[i][j][0],day3prog[i][j][1])
+				if (oldExerciseArr.includes(day3prog[i][j][0])===false)
+				{
+					oldExerciseArr.push(day3prog[i][j][0])
+				}
+			}
+			i = i + 1
+		}
+		else
+		{
+			writeRestToTable("fri")
+		}
+		for (j=j;j<7;j++)
+			{
+				hideInfoButton("fri", j)
+			}
+		j = 0
+		if (isSat==="true")
+		{
+			for (j=0;j<numOfExercises;j++)
+			{
+				writeToTable("sat",j,day3prog[i][j][0],day3prog[i][j][1])
+				if (oldExerciseArr.includes(day3prog[i][j][0])===false)
+				{
+					oldExerciseArr.push(day3prog[i][j][0])
+				}
+			}
+			i = i + 1
+		}
+		else
+		{
+			writeRestToTable("sat")
+		}
+		for (j=j;j<7;j++)
+			{
+				hideInfoButton("sat", j)
+			}
+		j = 0
+		if (isSun==="true")
+		{
+			for (j=0;j<numOfExercises;j++)
+			{
+				writeToTable("sun",j,day3prog[i][j][0],day3prog[i][j][1])
+				if (oldExerciseArr.includes(day3prog[i][j][0])===false)
+				{
+					oldExerciseArr.push(day3prog[i][j][0])
+				}
+			}
+			i = i + 1
+		}
+		else
+		{
+			writeRestToTable("sun")
+		}
+		for (j=j;j<7;j++)
+			{
+				hideInfoButton("sun", j)
+			}
+		j = 0
+	}
+	
+	for (let k=0; k<(7-numOfExercises);k++)
+	{
+		document.getElementById("table").deleteRow(numOfExercises+1)
+		document.getElementById("s-table1").deleteRow(numOfExercises+1)
+		document.getElementById("s-table2").deleteRow(numOfExercises+1)
+		document.getElementById("s-table3").deleteRow(numOfExercises+1)
+		document.getElementById("s-table4").deleteRow(numOfExercises+1)
+		document.getElementById("s-table5").deleteRow(numOfExercises+1)
+		document.getElementById("s-table6").deleteRow(numOfExercises+1)
+		document.getElementById("s-table7").deleteRow(numOfExercises+1)
+	}
+
+function help_funct(tableCellID)
+{
+	exercise = document.getElementById(tableCellID).innerHTML
+	exercise = exercise.replace(/\s+/g,'') <!-- get rids of spaces in a string -->
+	exercise = exercise.toLowerCase()
+	location.href="./help_page.html#"+exercise
+}
+</script>
+
+
+<!-- Footer -->
+<footer class="w3-center w3-black w3-padding-64">
+  <div id="disclaimer"><strong>Medical disclaimer:</strong> You should be in good physical condition and able to participate in the exercise. If you engage in this exercise or exercise program,
+ you agree that you do so at your own risk, are voluntarily participating in these activities, and assume all risk of injury to yourself.</div>
+ <br>
+  <p>Powered by <a href="https://www.w3schools.com/w3css/default.asp" title="W3.CSS" target="_blank" class="w3-hover-text-green">w3.css</a></p>
+</footer>
+ 
+<script>
+// Modal Image Gallery
+function onClick(element) {
+  document.getElementById("img01").src = element.src;
+  document.getElementById("modal01").style.display = "block";
+  var captionText = document.getElementById("caption");
+  captionText.innerHTML = element.alt;
+}
+
+
+// Toggle between showing and hiding the sidebar when clicking the menu icon
+var mySidebar = document.getElementById("mySidebar");
+
+function w3_open() {
+  if (mySidebar.style.display === 'block') {
+    mySidebar.style.display = 'none';
+  } else {
+    mySidebar.style.display = 'block';
+  }
+}
+
+// Close the sidebar with the close button
+function w3_close() {
+    mySidebar.style.display = "none";
+}
+</script>
+
+</body>
+</html>

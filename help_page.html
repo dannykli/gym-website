@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>W3.CSS Template</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">-->
+<script src="https://kit.fontawesome.com/a062df7e69.js" crossorigin="anonymous"></script>
+<style>
+#title{
+	padding-top: 55px;
+	text-align: center;
+    font-size: 45px;
+    text-decoration: underline;
+}
+
+body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
+
+body, html {
+  height: 100%;
+  line-height: 1.8;
+}
+
+/* Full height image header */
+.bgimg-1 {
+  background-position: center;
+  background-size: cover;
+  background-image: url("/w3images/mac.jpg");
+  min-height: 100%;
+}
+
+.w3-bar .w3-button {
+  padding: 16px;
+}
+
+#myNavbar{
+    background-color: #cc1818d9!important;
+}
+
+#container{
+	margin-left: 20px;
+	margin-right: 20px;
+}
+
+.dropdown{
+	margin: 0;
+	padding: 0;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  /*min-width: 160px;*/
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+  margin-top: 59px;
+  width: 123px;
+  background-color: #eee;
+  cursor: pointer;
+}
+
+.dropdown-content a{
+	padding: 12px 16px;
+	display: block;
+}
+
+
+.dropdown-content a:hover {background-color: #ccc}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+/*.arrow-down{
+  border: solid black;
+  border-width: 0 3px 3px 0;
+  display: inline-block;
+  padding: 3px;
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+  margin: 0;
+  padding-down: 15px;
+}*/
+
+#ex-button1, #ex-button2, #ex-button3{
+	font-size: 13px;
+	padding-left: 20px;
+}
+
+li{
+	font-size: 18px;
+}
+
+.sub-heading{
+	font-size: 22px;
+	font-family: arial;
+}
+
+.exercise-list{
+	margin-left: 12px;
+}
+
+.ex-heading{
+	font-family: arial;
+    font-size: 26px;
+}
+
+.exercise{
+	font-size: 22px;
+}
+
+img {
+  /*border: 1px solid #ddd;*/
+  border-radius: 4px;
+  padding: 5px;
+  width: 200px;
+  position: relative;
+  /*margin-left: 200px;
+  margin-right: 50px;
+  float: right;*/
+}
+
+#ex-desciption{
+	/*margin-right: 20px;*/
+	/*float: left;*/
+	position: relative;
+	height: 160px;
+}
+
+/*.img-text-container{
+	width: 800px;
+}*/
+
+/*.img-container{
+	float:right;
+	display:flex;
+}*/
+
+td{
+	vertical-align: top;
+}
+
+.small-image{
+	
+}
+
+ul{
+    padding-inline-start: 20px;
+}
+
+#setsnreps, #diet, #exercises{
+  scroll-margin-top: 56px;
+  scroll-snap-margin-top: 56px;/* iOS 11 and older */
+}
+
+.exercise{
+  scroll-margin-top: 64px;
+  scroll-snap-margin-top: 64px;/* iOS 11 and older */
+}
+
+#disclaimer{
+	margin-left: 10%;
+	margin-right: 10%;
+	font-size: 18px;
+}
+
+</style>
+</head>
+<body>
+
+
+	
+<!-- Navbar (sit on top) -->
+<div class="w3-top">
+  <div class="w3-bar w3-white w3-card" id="myNavbar">
+    <a href="#home" class="w3-bar-item w3-button w3-wide" onclick="location.href='./home_page.html'">HOME</a>
+    <!-- Right-sided navbar links -->
+    <div class="w3-right w3-hide-small">
+	<span class="dropdown">
+	  <button class="w3-bar-item w3-button"  onclick="location.href='#title'" id="gymtips-button"><i class="fa-solid fa-dumbbell"></i> GYM TIPS</button>
+	  <div class="dropdown-content">
+	  <a onclick="location.href='#exercises'">Exercises</a>
+	  <a onclick="location.href='#diet'">Diet</a>
+	  <a onclick="location.href='#setsnreps'">Sets 'n' Reps</a>
+	  </div>
+    </span>
+	  
+      <a onclick="location.href='./contact_page.html'" class="w3-bar-item w3-button"><i class="fa fa-envelope"></i> CONTACT</a>
+    </div>
+    <!-- Hide right-floated links on small screens and replace them with a menu icon -->
+
+    <a href="javascript:void(0)" class="w3-bar-item w3-button w3-right w3-hide-large w3-hide-medium" onclick="w3_open()">
+      <i class="fa fa-bars"></i>
+    </a>
+  </div>
+</div>
+
+<!-- Sidebar on small screens when clicking the menu icon -->
+<nav class="w3-sidebar w3-bar-block w3-black w3-card w3-animate-left w3-hide-medium w3-hide-large" style="display:none" id="mySidebar">
+  <a href="javascript:void(0)" onclick="w3_close()" class="w3-bar-item w3-button w3-large w3-padding-16">Close ×</a>
+  <a href="#title" onclick="w3_close()" class="w3-bar-item w3-button">GYM TIPS</a>
+  <a href="#exercises" onclick="w3_close()" class="w3-bar-item w3-button" id="ex-button1">&#x2022 Exercises</a>
+  <a href="#diet" onclick="w3_close()" class="w3-bar-item w3-button" id="ex-button2">&#x2022 Diet</a>
+  <a href="#setsnreps" onclick="w3_close()" class="w3-bar-item w3-button" id="ex-button3">&#x2022 Sets 'n' Reps</a>
+  <a onclick="location.href='./contact_page.html'" onclick="w3_close()" class="w3-bar-item w3-button">CONTACT</a>
+</nav>
+<!-- ensure all exercises are on help page, consider changin scrollTo to something more consistently accurate and copy template page-->
+<!--programme table-->
+<div id="container">
+<h1 id="title">Fitness tips and tricks</h1> 
+<!--Sets and reps-->
+<h2 id="setsnreps"><u>Sets & Reps</u></h2> <!-- do contact page, consider video links, write up help page-->
+<!--<ul>-->
+	<li>'3x(8-12)' means 3 sets of 8-12 reps</li>
+	<li>A <strong>rep</strong> is one complete motion of an exercise</li>
+	<li>A <strong>set</strong> is a group of completed reps</li>
+	<li>You should be resting a minimum of 2-3 minutes between each set</li>
+<!--</ul>-->
+<!--diet-->
+<h2 id="diet"><u>Diet</u></h2>
+	<li><span class="sub-heading">Food</span><br>
+	<strong>-</strong>   It is vital that you get enough <strong>protein</strong> in order to repair those muscle tears and ultimately gain muscle! 
+	<br><strong>-</strong>    Roughly 2g per kg of bodyweight is ideal.
+	<br><strong>-</strong>   Some protein-rich foods include beef, chicken, tuna, eggs and low-fat yoghurt. 
+	<br><strong>-</strong>   It may be worth investing in some protein powder to help you accomplish your 
+	daily protein goal!</li>
+	<li><span class="sub-heading">Water</span><br><strong>-</strong><span>It is important that you consume a minimum of 2-3 litres of water a day</span></li>
+<!--exercises-->
+<h2 id="exercises"><u>Exercises explained</u></h2>
+<h3 class="ex-heading">Compound</h3>
+<ul>
+	<li>
+	<span id="deadlift" class="exercise">Deadlift</span>
+	<div class="w3-hide-large w3-hide-medium"><img src="./images/deadlift.jpg" alt="dead-lift pic" class="image"></div>
+	<table>
+	<td>
+	<strong>-</strong><span>    Keep feet slightly closer than shoulder-width apart </span>
+	<br><strong>-</strong><span>    Keep a neutral spine, hip hinge & push bum backwards </span>
+	<br><strong>-</strong><span>    Grip the bar just outside of your knees and lower the bar </span>
+	<br><strong>-</strong><span>    Then push up through your feet </span>
+	</td>
+	<td>
+	<span class="img-container w3-hide-small"><img src="./images/deadlift.jpg" alt="dead-lift pic" class="image"></span>
+	</td>
+	</table>
+	</li>
+
+	<li>
+	<span id="squats" class="exercise">Squats</span>
+	<div class="w3-hide-large w3-hide-medium"><img src="./images/squats.jpg" alt="squats pic" class="image"></div>
+	<table>
+	<td>
+	<strong>-</strong><span>    Create a ridge with the shoulder blades for the bar to rest on </span>
+	<br><strong>-</strong><span>    Keep feet rougly shoulder-width apart </span>
+	<br><strong>-</strong><span>    Squat down to at least 90&deg  </span>
+	<br><strong>-</strong><span>    Then push up through your feet</span>
+	</td>
+	<td>
+	<span class="img-container w3-hide-small"><img src="./images/squats.jpg" alt="squats pic" class="image"></span>
+	</td>
+	</table>
+	</li>
+	
+	<li>
+	<span id="benchpress" class="exercise">Bench press</span>
+	<div class="w3-hide-large w3-hide-medium"><img src="./images/bench-press.jpg" alt="bench press pic" class="image"></div>
+	<table>
+	<td>
+	<strong>-</strong><span>    Keep head on the bench and a slight arch in the back </span>
+	<br><strong>-</strong><span>    Ensure elbows are not too flared out </span>
+	<br><strong>-</strong><span>    Control the bar to just below the nipple line </span>
+	<br><strong>-</strong><span>    Then explosively push up </span>
+	</td>
+	<td>
+	<span class="img-container w3-hide-small"><img src="./images/bench-press.jpg" alt="bench press pic" class="image"></span>
+	</td>
+	</table>
+	</li>
+</ul>
+
+<h3 class="ex-heading">Chest</h3>
+<ul>
+	<li>
+	<span id="chestflies" class="exercise">Chest flies</span>
+	<div class="w3-hide-large w3-hide-medium"><img src="./images/chest-flies.jpg" alt="dead-lift pic" class="image"></div>
+	<table>
+	<td>
+	<strong>-</strong><span>    Bring arms together, squeezing the pecs </span>
+	<br><strong>-</strong><span>    Control the rep down, allowing the pecs to stretch </span>
+	<br><strong>-</strong><span>    Restrict use of shoulders or biceps </span>
+	<br><strong>-</strong><span>    Can use peck deck machine, cables or dumbbells </span>
+	</td>
+	<td>
+	<span class="img-container w3-hide-small"><img src="./images/chest-flies.jpg" alt="chest-fly pic" class="image"></span>
+	</td>
+	</table>
+	</li>
+	
+	<li>
+	<span id="inclinedbpress" class="exercise">Incline DB press</span> <!-- for small screens, position picture above text-->
+	<div class="w3-hide-large w3-hide-medium"><img src="./images/incline-db-press.jpg" alt="dead-lift pic" class="image"></div>
+	<table>
+	<td>
+	<strong>-</strong><span>    Set the bench to an incline of about 30&deg </span>
+	<br><strong>-</strong><span>    Ensure elbows are not too flared out </span>
+	<br><strong>-</strong><span>    Control the dumbbells down towards the chest </span>
+	<br><strong>-</strong><span>    Then explosively push up </span>
+	</td>
+	<td>
+	<span class="img-container w3-hide-small"><img src="./images/incline-db-press.jpg" alt="dead-lift pic" class="image"></span>
+	</td>
+	</table>
+	</li>
+	
+	<li>
+	<span class="exercise">Bench press</span>
+	<div class="w3-hide-large w3-hide-medium"><img src="./images/bench-press.jpg" alt="bench press pic" class="image"></div>
+	<table>
+	<td>
+	<strong>-</strong><span>    Keep head on the bench and a slight arch in the back </span>
+	<br><strong>-</strong><span>    Ensure elbows are not too flared out </span>
+	<br><strong>-</strong><span>    Control the bar to just below the nipple line </span>
+	<br><strong>-</strong><span>    Then explosively push up </span>
+	</td>
+	<td>
+	<span class="img-container w3-hide-small"><img src="./images/bench-press.jpg" alt="bench press pic" class="image"></span>
+	</td>
+	</table>
+	</li>
+</ul>
+
+<h3 class="ex-heading">Triceps</h3>
+<ul>
+	<li>
+	<span id="skullcrushers" class="exercise">Skull crushers</span>
+	<div class="w3-hide-large w3-hide-medium"><img src="./images/skullcrushers.jpg" alt="skull crushers pic" class="image"></div>
+	<table>
+	<td>
+	<strong>-</strong><span>    Bring weight to just behind the head </span>
+	<br><strong>-</strong><span>    Drive weight up throught the triceps  </span>
+	<br><strong>-</strong><span>    Can use a flat or inclined bench </span>
+	<br><strong>-</strong><span>    Can use an easy bar, dumbbells, smith machine or cables </span>
+	</td>
+	<td>
+	<span class="img-container w3-hide-small"><img src="./images/skullcrushers.jpg" alt="skull crushers pic" class="image"></span>
+	</td>
+	</table>
+	</li>
+	
+	<li>
+	<span id="triceppushdowns" class="exercise">Tricep Pushdowns</span>
+	<div class="w3-hide-large w3-hide-medium"><img src="./images/triceppushdowns.jpg" alt="tri pushdowns pic" class="image"></div>
+	<table>
+	<td>
+	<strong>-</strong><span>   Keep elbows tucked by your side  </span>
+	<br><strong>-</strong><span>    Push down and squeeze the triceps at the bottom of the rep </span>
+	<br><strong>-</strong><span>    Can use rope or straight bar cable attachment </span>
+	</td>
+	<td>
+	<span class="img-container w3-hide-small"><img src="./images/triceppushdowns.jpg" alt="tri pushdowns pic" class="image"></span>
+	</td>
+	</table>
+	</li>
+	
+	<li>
+	<span id="tricepdips" class="exercise">Tricep dips</span>
+	<div class="w3-hide-large w3-hide-medium"><img src="./images/tricepdips.jpg" alt="tri dips pic" class="image"></div>
+	<table>
+	<td>
+	<strong>-</strong><span>    Lower to a 90&deg bend at the elbow </span>
+	<br><strong>-</strong><span>    Push up and straighten the arms  </span>
+	<br><strong>-</strong><span>    Can use resistance bands if it is too dificult </span>
+	<br><strong>-</strong><span>    Can use added weight if it is too easy </span>
+	</td>
+	<td>
+	<span class="img-container w3-hide-small"><img src="./images/tricepdips.jpg" alt="tri dips pic" class="image"></span>
+	</td>
+	</table>
+	</li>
+</ul>
+
+<h3 class="ex-heading">Shoulders</h3>
+<ul>
+	<li>
+	<span id="shoulderpress" class="exercise">Shoulder press</span>
+	<div class="w3-hide-large w3-hide-medium"><img src="./images/shoulderpress.jpg" alt="shoulder press pic" class="image"></div>
+	<table>
+	<td>
+	<strong>-</strong><span>    Set the bench to an incline of just less than 90&deg </span>
+	<br><strong>-</strong><span>    Ensure elbows are not too flared out </span>
+	<br><strong>-</strong><span>    Control the dumbbells down to top of shoulder  </span>
+	<br><strong>-</strong><span>    Then explosively push up </span>
+	</td>
+	<td>
+	<span class="img-container w3-hide-small"><img src="./images/shoulderpress.jpg" alt="shoulder press pic" class="image"></span>
+	</td>
+	</table>
+	</li>
+	
+	<li>
+	<span id="lateralraises" class="exercise">Lateral raises</span>
+	<div class="w3-hide-large w3-hide-medium"><img src="./images/lateralraises.jpg" alt="lat raises pic" class="image"></div>
+	<table>
+	<td>
+	<strong>-</strong><span>    Start dumbbells by your side  </span>
+	<br><strong>-</strong><span>    Bends arms slightly inward & drive dumbbells up </span>
+	<br><strong>-</strong><span>    Can use dumbbells, cables or side delt machine </span>
+	<br><strong>-</strong><span>    Can use a bench for extra stability </span>
+	</td>
+	<td>
+	<span class="img-container w3-hide-small"><img src="./images/lateralraises.jpg" alt="lat raises pic" class="image"></span>
+	</td>
+	</table>
+	</li>
+	
+	<li>
+	<span id="reardeltflies" class="exercise">Rear delt flies</span>
+	<div class="w3-hide-large w3-hide-medium"><img src="./images/reardeltflies.jpg" alt="rd flies pic" class="image"></div>
+	<table>
+	<td>
+	<strong>-</strong><span>    Set the bench to an incline of about 45&deg </span>
+	<br><strong>-</strong><span>    Keep a slight bend in the elbow as you do the flies </span>
+	<br><strong>-</strong><span>    Can use dumbbells or rear-delt machine </span>
+	<br><strong>-</strong><span>    Or can do rear-delt cable flies </span>
+	</td>
+	<td>
+	<span class="img-container w3-hide-small"><img src="./images/reardeltflies.jpg" alt="rd flies pic" class="image"></span>
+	</td>
+	</table>
+	</li>
+	
+	<li>
+	<span id="barbellshrugs" class="exercise">Barbell shrugs</span>
+	<div class="w3-hide-large w3-hide-medium"><img src="./images/barbellshrugs.jpg" alt="bar shrugs pic" class="image"></div>
+	<table>
+	<td>
+	<strong>-</strong><span>    Hold barbell in front of you, keeping arms straight </span>
+	<br><strong>-</strong><span>    Squeeze the traps as you bring the bar </span>
+	<br><strong>-</strong><span>    Try to limit any momentum </span>
+	<br><strong>-</strong><span>    Can use dumbbells too </span>
+	</td>
+	<td>
+	<span class="img-container w3-hide-small"><img src="./images/barbellshrugs.jpg" alt="bar shrugs pic" class="image"></span>
+	</td>
+	</table>
+	</li>
+</ul>
+
+<h3 class="ex-heading">Back</h3>
+<ul>
+	<li>
+	<span id="pullups" class="exercise">Pull ups</span>
+	<div class="w3-hide-large w3-hide-medium"><img src="./images/pullups.jpg" alt="pull ups pic" class="image"></div>
+	<table>
+	<td>
+	<strong>-</strong><span>    Hang on to bar with knuckles facing outward </span>
+	<br><strong>-</strong><span>    Pull yourself up until chin is above the bar </span>
+	<br><strong>-</strong><span>    If it is too difficult, can use resistance bands</span>
+	<br><strong>-</strong><span>    If it is too easy, can use added weight </span>
+	</td>
+	<td>
+	<span class="img-container w3-hide-small"><img src="./images/pullups.jpg" alt="pull ups pic" class="image"></span>
+	</td>
+	</table>
+	</li>
+	
+	<li>
+	<span id="latpulldown" class="exercise">Lat pulldown</span>
+	<div class="w3-hide-large w3-hide-medium"><img src="./images/latpulldown.jpg" alt="lat pulldown pic" class="image"></div>
+	<table>
+	<td>
+	<strong>-</strong><span>    Grip the attachment fairly wide apart </span>
+	<br><strong>-</strong><span>    Lean slightly back as you pull down towards the top of the chest </span>
+	<br><strong>-</strong><span>    Drive your elbows down towards the floor </span>
+	<br><strong>-</strong><span>    Allow shoulders to round slightly at the top of the rep </span>
+	</td>
+	<td>
+	<span class="img-container w3-hide-small"><img src="./images/latpulldown.jpg" alt="lat pulldown pic" class="image"></span>
+	</td>
+	</table>
+	</li>
+	
+	<li>
+	<span id="seatedrows" class="exercise">Seated rows</span>
+	<div class="w3-hide-large w3-hide-medium"><img src="./images/seatedrows.jpg" alt="seated rows pic" class="image"></div>
+	<table>
+	<td>
+	<strong>-</strong><span>    Lean forward to allow a stretch in the lats </span>
+	<br><strong>-</strong><span>    Drive elbows back whilst leaning back slightly </span>
+	<br><strong>-</strong><span>    Try to limit any momentum </span>
+	<br><strong>-</strong><span>    Choose the most comfortable attachment for you </span>
+	</td>
+	<td>
+	<span class="img-container w3-hide-small"><img src="./images/seatedrows.jpg" alt="seated rows pic" class="image"></span>
+	</td>
+	</table>
+	</li>
+	
+	<li>
+	<span id="bentoverrows" class="exercise">Bent over rows</span>
+	<div class="w3-hide-large w3-hide-medium"><img src="./images/bentoverrows.jpg" alt="bent rows pic" class="image"></div>
+	<table>
+	<td>
+	<strong>-</strong><span>    Lean forward and maintain a neutral spine </span>
+	<br><strong>-</strong><span>    Drive elbows back and control weight down </span>
+	<br><strong>-</strong><span>    Try to limit any momentum </span>
+	<br><strong>-</strong><span>    Can use a barbell, smith machine or dumbbells </span>
+	</td>
+	<td>
+	<span class="img-container w3-hide-small"><img src="./images/bentoverrows.jpg" alt="bent rows pic" class="image"></span>
+	</td>
+	</table>
+	</li>
+</ul>
+
+<h3 class="ex-heading">Biceps</h3>
+<ul>
+	<li>
+	<span id="hammercurls" class="exercise">Hammer curls</span>
+	<div class="w3-hide-large w3-hide-medium"><img src="./images/hammercurls.jpg" alt="hammer curls pic" class="image"></div>
+	<table>
+	<td>
+	<strong>-</strong><span>    Grip dumbbells with knuckles facing outwards </span>
+	<br><strong>-</strong><span>    Squeeze at the top of rep & control down </span>
+	<br><strong>-</strong><span>    Keep elbows still throughout movement </span>
+	<br><strong>-</strong><span>    Can do these seated for extra stability </span>
+	</td>
+	<td>
+	<span class="img-container w3-hide-small"><img src="./images/hammercurls.jpg" alt="hammer curls pic" class="image"></span>
+	</td>
+	</table>
+	</li>
+	
+	<li>
+	<span id="seatedbicepcurls" class="exercise">Seated bicep curls</span>
+	<div class="w3-hide-large w3-hide-medium"><img src="./images/seatedbicepcurls.jpg" alt="bicep curls pic" class="image"></div>
+	<table>
+	<td>
+	<strong>-</strong><span>    Set the bench to an incline of about 70-80&deg </span>
+	<br><strong>-</strong><span>    Squeeze at the top of rep & control down </span>
+	<br><strong>-</strong><span>    Keep elbows and shoulders still </span>
+	<br><strong>-</strong><span>    Flex tricep at the bottom of rep for a full bicep stretch </span>
+	</td>
+	<td>
+	<span class="img-container w3-hide-small"><img src="./images/seatedbicepcurls.jpg" alt="bicep curls pic" class="image"></span>
+	</td>
+	</table>
+	</li>
+	
+	<li>
+	<span id="preachercurls" class="exercise">Preacher curls</span>
+	<div class="w3-hide-large w3-hide-medium"><img src="./images/preachercurls.jpg" alt="preacher curls pic" class="image"></div>
+	<table>
+	<td>
+	<strong>-</strong><span>    Set the bench to an incline of about 70-80&deg </span>
+	<br><strong>-</strong><span>    Lay one elbow on the bench </span>
+	<br><strong>-</strong><span>    Squeeze at the top of rep & control down </span>
+	<br><strong>-</strong><span>    Can use a preacher curl machine </span>
+	</td>
+	<td>
+	<span class="img-container w3-hide-small"><img src="./images/preachercurls.jpg" alt="preacher curls pic" class="image"></span>
+	</td>
+	</table>
+	</li>
+</ul>
+
+<h3 class="ex-heading">Quads</h3>
+<ul>
+	<li>
+	<span class="exercise">Squats</span>
+	<div class="w3-hide-large w3-hide-medium"><img src="./images/squats.jpg" alt="squats pic" class="image"></div>
+	<table>
+	<td>
+	<strong>-</strong><span>    Create a ridge with the shoulder blades for the bar to rest on </span>
+	<br><strong>-</strong><span>    Keep feet rougly shoulder-width apart </span>
+	<br><strong>-</strong><span>    Squat down to at least 90&deg  </span>
+	<br><strong>-</strong><span>    Then push up through your feet</span>
+	<br><strong>-</strong><span>    Can do smith machine or pendulum squats</span>
+	</td>
+	<td>
+	<span class="img-container w3-hide-small"><img src="./images/squats.jpg" alt="squats pic" class="image"></span>
+	</td>
+	</table>
+	</li>
+
+	<li>
+	<span id="legextensions" class="exercise">Leg extensions</span>
+	<div class="w3-hide-large w3-hide-medium"><img src="./images/legextensions.jpg" alt="leg extensions pic" class="image"></div>
+	<table>
+	<td>
+	<strong>-</strong><span>    Adjust the seat to avoid a gap between the bum and seat </span>
+	<br><strong>-</strong><span>    Extend legs explosively </span>
+	<br><strong>-</strong><span>    Control down until legs are at 90&deg </span>
+	<br><strong>-</strong><span>    Restrict momentum by keeping upper legs still </span>
+	</td>
+	<td>
+	<span class="img-container w3-hide-small"><img src="./images/legextensions.jpg" alt="leg extensions pic" class="image"></span>
+	</td>
+	</table>
+	</li>
+
+	<li>
+	<span id="legpress" class="exercise">Leg press</span>
+	<div class="w3-hide-large w3-hide-medium"><img src="./images/legpress.jpg" alt="leg press pic" class="image"></div>
+	<table>
+	<td>
+	<strong>-</strong><span>    Start with quite low on the pad </span>
+	<br><strong>-</strong><span>    Control weight down and push through the quads </span>
+	<br><strong>-</strong><span>    Keep tension by not locking legs out </span>
+	<br><strong>-</strong><span>    Go as deep as possible without rounding the back </span>
+	</td>
+	<td>
+	<span class="img-container w3-hide-small"><img src="./images/legpress.jpg" alt="leg press pic" class="image"></span>
+	</td>
+	</table>
+	</li>
+	
+	<li>
+	<span id="splitsquats" class="exercise">Bulgarian split squats</span>
+	<div class="w3-hide-large w3-hide-medium"><img src="./images/splitsquats.jpg" alt="split squats pic" class="image"></div>
+	<table>
+	<td>
+	<!--Finish explanation here -->
+	<strong>-</strong><span>     </span>
+	<br><strong>-</strong><span>    Ensure elbows are not too flared out </span>
+	<br><strong>-</strong><span>    Control the dumbbells down towards the chest </span>
+	<br><strong>-</strong><span>    Then explosively push up </span>
+	</td>
+	<td>
+	<span class="img-container w3-hide-small"><img src="./images/splitsquats.jpg" alt="split squats pic" class="image"></span>
+	</td>
+	</table>
+	</li>
+</ul>
+
+<h3 class="ex-heading">Hamstrings</h3>
+<ul>
+	<li>
+	<span id="hamstringcurls" class="exercise">Hamstring curls</span>
+	<div class="w3-hide-large w3-hide-medium"><img src="./images/hamstringcurls.jpg" alt="leg curls pic" class="image"></div>
+	<table>
+	<td>
+	<strong>-</strong><span>    Adjust the seat to avoid a gap between the bum and seat </span>
+	<br><strong>-</strong><span>    Bring heels towards to bum (at least 90&deg) </span>
+	<br><strong>-</strong><span>    Control weight until legs are straight </span>
+	<br><strong>-</strong><span>    Can do them lying or on the seated machine </span>
+	</td>
+	<td>
+	<span class="img-container w3-hide-small"><img src="./images/hamstringcurls.jpg" alt="leg curls pic" class="image"></span>
+	</td>
+	</table>
+	</li>
+	
+	<li>
+	<span id="rdls" class="exercise">Romanian Deadlifts (RDLs)</span>
+	<div class="w3-hide-large w3-hide-medium"><img src="./images/rdls.jpg" alt="rdls pic" class="image"></div>
+	<table>
+	<td>
+	<strong>-</strong><span>   Hinge at the hips and keep a small bend in the knees</span>
+	<br><strong>-</strong><span>    Bring weight down until a stretch in the hamstrings </span>
+	<br><strong>-</strong><span>    Keep a neutral spine and drive up </span>
+	<br><strong>-</strong><span>    Can use a barbell, smith machine or dumbbells </span>
+	</td>
+	<td>
+	<span class="img-container w3-hide-small"><img src="./images/rdls.jpg" alt="rdl pic" class="image"></span>
+	</td>
+	</table>
+	</li>
+</ul>
+
+<h3 class="ex-heading">Thighs and calves</h3>
+<ul>
+	<li>
+	<span id="adductormachine" class="exercise">Adductor machine</span>
+	<div class="w3-hide-large w3-hide-medium"><img src="./images/adductormachine.jpg" alt="adductors pic" class="image"></div>
+	<table>
+	<td>
+	<strong>-</strong><span>    Bring pad as wide as it is comfortable </span>
+	<br><strong>-</strong><span>    Keep feet in neutral position </span>
+	<br><strong>-</strong><span>    Bring weight in and squeeze </span>
+	<br><strong>-</strong><span>    Control weight back out </span>
+	</td>
+	<td>
+	<span class="img-container w3-hide-small"><img src="./images/adductormachine.jpg" alt="addcutors pic" class="image"></span>
+	</td>
+	</table>
+	</li>
+	
+	<li>
+	<span id="calfraises" class="exercise">Calf raises</span>
+	<div class="w3-hide-large w3-hide-medium"><img src="./images/calfraises.jpg" alt="calf raises pic" class="image"></div>
+	<table>
+	<td>
+	<strong>-</strong><span>    Stand on some kind of elevated platform </span>
+	<br><strong>-</strong><span>    Control weight down </span>
+	<br><strong>-</strong><span>    Push weight up through the calves </span>
+	<br><strong>-</strong><span>    Can use smith machine or calf raise machine </span>
+	</td>
+	<td>
+	<span class="img-container w3-hide-small"><img src="./images/calfraises.jpg" alt="calf raises pic" class="image"></span>
+	</td>
+	</table>
+	</li>
+</ul>
+</div>
+
+<!-- Footer -->
+<footer class="w3-center w3-black w3-padding-64">
+  <div id="disclaimer"><strong>Medical disclaimer:</strong> You should be in good physical condition and able to participate in the exercise. If you engage in this exercise or exercise program,
+ you agree that you do so at your own risk, are voluntarily participating in these activities, and assume all risk of injury to yourself.</div>
+ <br>
+  <p>Powered by <a href="https://www.w3schools.com/w3css/default.asp" title="W3.CSS" target="_blank" class="w3-hover-text-green">w3.css</a></p>
+</footer>
+ 
+<script>
+
+
+// Modal Image Gallery
+function onClick(element) {
+  document.getElementById("img01").src = element.src;
+  document.getElementById("modal01").style.display = "block";
+  var captionText = document.getElementById("caption");
+  captionText.innerHTML = element.alt;
+}
+
+// Toggle between showing and hiding the sidebar when clicking the menu icon
+
+
+function w3_open() {
+  if (mySidebar.style.display === 'block') {
+    mySidebar.style.display = 'none';
+  } else {
+    mySidebar.style.display = 'block';
+  }
+}
+
+// Close the sidebar with the close button
+function w3_close() {
+    mySidebar.style.display = "none";
+}
+</script>
+
+
+</body>
+</html>
