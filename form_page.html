@@ -215,7 +215,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
 }
 
 .itallics{
-	
+	color: #5A5A5A;
 }
 
 .form-q{
@@ -238,7 +238,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
   margin-bottom: 2px;
   cursor: pointer;
   font-size: 20px;
-  font-family: serif;
+  font-family: "Raleway", sans-serif;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
@@ -295,15 +295,13 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
 	border-bottom: solid 1px #bbb;
 }
 
-#time-q {
-}
 
 </style>
 <style>/*Style for the dropdown select*/
 /*the container must be positioned relative:*/
 .custom-select {
   position: relative;
-  font-family: serif;
+  font-family: "Raleway", sans-serif;
   font-size: 18px;
   padding-top: 5px;
 }
@@ -326,6 +324,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
   height: 0;
   border: 6px solid transparent;
   border-color: black transparent transparent transparent;
+  /*margin-top: 10px*/
 }
 
 /*point the arrow upwards when the select box is open (active):*/
@@ -345,6 +344,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
   border-color: transparent transparent #ccc transparent;
   cursor: pointer;
   user-select: none;
+  /*margin-top: 10px*/
 }
 
 /*style items (options):*/
@@ -372,6 +372,19 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
 	margin-right: 10%;
 	font-size: 18px;
 }
+
+#form-legend{
+	color: #979595;
+}
+
+.days-container{
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+#time-div{
+	margin-top: 10px
+}
 </style>
 <!--form-->
 		<div id="container">
@@ -382,27 +395,20 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
 		<!--Form-->
 		<form target="_self" id="form-container"> 
 			<fieldset>
-				<legend>Select Programme details</legend>
+				<legend id="form-legend">Select Programme details</legend>
 				
 				<label class="form-q">What days of the week do you want to train on?<br></label>
-				<span><em class="itallics">Minimum 4 days recommended</em></span><br>
-				<!--<input type="checkbox" id="monday" >Monday<br>
-				<input type="checkbox" id="tuesday">Tuesday<br>
-				<input type="checkbox" id="wednesday">Wednesday<br>
-				<input type="checkbox" id="thursday">Thursday<br>
-				<input type="checkbox" id="friday">Friday<br>
-				<input type="checkbox" id="saturday">Saturday<br>
-				<input type="checkbox" id="sunday">Sunday<br>-->
-				<label class="container"><input type="checkbox" id="monday">Monday<span class="checkmark"></span></label>
+				<span class="itallics"><em>Minimum 4 days recommended</em></span>
+				<div class="days-container"><label class="container"><input type="checkbox" id="monday">Monday<span class="checkmark"></span></label>
 				<label class="container"><input type="checkbox" id="tuesday">Tuesday<span class="checkmark"></span></label>
 				<label class="container"><input type="checkbox" id="wednesday">Wednesday<span class="checkmark"></span></label>
 				<label class="container"><input type="checkbox" id="thursday">Thursday<span class="checkmark"></span></label>
 				<label class="container"><input type="checkbox" id="friday">Friday<span class="checkmark"></span></label>
 				<label class="container"><input type="checkbox" id="saturday">Saturday<span class="checkmark"></span></label>
-				<label class="container" id="last-container"><input type="checkbox" id="sunday">Sunday<span class="checkmark"></span></label>
+				<label class="container" id="last-container"><input type="checkbox" id="sunday">Sunday<span class="checkmark"></span></label></div>
 				
-				<label class="form-q" id="time-q">How many hours do you want to spend per session?</label><br>
-				<span><em class="itallics">Mininimum 1 hour recommended<span></em><br>
+				<label class="form-q" id="time-q">How long do you want to spend per training session?</label><br>
+				<span class="itallics"><em>Mininimum 1 hour recommended<span></em><br>
 				<div id="time-div" class="custom-select" style="width:160px;">
 				<select id="time" class="dropdown" onclick="dropdownfunc()">
 					<option value="0">Select time:</option>
@@ -589,7 +595,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
 							{
 								var style = document.createElement('style'); <!-- creates style element to change background colour of alert-->
 								document.head.appendChild(style);
-								style.sheet.insertRule('#alert {background-color: #ecef10a6;}');
+								style.sheet.insertRule('#alert {background-color: rgb(249 253 3);;}');
 								style.sheet.insertRule('#warning-message {color: black}');
 								style.sheet.insertRule('#warning-symbol {color: black}');
 							}
