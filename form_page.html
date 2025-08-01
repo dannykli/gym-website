@@ -486,7 +486,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
 						}
 						else if (days===4)
 						{
-							<!-- check for more than 2 consec rest days-->
+							// check for more than 2 consec rest days
 							for (let i=0; i<array.length; i++)
 							{
 								if (array[i] === false) 
@@ -516,14 +516,14 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
 						
 						return [message, sevrating]
 					}
-					<!-- next steps: add a severity rating and give it to each message, so depending on the rating, the user should be able to submit again (maybe with an "are you sure" pop-up; also investigate why you can't press back arrow, continue progv2 file for other 4dayprog etc.-->
+					// next steps: add a severity rating and give it to each message, so depending on the rating, the user should be able to submit again (maybe with an "are you sure" pop-up; also investigate why you can't press back arrow, continue progv2 file for other 4dayprog etc.-->
 				
 					
 					function my_function(event)
 					{
-						event.preventDefault() <!-- prevents form progress from being deleted -->
-						console.log("button clicked") <!--outputs a string to the console-->
-						console.log(document.getElementById("monday").checked) <!--outputs a boolean as to whether monday is checked or not-->
+						event.preventDefault() // prevents form progress from being deleted -->
+						console.log("button clicked")
+						console.log(document.getElementById("monday").checked)
 						console.log(document.getElementById("time").value)
 						const isMon = document.getElementById("monday").checked
 						const isTue = document.getElementById("tuesday").checked
@@ -553,7 +553,8 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
 						console.log(severity)
 						if (severity===0)
 						{
-							sessionStorage.setItem("days",days) <!-- sets up temporary session to transfer variable between two pages-->
+							// sets up temporary session to transfer variable between two pages
+							sessionStorage.setItem("days",days) 
 							sessionStorage.setItem("time",time)
 							sessionStorage.setItem("mon",isMon)
 							sessionStorage.setItem("tue",isTue)
@@ -562,7 +563,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
 							sessionStorage.setItem("fri",isFri)
 							sessionStorage.setItem("sat",isSat)
 							sessionStorage.setItem("sun",isSun)
-							<!--location.replace("./programmev3.html")--> <!-- relative path (according to v1.html)-->
+							<!--location.replace("./programmev3.html") // relative path (according to v1.html)
 							location.href='./programme_page.html'
 						}
 						else if (severity===1 || severity===2)
@@ -584,7 +585,8 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
 							daysArray.push(isFri)
 							daysArray.push(isSat)
 							daysArray.push(isSun)
-							sessionStorage.setItem("days",days) <!-- sets up temporary session to transfer variable between two pages-->
+							// set up temporary session to transfer variable between two pages
+							sessionStorage.setItem("days",days) 
 							sessionStorage.setItem("time",time)
 							sessionStorage.setItem("mon",isMon)
 							sessionStorage.setItem("tue",isTue)
@@ -595,7 +597,8 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
 							sessionStorage.setItem("sun",isSun)
 							if (severity===1)
 							{
-								var style = document.createElement('style'); <!-- creates style element to change background colour of alert-->
+								// creates style element to change background colour of alert
+								var style = document.createElement('style'); 
 								document.head.appendChild(style);
 								style.sheet.insertRule('#alert {background-color: rgb(249 253 3);;}');
 								style.sheet.insertRule('#warning-message {color: black}');
@@ -610,7 +613,6 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
 							document.getElementById("alert").style.display = "block";
 							document.getElementById("warning-message").innerHTML = warning
 							document.getElementById("cont-span").innerHTML = '<button id="cont-button" onclick="continue_Funct()">Continue anyway</button><br>'
-							<!-- "are you sure"/ ability to continue code here: -->
 						}
 						else if (severity===3)
 						{
@@ -622,21 +624,17 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
 							document.getElementById("alert").style.display = "block";
 							document.getElementById("warning-message").innerHTML = warning
 							document.getElementById("cont-button").style.display = "none";
-							<!--return false;-->
+							// return false 
 						}
 						else
 						{
 							console.log("end of if statements")
-						}
-						
-						<!-- next step 27/12/22: try to solve the back arrow problem, add reps, make arrays for day4,5 and 6 programmes -->
-						
+						}	
 					}
 					
 					function continue_Funct()
 					{
 						console.log("continue anyway pressed")
-						<!-- continue code here-->
 						location.href='./programme_page.html'
 					}
 					
