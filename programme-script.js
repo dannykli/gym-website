@@ -10,11 +10,14 @@ const isSun = sessionStorage.getItem("sun")
 console.log(days + " " + time + " " + isSat)*/
 
 const storedProgramme = localStorage.getItem("generatedProgramme");
+let maxNoOfExercises;
 if (storedProgramme) {
     console.log("SUCCESSFULLY RECEIVED STORED PROGRAMME");
     const programme = JSON.parse(storedProgramme);
-    const maxNoOfExercises = Math.max(...programme["programme"].map(obj => obj.exercises.length))
+    maxNoOfExercises = Math.max(...programme["programme"].map(obj => obj.exercises.length));
     displayProgramme(programme);
+} else {
+    throw new Error("DID NOT RECEIVE GENERATED PROGRAMME");
 }
 
 function displayProgramme(programme) {
