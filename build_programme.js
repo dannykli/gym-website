@@ -27,7 +27,7 @@ function buildProgramme(daysArr, timeVal) {
         for (let i = 0; i < noOfDays; i++) {
             programme[i] = { 
                 day: daysArr[i], 
-                exercises: getArrayD6(i).sort((a, b) => a[2] - b[2])
+                exercises: getArrayD6(i+1).sort((a, b) => a[2] - b[2]).slice(0, noOfExercises)
             };
         }
 
@@ -37,7 +37,7 @@ function buildProgramme(daysArr, timeVal) {
         for (let i = 0; i < noOfDays; i++) {
             programme[i] = { 
                 day: daysArr[i], 
-                exercises: getArrayD5(i).sort((a, b) => a[2] - b[2])
+                exercises: getArrayD5(i+1).sort((a, b) => a[2] - b[2]).slice(0, noOfExercises)
             };
         }
 
@@ -47,7 +47,7 @@ function buildProgramme(daysArr, timeVal) {
         for (let i = 0; i < noOfDays; i++) {
             programme[i] = { 
                 day: daysArr[i], 
-                exercises: getArrayD4(i).sort((a, b) => a[2] - b[2])
+                exercises: getArrayD4(i+1).sort((a, b) => a[2] - b[2]).slice(0, noOfExercises)
             };
         }
     } else if (noOfDays === 3) {
@@ -56,7 +56,7 @@ function buildProgramme(daysArr, timeVal) {
         for (let i = 0; i < noOfDays; i++) {
             programme[i] = { 
                 day: daysArr[i], 
-                exercises: getArrayD3(i)
+                exercises: getArrayD3(i+1).slice(0, noOfExercises)
             };
         }
     }
