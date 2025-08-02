@@ -15,7 +15,7 @@ function buildProgramme(daysArr, timeVal) {
             break;
     }
 
-    let noOfDays = daysArr.length;
+    const noOfDays = daysArr.length;
     let title;
     let programme = new Array(noOfDays);
    

@@ -19,17 +19,17 @@ if (storedProgramme) {
 function displayProgramme(programme) {
     document.getElementById("title").innerHTML = programme["title"];
     const days = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"];
-    let count = 0;
     for (const day of days) {
         const dayPrefix = day.substring(0, 3);
-        if (programme["programme"][count].day === day) {
+        const entry = programme["programme"].find(obj => obj.day === day)
+        if (entry) {
             // day is part of the programme
-            const exercises = programme["programme"][count].exercises;
+            const exercises = entry.exercises;
             const noOfExercises = exercises.length;
             for (let i = 0; i < noOfExercises; i++) {
                 writeToTable(dayPrefix, i, exercises[i][0], exercises[i][1]);
-                hideButtons(noOfExercises, dayPrefix)
             }
+            hideButtons(noOfExercises, dayPrefix)
         } else {
             // day is not part of the programme
             writeRestToTable(dayPrefix);
