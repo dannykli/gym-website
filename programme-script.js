@@ -1,4 +1,4 @@
-const days = parseInt(sessionStorage.getItem("days")) // next step: develop help page
+/*const days = parseInt(sessionStorage.getItem("days"))
 const time = sessionStorage.getItem("time")
 const isMon = sessionStorage.getItem("mon")
 const isTue = sessionStorage.getItem("tue")
@@ -7,7 +7,36 @@ const isThu = sessionStorage.getItem("thu")
 const isFri = sessionStorage.getItem("fri")
 const isSat = sessionStorage.getItem("sat")
 const isSun = sessionStorage.getItem("sun")
-console.log(days + " " + time + " " + isSat)
+console.log(days + " " + time + " " + isSat)*/
+
+const storedProgramme = localStorage.getItem("generatedProgramme");
+if (storedProgramme) {
+    const programme = JSON.parse(storedProgramme);
+    displayProgramme(programme);
+}
+
+function displayProgramme(programme) {
+    document.getElementById("title").innerHTML = programme["title"];
+    const days = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"];
+    let count = 0;
+    for (const day of days) {
+        const dayPrefix = day.substring(0, 3);
+        if (programme["programme"][count].day === day) {
+            // day is part of the programme
+            const exercises = programme["programme"][count].exercises;
+            const noOfExercises = exercises.length;
+            for (let i = 0; i < noOfExercises; i++) {
+                writeToTable(dayPrefix, i, exercises[i][0], exercises[i][1]);
+                hideButtons(noOfExercises, dayPrefix)
+            }
+        } else {
+            // day is not part of the programme
+            writeRestToTable(dayPrefix);
+            hideButtons(0, dayPrefix);
+        }
+    }
+}
+/*
 let i = 0
 let j = 0
 let numOfExercises = 0
@@ -17,13 +46,13 @@ var oldExerciseArr = []
 const day3prog = [[["Deadlift","4x(6-10)"],["Squats","4x(6-10)"],["Pull ups","3x(8-12)"],["Tricep dips","3x(8-12)"],["Hammer curls","3x(8-12)"],["Barbell shrugs","3x(8-12)"]],
     [["Deadlift","4x(6-10)"],["Bench press","3x(6-10)"],["Tricep dips","3x(8-12)"],["Shoulder press","3x(6-10)"],["RDLs","3x(6-12)"],["Lateral raises","3x(10-15)"]],
     [["Squats","4x(6-10)"],["Bench press","3x(6-10)"],["Shoulder press","3x(6-10)"],["Pull ups","3x(8-12)"],["Calf raises","3x(10-15)"],["Tricep pushdowns","3x(8-12)"]]]
-
-function writeToTable(weekday, j, exercise, reps)
+*/
+function writeToTable(weekday, rowInd, exercise, reps)
 {
-    document.getElementById(weekday+(j+1).toString()).innerHTML = exercise
-    document.getElementById("s-"+weekday+(j+1).toString()).innerHTML = exercise
-    document.getElementById("reps-"+weekday+(j+1).toString()).innerHTML = " " + reps
-    document.getElementById("s-reps-"+weekday+(j+1).toString()).innerHTML = " " + reps
+    document.getElementById(weekday+(rowInd+1).toString()).innerHTML = exercise
+    document.getElementById("s-"+weekday+(rowInd+1).toString()).innerHTML = exercise
+    document.getElementById("reps-"+weekday+(rowInd+1).toString()).innerHTML = " " + reps
+    document.getElementById("s-reps-"+weekday+(rowInd+1).toString()).innerHTML = " " + reps
 }
 
 function writeRestToTable(weekday)
@@ -38,6 +67,7 @@ function hideInfoButton(weekday, j)
     document.getElementById("s-button-"+weekday+(j+1).toString()).style.display = 'none'
 }
 
+/*
 if (time === "1")
 {
     numOfExercises = 4
@@ -53,8 +83,10 @@ else if (time === "3")
 else if (time === "4")
 {
     numOfExercises = 7
-}
+}*/
 
+/*
+// Sort exercises in a day and write them to the table
 function progSort(numOfExercises, myArray, weekday)
 {
     for (i=0;i<numOfExercises;i++)
@@ -73,6 +105,7 @@ function progSort(numOfExercises, myArray, weekday)
         }
 }
 
+// Returns array of exercises for the 4-day programme for a given day (day 1, day 2, day 3, or day 4)
 function getArrayD4(day)
 {
     const day4prog1 = [["Bench press","3x(6-10)",1],["Shoulder Press","3x(6-10)",3],["Pull Ups","3x(6-10)",5],["Hammer curls","3x(8-12)",6],["Seated row","3x(8-12)",7],["Incline DB press","3x(6-10)",2],["Tricep pushdowns","3x(8-12)",4]]
@@ -98,6 +131,7 @@ function getArrayD4(day)
     return myArray
 }
 
+// Returns array of exercises for the 5-day programme for a given day
 function getArrayD5(day)
 {
     const day5prog1 = [["Bench Press","3x(6-10)",1],["Incline DB press","3x(6-10)",3],["Tricep pushdowns","3x(10-15)",7],["Shoulder press","3x(6-10)",2],["Skull crushers","3x(8-12)",6],["Chest flies","3x(6-10)",4],["Tricep dips","3x(6-10)",5]]
@@ -127,6 +161,7 @@ function getArrayD5(day)
     return myArray
 }
 
+// Returns array of exercises for the 5-day programme for a given day
 function getArrayD6(day)
 {
     const day6prog1 = [["Bench Press","3x(6-10)",1],["Incline DB press","3x(6-10)",3],["Tricep pushdowns","3x(10-15)",7],["Shoulder press","3x(6-10)",2],["Skull crushers","3x(8-12)",6],["Chest flies","3x(6-10)",4],["Tricep dips","3x(6-10)",5]]
@@ -157,19 +192,19 @@ function getArrayD6(day)
             myArray = day6prog6;
     }
     return myArray
-}
+}*/
 
 function hideButtons(min, weekday)
 {
-    for (i=min;i<7;i++)
+    for (i = min; i < 7; i++)
     {
         hideInfoButton(weekday, i)
     }
 }
-
+/*
 if (days===6)
 {
-    document.getElementById("title").innerHTML = "Push/Pull/Legs x2"
+    document.getElementById("title").innerHTML = "Push/Pull/Legs x2" /
     let day=1;
     if (isMon==="true")
     {
@@ -336,7 +371,7 @@ if (days===5)
 }
 
 
-if (days === 4)// write day4prog2,3,4 arrays and add extra row to table
+if (days === 4)
 {
     document.getElementById("title").innerHTML = "Upper/Lower x2"
     let day=1;
@@ -424,9 +459,7 @@ if (days === 3)
 {
     numOfExercises--
     document.getElementById("title").innerHTML = "Triple Full Body Split"
-    
-    
-    
+
     if (isMon==="true")
     {
         for (j=0;j<numOfExercises;j++)
@@ -577,7 +610,7 @@ if (days === 3)
             hideInfoButton("sun", j)
         }
     j = 0
-}
+} */
 
 for (let k=0; k<(7-numOfExercises);k++)
 {

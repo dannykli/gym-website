@@ -87,12 +87,10 @@ function validate_days(array, days)
     
     return [message, sevrating]
 }
-// next steps: add a severity rating and give it to each message, so depending on the rating, the user should be able to submit again (maybe with an "are you sure" pop-up; also investigate why you can't press back arrow, continue progv2 file for other 4dayprog etc.-->
-
 
 function my_function(event)
 {
-    event.preventDefault() // prevents form progress from being deleted -->
+    event.preventDefault() // prevents form progress from being deleted
     console.log("button clicked")
     console.log(document.getElementById("monday").checked)
     console.log(document.getElementById("time").value)
@@ -125,6 +123,18 @@ function my_function(event)
     if (severity===0)
     {
         // sets up temporary session to transfer variable between two pages
+        // call buildProgramme()
+        daysArr = [];
+        for (const day of ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"]) {
+            if (document.getElementById(day).checked) {
+                daysArr.push(day);
+            }
+        }
+        const timeVal = document.getElementById("time").value;
+        const programme = buildProgramme(daysArr, timeVal);
+        localStorage.setItem("generatedProgramme", programme);
+
+        /*
         sessionStorage.setItem("days",days) 
         sessionStorage.setItem("time",time)
         sessionStorage.setItem("mon",isMon)
@@ -133,8 +143,7 @@ function my_function(event)
         sessionStorage.setItem("thu",isThu)
         sessionStorage.setItem("fri",isFri)
         sessionStorage.setItem("sat",isSat)
-        sessionStorage.setItem("sun",isSun)
-        <!--location.replace("./programmev3.html") // relative path (according to v1.html)
+        sessionStorage.setItem("sun",isSun)*/
         location.href='./programme_page.html'
     }
     else if (severity===1 || severity===2)
@@ -157,6 +166,20 @@ function my_function(event)
         daysArray.push(isSat)
         daysArray.push(isSun)
         // set up temporary session to transfer variable between two pages
+        // call buildProgramme()
+
+        // ---------
+        daysArr = [];
+        for (const day of ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"]) {
+            if (document.getElementById(day).checked) {
+                daysArr.push(day);
+            }
+        }
+        const timeVal = document.getElementById("time").value;
+        const programme = buildProgramme(daysArr, timeVal);
+        localStorage.setItem("generatedProgramme",  JSON.stringify(programme));
+        // ---------
+
         sessionStorage.setItem("days",days) 
         sessionStorage.setItem("time",time)
         sessionStorage.setItem("mon",isMon)
