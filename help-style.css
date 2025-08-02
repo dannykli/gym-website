@@ -1,0 +1,157 @@
+#title{
+	padding-top: 55px;
+	text-align: center;
+    font-size: 45px;
+    text-decoration: underline;
+}
+
+body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
+
+body, html {
+  height: 100%;
+  line-height: 1.8;
+}
+
+/* Full height image header */
+.bgimg-1 {
+  background-position: center;
+  background-size: cover;
+  background-image: url("/w3images/mac.jpg");
+  min-height: 100%;
+}
+
+.w3-bar .w3-button {
+  padding: 16px;
+}
+
+#myNavbar{
+    background-color: #cc1818d9!important;
+}
+
+#container{
+	margin-left: 20px;
+	margin-right: 20px;
+}
+
+.dropdown{
+	margin: 0;
+	padding: 0;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  /*min-width: 160px;*/
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+  margin-top: 59px;
+  width: 123px;
+  background-color: #eee;
+  cursor: pointer;
+}
+
+.dropdown-content a{
+	padding: 12px 16px;
+	display: block;
+}
+
+
+.dropdown-content a:hover {background-color: #ccc}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+/*.arrow-down{
+  border: solid black;
+  border-width: 0 3px 3px 0;
+  display: inline-block;
+  padding: 3px;
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+  margin: 0;
+  padding-down: 15px;
+}*/
+
+#ex-button1, #ex-button2, #ex-button3, #ex-button4{
+	font-size: 13px;
+	padding-left: 20px;
+}
+
+li{
+	font-size: 18px;
+}
+
+.sub-heading{
+	font-size: 22px;
+	font-family: arial;
+}
+
+.exercise-list{
+	margin-left: 12px;
+}
+
+.ex-heading{
+	font-family: arial;
+    font-size: 26px;
+}
+
+.exercise{
+	font-size: 22px;
+}
+
+img {
+  /*border: 1px solid #ddd;*/
+  border-radius: 4px;
+  padding: 5px;
+  width: 200px;
+  position: relative;
+  /*margin-left: 200px;
+  margin-right: 50px;
+  float: right;*/
+}
+
+#ex-desciption{
+	/*margin-right: 20px;*/
+	/*float: left;*/
+	position: relative;
+	height: 160px;
+}
+
+/*.img-text-container{
+	width: 800px;
+}*/
+
+/*.img-container{
+	float:right;
+	display:flex;
+}*/
+
+td{
+	vertical-align: top;
+}
+
+.small-image{
+	
+}
+
+ul{
+    padding-inline-start: 20px;
+}
+
+#setsnreps, #diet, #exercises, #cardio{
+  scroll-margin-top: 56px;
+  scroll-snap-margin-top: 56px;/* iOS 11 and older */
+}
+
+.exercise{
+  scroll-margin-top: 64px;
+  scroll-snap-margin-top: 64px;/* iOS 11 and older */
+}
+
+#disclaimer{
+	margin-left: 10%;
+	margin-right: 10%;
+	font-size: 18px;
+}
