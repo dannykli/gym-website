@@ -11,6 +11,7 @@ console.log(days + " " + time + " " + isSat)*/
 
 const storedProgramme = localStorage.getItem("generatedProgramme");
 if (storedProgramme) {
+    console.log("SUCCESSFULLY RECEIVED STORED PROGRAMME");
     const programme = JSON.parse(storedProgramme);
     displayProgramme(programme);
 }
