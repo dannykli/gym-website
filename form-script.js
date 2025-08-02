@@ -132,7 +132,7 @@ function my_function(event)
         }
         const timeVal = document.getElementById("time").value;
         const programme = buildProgramme(daysArr, timeVal);
-        localStorage.setItem("generatedProgramme", programme);
+        localStorage.setItem("generatedProgramme", JSON.stringify(programme));
 
         /*
         sessionStorage.setItem("days",days) 
