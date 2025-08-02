@@ -613,16 +613,16 @@ if (days === 3)
     j = 0
 } */
 
-for (let k=0; k<(7-numOfExercises);k++)
+for (let k=0; k<(7-noOfExercises);k++)
 {
-    document.getElementById("table").deleteRow(numOfExercises+1)
-    document.getElementById("s-table1").deleteRow(numOfExercises+1)
-    document.getElementById("s-table2").deleteRow(numOfExercises+1)
-    document.getElementById("s-table3").deleteRow(numOfExercises+1)
-    document.getElementById("s-table4").deleteRow(numOfExercises+1)
-    document.getElementById("s-table5").deleteRow(numOfExercises+1)
-    document.getElementById("s-table6").deleteRow(numOfExercises+1)
-    document.getElementById("s-table7").deleteRow(numOfExercises+1)
+    document.getElementById("table").deleteRow(noOfExercises+1)
+    document.getElementById("s-table1").deleteRow(noOfExercises+1)
+    document.getElementById("s-table2").deleteRow(noOfExercises+1)
+    document.getElementById("s-table3").deleteRow(noOfExercises+1)
+    document.getElementById("s-table4").deleteRow(noOfExercises+1)
+    document.getElementById("s-table5").deleteRow(noOfExercises+1)
+    document.getElementById("s-table6").deleteRow(noOfExercises+1)
+    document.getElementById("s-table7").deleteRow(noOfExercises+1)
 }
 
 function help_funct(tableCellID)
