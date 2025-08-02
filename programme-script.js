@@ -13,6 +13,7 @@ const storedProgramme = localStorage.getItem("generatedProgramme");
 if (storedProgramme) {
     console.log("SUCCESSFULLY RECEIVED STORED PROGRAMME");
     const programme = JSON.parse(storedProgramme);
+    const maxNoOfExercises = Math.max(...programme["programme"].map(obj => obj.exercises.length))
     displayProgramme(programme);
 }
 
