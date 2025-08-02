@@ -8,79 +8,7 @@
 <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">-->
 <script src="https://kit.fontawesome.com/a062df7e69.js" crossorigin="anonymous"></script>
 <link rel="icon" type="image/x-icon" href="./images/icons8-gym-96.png">
-<style>
-.w3-bar .w3-button {
-  padding: 16px;
-}
-
-#myNavbar{
-    background-color: #cc1818d9!important;
-}
-
-body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
-
-body, html {
-  height: 100%;
-  line-height: 1.8;
-}
-
-.dropdown{
-	margin: 0;
-	padding: 0;
-}
-
-.dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: #f9f9f9;
-  /*min-width: 160px;*/
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  z-index: 1;
-  margin-top: 59px;
-  width: 123px;
-  background-color: #eee;
-  cursor: pointer;
-}
-
-.dropdown-content a{
-	padding: 12px 16px;
-	display: block;
-}
-
-
-.dropdown-content a:hover {background-color: #ccc}
-
-.dropdown:hover .dropdown-content {
-  display: block;
-}
-
-#ex-button1, #ex-button2, #ex-button3, #ex-button4{
-	font-size: 13px;
-	padding-left: 20px;
-}
-
-body{
-	background-color: #eee
-}
-
-#insta:hover{
-	color: blue;
-}
-
-#contact {
-	border: solid 1px #ccc;
-	width: fit-content;
-	margin: auto;
-	padding-top: 10px;
-}
-
-#disclaimer{
-	margin-left: 10%;
-	margin-right: 10%;
-	font-size: 18px;
-}
-</style>
-
+<link rel="stylesheet" href="./contact-style.css">
 
 <body class="w3-light-grey">
 <!-- Navbar (sit on top) -->
@@ -139,31 +67,7 @@ body{
  <br>
   <p>Powered by <a href="https://www.w3schools.com/w3css/default.asp" title="W3.CSS" target="_blank" class="w3-hover-text-green">w3.css</a></p>
 </footer>
+
+<script src="contact-script.js"></script>
 </body>
-
-<script>
-// Modal Image Gallery
-function onClick(element) {
-  document.getElementById("img01").src = element.src;
-  document.getElementById("modal01").style.display = "block";
-  var captionText = document.getElementById("caption");
-  captionText.innerHTML = element.alt;
-}
-
-// Toggle between showing and hiding the sidebar when clicking the menu icon
-var mySidebar = document.getElementById("mySidebar");
-
-function w3_open() {
-  if (mySidebar?.style.display === 'block') {
-    mySidebar.style.display = 'none';
-  } else {
-    mySidebar.style.display = 'block';
-  }
-}
-
-// Close the sidebar with the close button
-function w3_close() {
-    mySidebar.style.display = "none";
-}
-
-</script>
+</html>
