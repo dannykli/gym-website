@@ -132,12 +132,12 @@ async function my_function(event)
         }
         const timeVal = document.getElementById("time").value;
         const userPreferences = [daysArr, timeVal];
+        console.log(JSON.stringify(userPreferences));
         const res = await fetch("https://q4qywrx00h.execute-api.eu-west-2.amazonaws.com/default/generateProgramme", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(userPreferences)
         });
-        console.log(JSON.stringify(userPreferences));
         const programme = await res.json(); // comverts to text and parses
         localStorage.setItem("generatedProgramme", JSON.stringify(programme));
 
