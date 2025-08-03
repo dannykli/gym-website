@@ -140,6 +140,7 @@ async function my_function(event)
         });
         const programme = await res.json(); // comverts to text and parses
         localStorage.setItem("generatedProgramme", JSON.stringify(programme));
+        console.log("test");
 
         /*
         sessionStorage.setItem("days",days) 
