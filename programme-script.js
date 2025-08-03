@@ -15,6 +15,7 @@ if (storedProgramme) {
     console.log("SUCCESSFULLY RECEIVED STORED PROGRAMME");
     const programme = JSON.parse(storedProgramme);
     maxNoOfExercises = Math.max(...programme["programme"].map(obj => obj.exercises.length));
+    console.log(maxNoOfExercises)
     displayProgramme(programme);
 } else {
     throw new Error("DID NOT RECEIVE GENERATED PROGRAMME");
@@ -617,16 +618,16 @@ if (days === 3)
     j = 0
 } */
 
-for (let k=0; k<(7-noOfExercises);k++)
+for (let k=0; k<(7-maxNoOfExercises);k++)
 {
-    document.getElementById("table").deleteRow(noOfExercises+1)
-    document.getElementById("s-table1").deleteRow(noOfExercises+1)
-    document.getElementById("s-table2").deleteRow(noOfExercises+1)
-    document.getElementById("s-table3").deleteRow(noOfExercises+1)
-    document.getElementById("s-table4").deleteRow(noOfExercises+1)
-    document.getElementById("s-table5").deleteRow(noOfExercises+1)
-    document.getElementById("s-table6").deleteRow(noOfExercises+1)
-    document.getElementById("s-table7").deleteRow(noOfExercises+1)
+    document.getElementById("table").deleteRow(maxNoOfExercises+1)
+    document.getElementById("s-table1").deleteRow(maxNoOfExercises+1)
+    document.getElementById("s-table2").deleteRow(maxNoOfExercises+1)
+    document.getElementById("s-table3").deleteRow(maxNoOfExercises+1)
+    document.getElementById("s-table4").deleteRow(maxNoOfExercises+1)
+    document.getElementById("s-table5").deleteRow(maxNoOfExercises+1)
+    document.getElementById("s-table6").deleteRow(maxNoOfExercises+1)
+    document.getElementById("s-table7").deleteRow(maxNoOfExercises+1)
 }
 
 function help_funct(tableCellID)
