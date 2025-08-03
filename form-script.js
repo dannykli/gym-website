@@ -137,6 +137,7 @@ async function my_function(event)
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(userPreferences)
         });
+        console.log(JSON.stringify(userPreferences));
         const programme = await res.json(); // comverts to text and parses
         localStorage.setItem("generatedProgramme", JSON.stringify(programme));
 
