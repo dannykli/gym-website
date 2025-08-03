@@ -138,9 +138,11 @@ async function my_function(event)
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(userPreferences)
         });
+        if (res.status !== 200) {
+            console.log("ERROR WHEN CALLING PROGRAMME GENERATION VIA API")
+        }
         const programme = await res.json(); // comverts to text and parses
         localStorage.setItem("generatedProgramme", JSON.stringify(programme));
-        console.log("test");
 
         /*
         sessionStorage.setItem("days",days) 
