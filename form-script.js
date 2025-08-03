@@ -88,7 +88,7 @@ function validate_days(array, days)
     return [message, sevrating]
 }
 
-function my_function(event)
+async function my_function(event)
 {
     event.preventDefault() // prevents form progress from being deleted
     console.log("button clicked")
@@ -131,7 +131,13 @@ function my_function(event)
             }
         }
         const timeVal = document.getElementById("time").value;
-        const programme = buildProgramme(daysArr, timeVal);
+        const userPreferences = [daysArr, timeVal];
+        const res = await fetch("https://q4qywrx00h.execute-api.eu-west-2.amazonaws.com/default/generateProgramme", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(userPreferences)
+        });
+        const programme = await res.json(); // comverts to text and parses
         localStorage.setItem("generatedProgramme", JSON.stringify(programme));
 
         /*
@@ -176,8 +182,14 @@ function my_function(event)
             }
         }
         const timeVal = document.getElementById("time").value;
-        const programme = buildProgramme(daysArr, timeVal);
-        localStorage.setItem("generatedProgramme",  JSON.stringify(programme));
+        const userPreferences = [daysArr, timeVal];
+        const res = await fetch("https://your-api-id.amazonaws.com/", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(userPreferences)
+        });
+        const programme = await res.json(); // comverts to text and parses
+        localStorage.setItem("generatedProgramme", JSON.stringify(programme));
         // ---------
 
         sessionStorage.setItem("days",days) 

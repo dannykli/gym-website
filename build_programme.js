@@ -1,4 +1,7 @@
-function buildProgramme(daysArr, timeVal) {
+function buildProgramme(userPreferences) {
+    const daysArr = userPreferences[0];
+    const timeVal = userPreferences[1];
+
     let noOfExercises;
     switch (timeVal) {
         case "1":
@@ -19,8 +22,6 @@ function buildProgramme(daysArr, timeVal) {
     let title;
     let programme = new Array(noOfDays);
    
-
-    // FRONT END RECIPIENT TO DO: hide buttons, write rest to table, write to table
     if (noOfDays === 6) {
         title = "Push/Pull/Legs x2";
         
