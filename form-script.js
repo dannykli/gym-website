@@ -187,11 +187,15 @@ async function my_function(event)
         }
         const timeVal = document.getElementById("time").value;
         const userPreferences = [daysArr, timeVal];
-        const res = await fetch("https://your-api-id.amazonaws.com/", {
+        console.log(JSON.stringify(userPreferences));
+        const res = await fetch("https://dbpabt1af4.execute-api.eu-west-2.amazonaws.com/default/generateProgramme", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(userPreferences)
         });
+        if (res.status !== 200) {
+            console.log("ERROR WHEN CALLING PROGRAMME GENERATION VIA API")
+        }
         const programme = await res.json(); // comverts to text and parses
         localStorage.setItem("generatedProgramme", JSON.stringify(programme));
         // ---------
