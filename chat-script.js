@@ -96,5 +96,5 @@ buildButton.addEventListener("click", async () => {
 
   const extraPreferences = await result.json()
 
-  console.log(JSON.stringify(extraPreferences.body, null, 2));
+  console.log(JSON.stringify(extraPreferences, null, 2));
 });
