@@ -349,6 +349,8 @@ def get_6_day_training_split(excluded_muscle_groups, preferred_muscle_groups, se
         sarms = ["triceps", "biceps", "lateral delt", "front delt", "triceps", "biceps", "forearms", "front delt", "triceps", "biceps", "forearms"]
         legs_2 = ["hamstrings", "hamstrings", "abdominals", "calves", "quadriceps", "abductors", "lower back", "quadriceps", "calves", "abdominals", "hamstrings", "glutes"]
         '''
+        # reverse preferred muscle groups so most important is last in list and thus gets greatest priority
+        preferred_muscle_groups.reverse()
         for muscle_group in preferred_muscle_groups:
             if muscle_group == "chest":
                 day_1_muscle_groups.insert(0, muscle_group)
@@ -438,4 +440,5 @@ def get_6_day_training_split(excluded_muscle_groups, preferred_muscle_groups, se
     day_4 = list(zip(day_4_muscle_groups, day_4_sets))
     day_5 = list(zip(day_5_muscle_groups, day_5_sets))
     day_6 = list(zip(day_6_muscle_groups, day_6_sets))
-    return [day_1, day_2, day_3, day_4, day_5, day_6]
+    return [(day_1, day_1_requires_mod), (day_2, day_2_requires_mod), (day_3, day_3_requires_mod), 
+            (day_4, day_4_requires_mod), (day_5, day_5_requires_mod), (day_6, day_6_requires_mod)]

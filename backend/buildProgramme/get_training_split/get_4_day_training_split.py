@@ -198,6 +198,8 @@ def get_4_day_training_split(excluded_muscle_groups, preferred_muscle_groups, se
         upper_2 = ["lats", "biceps", "middle back", "biceps", "rear delt", "forearms", "chest", "triceps", "chest", "middle back", "biceps"]
         lower_2 = ["hamstrings", "hamstrings", "abdominals", "lateral delt", "front delt", "abdominals", "abductors", "hamstrings", "calves", "glutes"]
         '''
+        # reverse preferred muscle groups so most important is last in list and thus gets greatest priority
+        preferred_muscle_groups.reverse()
         for muscle_group in preferred_muscle_groups:
             if muscle_group == "chest":
                 day_1_muscle_groups.remove(muscle_group) # first occurence
@@ -262,4 +264,5 @@ def get_4_day_training_split(excluded_muscle_groups, preferred_muscle_groups, se
     day_2 = list(zip(day_2_muscle_groups, day_2_sets))
     day_3 = list(zip(day_3_muscle_groups, day_3_sets))
     day_4 = list(zip(day_4_muscle_groups, day_4_sets))
-    return [day_1, day_2, day_3, day_4]
+    return [(day_1, day_1_requires_mod), (day_2, day_2_requires_mod), 
+            (day_3, day_3_requires_mod), (day_4, day_4_requires_mod)]
