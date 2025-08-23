@@ -1,29 +1,31 @@
 import json
 import pandas as pd
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, text
 import os
 from dotenv import load_dotenv
+import sys
 
-from .get_training_split import get_1_day_training_split
-from .get_training_split import get_2_day_training_split
-from .get_training_split import get_3_day_training_split
-from .get_training_split import get_4_day_training_split
-from .get_training_split import get_5_day_training_split
-from .get_training_split import get_6_day_training_split
+# Add the parent directory to Python path
+sys.path.append(os.path.join(os.path.dirname(__file__), '../..'))
 
-from .validate_user_preferences import validate_excluded_muscle_groups
-from .validate_user_preferences import validate_preferred_muscle_groups
-from .validate_user_preferences import validate_equipment
-from .validate_user_preferences import validate_excluded_exercises
+from backend.buildProgramme.get_training_split.get_1_day_training_split import get_1_day_training_split
+from backend.buildProgramme.get_training_split.get_2_day_training_split import get_2_day_training_split
+from backend.buildProgramme.get_training_split.get_3_day_training_split import get_3_day_training_split
+from backend.buildProgramme.get_training_split.get_4_day_training_split import get_4_day_training_split
+from backend.buildProgramme.get_training_split.get_5_day_training_split import get_5_day_training_split
+from backend.buildProgramme.get_training_split.get_6_day_training_split import get_6_day_training_split
 
-# Temporary main to test lambda function
-user_preferences = {
-    "days": ["monday"],
-    "timePerSession": 
-}
+from backend.buildProgramme.validate_user_preferences import validate_excluded_muscle_groups
+from backend.buildProgramme.validate_user_preferences import validate_preferred_muscle_groups
+from backend.buildProgramme.validate_user_preferences import validate_equipment
+from backend.buildProgramme.validate_user_preferences import validate_excluded_exercises
+
+from backend.buildProgramme.get_exercises import get_exercises
+
+from backend.buildProgramme.lambda_function_utils import re_order_muscle_groups
+from backend.buildProgramme.lambda_function_utils import connect_to_database
 
 def lambda_handler(event, context):
-    # TODO implement
     try:
         user_preferences = json.loads(event["body"])
         
@@ -33,25 +35,12 @@ def lambda_handler(event, context):
             "body": json.dumps({"error": "Invalid or missing JSON body"})
         }
 
-    # Load environment variables from the .env file
-    load_dotenv()
-
-    DB_HOST = os.getenv("DB_HOST")
-    DB_PORT = os.getenv("DB_PORT")
-    DB_NAME = os.getenv("DB_NAME")
-    DB_USER = os.getenv("DB_USER")
-    DB_PASSWORD = os.getenv("DB_PASSWORD")
-
-    DATABASE_URL = f"postgresql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
-
-    engine = create_engine(DATABASE_URL)
-
     valid_muscle_groups = ["abdominals", "abductors", "adductors", "biceps", "front delt", "lateral delt", "rear delt",
                    "calves", "chest", "forearms", "glutes", "hamstrings", "quadriceps", "lower back",
                    "middle back", "lats", "traps", "triceps"]
     
     valid_equipment = ["body only", "bands", "kettlebells", "cable", "ab roller", "barbell", "machine", "exercise ball",
-              "e-z curl bar", "medicine ball", "dip bar", "dumbbell"]
+              "e-z curl bar", "medicine ball", "dip bar", "dumbbell", "bench", "pull up bar"]
     
 
     sets_per_muscle = {
@@ -117,7 +106,6 @@ def lambda_handler(event, context):
         "triceps": 10
     }
 
-    # used to validate safety/imbalances of final programme
     max_sets_per_muscle_per_week = {
         "abdominals": 25,
         "abductors": 15,
@@ -147,8 +135,30 @@ def lambda_handler(event, context):
         5: 8,
         6: 8
     }
+    
+    muscle_group_ordering_for_exercises = {
+        "abdominals": 13,
+        "abductors": 15,
+        "adductors": 16,
+        "biceps": 10,
+        "front delt": 7,
+        "lateral delt": 12,
+        "rear delt": 8,
+        "calves": 17,
+        "chest": 4,
+        "forearms": 18,
+        "glutes": 2,
+        "hamstrings": 3,
+        "quadriceps": 1,
+        "lower back": 14,
+        "middle back": 5,
+        "lats": 6,
+        "traps": 11,
+        "triceps": 9
+    }
 
-    no_of_days = len(user_preferences["days"])
+    days = user_preferences["days"]
+    no_of_days = len(days)
     time_per_session = user_preferences["timePerSession"]
     equipment = user_preferences["equipment"]
     beginner_friendly = user_preferences["beginnerFriendly"]
@@ -163,14 +173,17 @@ def lambda_handler(event, context):
     validate_preferred_muscle_groups(preferred_muscle_groups, excluded_muscle_groups, valid_muscle_groups)
 
     # Order preferred_muscle_groups to prioritise more important muscles
-    preferred_muscle_groups = reOrderMuscleGroups(preferred_muscle_groups)
+    preferred_muscle_groups = re_order_muscle_groups(preferred_muscle_groups)
     
+    # Connect to database
+    engine = connect_to_database()
+
     # Get exercises from database
     pull_up_bar_clause = "AND NOT pull_up_bar_required" if "pull up bar" not in equipment else ""
     bench_clause = "AND NOT bench_required" if "bench" not in equipment else ""
     beginner_clause = "AND beginner_friendly" if beginner_friendly else ""
 
-    query = f'''
+    query = text(f'''
         SELECT name, mechanic, equipment, primary_muscle, secondary_muscles, 
             beginner_friendly, instructions, images, hypertrophy_score, 
             rep_range, bench_required, pull_up_bar_required
@@ -182,21 +195,19 @@ def lambda_handler(event, context):
             {pull_up_bar_clause}
             {bench_clause}
         ORDER BY id
-    '''
+    ''')
     df = pd.read_sql(query, con=engine, 
                  params={'equipment': equipment, 
                          'excluded_muscles': excluded_muscle_groups})
     
-    print(df.head())
-    
-    # validate names of excluded exercises
+    # Validate names of excluded exercises
     valid_exercises = df['name'].unique().tolist()
     validate_excluded_exercises(excluded_exercises, valid_exercises)
 
-    # filter df by removing excluded exercises
+    # Filter df by removing excluded exercises
     df = df[~df['name'].isin(excluded_exercises)]
     
-	# add all muscle groups that have no eligible exercises to excluded_muscle_groups, e.g. body only, no pull up bar - lats
+	# Add all muscle groups that have no eligible exercises to excluded_muscle_groups, e.g. body only, no pull up bar - lats
     eligible_muscle_groups = set(valid_muscle_groups) - set(excluded_muscle_groups)
     for muscle_group in eligible_muscle_groups:
         if len(df[df['primary_muscle'] == muscle_group]) == 0:
@@ -215,10 +226,10 @@ def lambda_handler(event, context):
         }
     elif no_of_days == 1:
         # FULL BODY x1
-        training_split = get_1_day_training_split(excluded_muscle_groups, preferred_muscle_groups, sets_per_muscle)
+        training_split = get_1_day_training_split(excluded_muscle_groups, preferred_muscle_groups)
     elif no_of_days == 2:
         # FULL BODY x2
-        training_split = get_2_day_training_split(excluded_muscle_groups, preferred_muscle_groups, time_per_session, sets_per_muscle)
+        training_split = get_2_day_training_split(excluded_muscle_groups, preferred_muscle_groups, time_per_session, time_per_set)
     elif no_of_days == 3:
         # PUSH/PULL/LEGS subject to modification if excluded muscle groups dictate
         training_split = get_3_day_training_split(excluded_muscle_groups, preferred_muscle_groups, sets_per_muscle)
@@ -234,159 +245,70 @@ def lambda_handler(event, context):
     elif no_of_days == 7:
         return {
             "statusCode": 400,
-            "body": json.dumps({"error": "Number of days is seven. At least one rest day required."})
-        }
-
-    # Add new column to track how many times each exercise has been used so far
-    df['no_of_uses'] = 0
-
-    # Track sets per muscle per week to perform a final check that the porgramme meets the saftey/imbalance criteria
-    sets_per_muscle_per_week = {}
-
-    for muscle_group in valid_muscle_groups:
-        sets_per_muscle_per_week[muscle_group] = 0
-
-    # variable to track if a suitable programme is unable to be generated
-    error_encountered = False
-
-	# Retrieve exercises for the training split
-    workout_programme = []
-    for day_muscle_groups, is_modified in training_split:
-        if error_encountered:
-            break
-
-        day_workout_exercises = []
-        # Set column to track whether an exercise has been used in the daily workout to ensure repeat exercises don't occur
-        df['used_in_workout'] = False 
-
-        sets_per_muscle_per_day = {}
-
-        # variable for tracking current time the workout takes to complete
-        time = 0
-
-        finished_daily_workout = False
-        while not finished_daily_workout:
-
-            # First go through muscle groups in order and get the exercises
-            for muscle_group, no_of_sets in day_muscle_groups:
-                if time >= time_per_session:
-                    finished_daily_workout = True
-                    break
-
-                possible_exercises_df = df[
-                    (df['primary_muscle'] == muscle_group) 
-                    & 
-                    ~df['used_in_workout']
-                ]
-
-                # If no eligible exercises or the maximum number of sets for the muscle_group has been reached,
-                # then remove tuple from day muscle groups and go to next tuple
-                if (len(possible_exercises_df) == 0 or 
-                    sets_per_muscle_per_day[muscle_group] + no_of_sets > max_sets_per_muscle_per_day[muscle_group]):
-                    day_muscle_groups.remove(muscle_group, no_of_sets)
-                    continue
-                    
-                # Override no. of sets to 2 if time per session is <= 25 mins
-                if time_per_session <= 25:
-                    no_of_sets = 2
-
-                time += time_per_set(muscle_group) * no_of_sets
-
-                # Add column to calculate suitability score = hypertrophy score - k * no. of uses
-                possible_exercises_df['suitability_score'] = (possible_exercises_df['hypertrophy_score'] - 
-                    possible_exercises_df['no_of_uses'] * variability_multiplier)
-                max_score = possible_exercises_df['suitability_score'].max()
-
-                # Get exercises with max suitability score
-                possible_exercises_df = possible_exercises_df[possible_exercises_df['suitability_score'] == max_score]
-
-                # Randomly select one of these exercises
-                selected_exercise = possible_exercises_df.sample(n=1)
-
-                exercise_name = selected_exercise['name'].iloc[0]
-                # Increment no. of uses for the selected exercise and set used to true
-                df.loc[df['name'] == exercise_name, 'no_of_uses'] += 1
-                df.loc[df['name'] == exercise_name, 'used_in_workout'] = True
-
-                # Add sets
-                sets_per_muscle_per_day[muscle_group] += no_of_sets
-
-                # Append exercise to daily workout
-                day_workout_exercises.append(selected_exercise, no_of_sets)
-
-            # If not finished 
-            if not finished_daily_workout:
-                # If day split is unmodfified and close enough to required time, stop.
-                # If muscle groups array has ran out, stop.
-                if not is_modified and time > 0.75 * time_per_session or len(day_muscle_groups) == 0:
-                    finished_daily_workout = True 
-                # Otherwise reorder day muscle groups and continue adding exercises
-                else:
-                    day_muscle_groups = reOrderMuscleGroups(day_muscle_groups)
-        
-        for muscle_group, daily_sets in sets_per_muscle_per_day:
-            sets_per_muscle_per_week[muscle_group] += daily_sets
-        
-        if time < 0.6 * time_per_session:
-            error_encountered = True
-        
-        workout_programme.append(day_workout_exercises)
-    
-    for muscle_group, weekly_sets in sets_per_muscle_per_day:
-        if weekly_sets > max_sets_per_muscle_per_week[muscle_group]:
-            error_encountered = True 
-    
-    if error_encountered:
-        return {
-            "statusCode": 400,
-            "body": json.dumps({"error": "Error when generating the programme"})
+            "body": json.dumps({"error": "Number of days is seven. At least one rest day required"})
         }
     
-    # No errors encountered, generate data structure to return
+    # Get the exercises for the training split
+    (_, workout_programme),  (_, error) = list(get_exercises(
+        df, training_split, valid_muscle_groups, max_sets_per_muscle_per_day, 
+        max_sets_per_muscle_per_week, time_per_set, variability_multiplier, time_per_session
+    ).items())
 
+    # Return if error ocurred during programme generation
+    if error is not None:
+        return error
+    
+    # Order the exercises for each day and construct final programme
+    programme = get_ordered_programme()
+    df['order_score'] = (df['primary_muscle'].map(muscle_group_ordering_for_exercises) + 
+        df['mechanic'].apply(lambda x: 0.5 if x == "isolation" else 0))
 
+    final_programme = {
+        "monday": "rest",
+        "tuesday": "rest",
+        "wednesday": "rest",
+        "thursday": "rest",
+        "friday": "rest",
+        "saturday": "rest",
+        "sunday": "rest"
+    }
 
-        
+    for day_programme, day in zip(workout_programme, days):
+        day_muscle_groups = []
+        for muscle_group, _ in day_programme:
+            day_muscle_groups.append(muscle_group)
+        day_df = df[df['name'].isin(day_muscle_groups)].copy()
+        day_df['no_of_sets'] = day_df['name'].map(dict(day_programme))
+        day_df = day_df.sort_values(
+            ['order_score', 'name'], 
+            ascending=[True, True]
+        )
+        # Can filter out any non-needed columns here
+        final_programme[day] = day_df.to_dict('records')
 
-    # then iterate through each list in training_split and add most optimal exercise for each muscle group 
-    # until totalTime exceeds timePerSession, and, loop back round if timePerSession not close to being exceeded (i.e. is totalTime > 0.75 * timePerSession)
-    # possibly need to have a flag to indicate whether we loop back round or not, and when looping back round, re-order muscle groups fom largest/most important to least
-    # using reOrderMuscleGroups 
-
-    # also need to ensure preferred_muscle_groups is ordered according to a template, so most important muscle groups of the ones preferred 
-    # are at the end of the list so they get prioritised, and will prob want to reverse this list for the modifications required
-    # branch, as the muscles at start of list currently get prioritised
-
-    # if timePerSession is below a certain value, maybe 25 mins, overwrite all sets to be 2
-
-
-    # maybe define a map for the minimum number of eligible exercises depending on the number of days/time that will be used to train
-
-    def reOrderMuscleGroups(ordered_muscle_groups, template_order = 
-        ["chest", "middle back", "front delt", "quadriceps", "lats", "biceps", "triceps", "hamstrings", "lateral delt", 
-        "abdominals", "rear delt", "calves", "forearms", "traps", "adductors", "lower back", "abductors", "glutes"]):
-        new_ordered_muscle_groups = []
-        for muscle_group in template_order:
-            if muscle_group in ordered_muscle_groups:
-                new_ordered_muscle_groups.append(muscle_group)
-        return new_ordered_muscle_groups
-
+    print(final_programme)
 
     return {
         "statusCode": 200,
-        "body": json.dumps(training_split)
+        "body": json.dumps(final_programme)
     }
-        
-
-    def orderMuscleGroups(possible_muscle_groups, excluded_muscle_groups, preffered_muscle_groups):
-        ordered_muscle_groups = preferred_muscle_groups
-        for muscle_group in possible_muscle_groups:
-            if muscle_group not in ordered_muscle_groups and muscle_group not in excluded_muscle_groups:
-                ordered_muscle_groups.append(muscle_group)
-        return ordered_muscle_groups
     
         
-
+# Temporary main to test lambda function
+test_event = {
+    "body": json.dumps({
+        "days": ["monday"],
+        "timePerSession": 45,
+        "equipment": [],
+        "beginnerFriendly": True,
+        "exerciseVariation": 0.5,
+        "excludedMuscleGroups": [],
+        "excludedExercises": [],
+        "preferredMuscleGroups": []
+    })
+}
+context = None
+lambda_handler(test_event, context)
         
 
     

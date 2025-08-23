@@ -31,4 +31,5 @@ def get_2_day_training_split(excluded_muscle_groups, preferred_muscle_groups, ti
     # day 2 is all of the muscle groups not trained on first day followed by highest property muscle groups already trained on day 1
     day_2 = ordered_muscle_groups_and_sets[no_of_muscle_groups:] + day_1
 
-    return [(day_1, False), (day_2, False)]
+    # Second value in tuple is True  daily programme will be complete
+    return [(day_1, True), (day_2, True)]

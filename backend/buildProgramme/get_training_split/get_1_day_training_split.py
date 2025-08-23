@@ -14,4 +14,5 @@ def get_1_day_training_split(excluded_muscle_groups, preferred_muscle_groups):
 
     ordered_muscle_groups_and_sets = list(zip(ordered_muscle_groups, sets))
 
-    return [(ordered_muscle_groups_and_sets, False)]
+    # Second value in tuple sis True so daily programme will be complete
+    return [(ordered_muscle_groups_and_sets, True)]
