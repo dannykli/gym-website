@@ -9,11 +9,11 @@ def get_5_day_training_split(excluded_muscle_groups, preferred_muscle_groups, se
     upper = ["chest", "middle back", "triceps", "biceps", "chest", "lats", "triceps", "biceps", "rear delt", "chest", "middle back", "triceps", "biceps"]
     lower = ["quadriceps", "hamstrings", "front delt", "lateral delt", "abdominals", "quadriceps", "hamstrings", "calves", "abdominals", "adductors", "abductors", "glutes"]
 
-    day_1_muscle_groups = push
-    day_2_muscle_groups = pull
-    day_3_muscle_groups = legs
-    day_4_muscle_groups = upper
-    day_5_muscle_groups = lower
+    day_1_muscle_groups = push.copy()
+    day_2_muscle_groups = pull.copy()
+    day_3_muscle_groups = legs.copy()
+    day_4_muscle_groups = upper.copy()
+    day_5_muscle_groups = lower.copy()
 
     # indicates whether day_1/2/3 need to be replaced with a FULL BODY focus
     day_1_requires_mod = False
@@ -51,7 +51,19 @@ def get_5_day_training_split(excluded_muscle_groups, preferred_muscle_groups, se
             pass
         else:
             print(f"Error: Did not recognise muscle group '{muscle_group}' in excludedMuscleGroups array")
-    
+
+    # Check day_k_muscle_groups array has not decreased too much, if it has, it requires modification
+    if not day_1_requires_mod and len(day_1_muscle_groups) < 0.6 * len(push):
+        day_1_requires_mod = True
+    if not day_2_requires_mod and len(day_2_muscle_groups) < 0.6 * len(pull):
+        day_2_requires_mod = True
+    if not day_3_requires_mod and len(day_3_muscle_groups) < 0.6 * len(legs):
+        day_3_requires_mod = True
+    if not day_4_requires_mod and len(day_4_muscle_groups) < 0.6 * len(upper):
+        day_4_requires_mod = True
+    if not day_5_requires_mod and len(day_5_muscle_groups) < 0.6 * len(lower):
+        day_5_requires_mod = True
+
     further_modifications_required = day_1_requires_mod or day_2_requires_mod or day_3_requires_mod or day_4_requires_mod or day_5_requires_mod
 
     if further_modifications_required:

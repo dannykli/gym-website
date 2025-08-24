@@ -1,8 +1,7 @@
 import json
 import pandas as pd
-from sqlalchemy import create_engine, text
+from sqlalchemy import text
 import os
-from dotenv import load_dotenv
 import sys
 
 # Add the parent directory to Python path
@@ -18,12 +17,13 @@ from backend.buildProgramme.get_training_split.get_6_day_training_split import g
 from backend.buildProgramme.validate_user_preferences import validate_excluded_muscle_groups
 from backend.buildProgramme.validate_user_preferences import validate_preferred_muscle_groups
 from backend.buildProgramme.validate_user_preferences import validate_equipment
-from backend.buildProgramme.validate_user_preferences import validate_excluded_exercises
+#from backend.buildProgramme.validate_user_preferences import validate_excluded_exercises
 
 from backend.buildProgramme.get_exercises import get_exercises
 
 from backend.buildProgramme.lambda_function_utils import re_order_muscle_groups
 from backend.buildProgramme.lambda_function_utils import connect_to_database
+from backend.buildProgramme.lambda_function_utils import get_ordered_programme
 
 def lambda_handler(event, context):
     try:
@@ -128,12 +128,14 @@ def lambda_handler(event, context):
     }
 
     min_num_eligible_muscle_groups = {
-        1: 3,
-        2: 5,
-        3: 6,
-        4: 7,
-        5: 8,
-        6: 8
+        0: 0,
+        1: 1,
+        2: 2,
+        3: 3,
+        4: 4,
+        5: 4,
+        6: 4,
+        7: 0
     }
     
     muscle_group_ordering_for_exercises = {
@@ -157,6 +159,7 @@ def lambda_handler(event, context):
         "triceps": 9
     }
 
+    # Store user preferences
     days = user_preferences["days"]
     no_of_days = len(days)
     time_per_session = user_preferences["timePerSession"]
@@ -164,13 +167,13 @@ def lambda_handler(event, context):
     beginner_friendly = user_preferences["beginnerFriendly"]
     variability_multiplier = user_preferences["exerciseVariation"]
     excluded_muscle_groups = user_preferences["excludedMuscleGroups"]
-    excluded_exercises = user_preferences["excludedExercises"]
+    # excluded_exercises = user_preferences["excludedExercises"]
     preferred_muscle_groups = user_preferences["preferredMuscleGroups"]
 
 	# Validate user preferences
-    validate_equipment(equipment, valid_equipment)
-    validate_excluded_muscle_groups(excluded_muscle_groups, valid_muscle_groups)
-    validate_preferred_muscle_groups(preferred_muscle_groups, excluded_muscle_groups, valid_muscle_groups)
+    equipment = validate_equipment(equipment, valid_equipment)
+    excluded_muscle_groups = validate_excluded_muscle_groups(excluded_muscle_groups, valid_muscle_groups)
+    preferred_muscle_groups = validate_preferred_muscle_groups(preferred_muscle_groups, excluded_muscle_groups, valid_muscle_groups)
 
     # Order preferred_muscle_groups to prioritise more important muscles
     preferred_muscle_groups = re_order_muscle_groups(preferred_muscle_groups)
@@ -196,16 +199,17 @@ def lambda_handler(event, context):
             {bench_clause}
         ORDER BY id
     ''')
+
     df = pd.read_sql(query, con=engine, 
                  params={'equipment': equipment, 
                          'excluded_muscles': excluded_muscle_groups})
     
     # Validate names of excluded exercises
-    valid_exercises = df['name'].unique().tolist()
-    validate_excluded_exercises(excluded_exercises, valid_exercises)
+    # valid_exercises = df['name'].unique().tolist()
+    # validate_excluded_exercises(excluded_exercises, valid_exercises)
 
     # Filter df by removing excluded exercises
-    df = df[~df['name'].isin(excluded_exercises)]
+    # df = df[~df['name'].isin(excluded_exercises)]
     
 	# Add all muscle groups that have no eligible exercises to excluded_muscle_groups, e.g. body only, no pull up bar - lats
     eligible_muscle_groups = set(valid_muscle_groups) - set(excluded_muscle_groups)
@@ -213,12 +217,14 @@ def lambda_handler(event, context):
         if len(df[df['primary_muscle'] == muscle_group]) == 0:
             excluded_muscle_groups.append(muscle_group)
     
+    # Check that there are sufficient muscle groups to attempt to generate programme
     if len(set(valid_muscle_groups) - set(excluded_muscle_groups)) < min_num_eligible_muscle_groups[no_of_days]:
         return {
             "statusCode": 400,
             "body": json.dumps({"error": "Too few eligible exercises to generate programme"})
         }
 
+    # Get the training split
     if no_of_days == 0:
         return {
             "statusCode": 400,
@@ -254,43 +260,20 @@ def lambda_handler(event, context):
         max_sets_per_muscle_per_week, time_per_set, variability_multiplier, time_per_session
     ).items())
 
+    print(workout_programme)
+
     # Return if error ocurred during programme generation
     if error is not None:
         return error
     
     # Order the exercises for each day and construct final programme
-    programme = get_ordered_programme()
-    df['order_score'] = (df['primary_muscle'].map(muscle_group_ordering_for_exercises) + 
-        df['mechanic'].apply(lambda x: 0.5 if x == "isolation" else 0))
+    programme = get_ordered_programme(workout_programme, days, df, muscle_group_ordering_for_exercises)
 
-    final_programme = {
-        "monday": "rest",
-        "tuesday": "rest",
-        "wednesday": "rest",
-        "thursday": "rest",
-        "friday": "rest",
-        "saturday": "rest",
-        "sunday": "rest"
-    }
-
-    for day_programme, day in zip(workout_programme, days):
-        day_muscle_groups = []
-        for muscle_group, _ in day_programme:
-            day_muscle_groups.append(muscle_group)
-        day_df = df[df['name'].isin(day_muscle_groups)].copy()
-        day_df['no_of_sets'] = day_df['name'].map(dict(day_programme))
-        day_df = day_df.sort_values(
-            ['order_score', 'name'], 
-            ascending=[True, True]
-        )
-        # Can filter out any non-needed columns here
-        final_programme[day] = day_df.to_dict('records')
-
-    print(final_programme)
+    print(programme)
 
     return {
         "statusCode": 200,
-        "body": json.dumps(final_programme)
+        "body": json.dumps(programme)
     }
     
         
@@ -303,7 +286,7 @@ test_event = {
         "beginnerFriendly": True,
         "exerciseVariation": 0.5,
         "excludedMuscleGroups": [],
-        "excludedExercises": [],
+        # "excludedExercises": [],
         "preferredMuscleGroups": []
     })
 }

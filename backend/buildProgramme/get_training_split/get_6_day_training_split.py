@@ -10,12 +10,12 @@ def get_6_day_training_split(excluded_muscle_groups, preferred_muscle_groups, se
     sarms = ["triceps", "biceps", "lateral delt", "front delt", "triceps", "biceps", "forearms", "front delt", "triceps", "biceps", "forearms"]
     legs_2 = ["hamstrings", "hamstrings", "abdominals", "calves", "quadriceps", "abductors", "lower back", "quadriceps", "calves", "abdominals", "hamstrings", "glutes"]
 
-    day_1_muscle_groups = push
-    day_2_muscle_groups = pull
-    day_3_muscle_groups = legs_1
-    day_4_muscle_groups = chest_n_back
-    day_5_muscle_groups = sarms
-    day_6_muscle_groups = legs_2
+    day_1_muscle_groups = push.copy()
+    day_2_muscle_groups = pull.copy()
+    day_3_muscle_groups = legs_1.copy()
+    day_4_muscle_groups = chest_n_back.copy()
+    day_5_muscle_groups = sarms.copy()
+    day_6_muscle_groups = legs_2.copy()
 
     # indicates whether day_1/2/3 need to be replaced with a FULL BODY focus
     day_1_requires_mod = False
@@ -69,6 +69,21 @@ def get_6_day_training_split(excluded_muscle_groups, preferred_muscle_groups, se
             day_6_muscle_groups.remove(muscle_group)
         else:
             print(f"Error: Did not recognise muscle group '{muscle_group}' in excludedMuscleGroups array")
+
+    # Check day_k_muscle_groups array has not decreased too much, if it has, it requires modification
+    if not day_1_requires_mod and len(day_1_muscle_groups) < 0.6 * len(push):
+        day_1_requires_mod = True
+    if not day_2_requires_mod and len(day_2_muscle_groups) < 0.6 * len(pull):
+        day_2_requires_mod = True
+    if not day_3_requires_mod and len(day_3_muscle_groups) < 0.6 * len(legs_1):
+        day_3_requires_mod = True
+    if not day_4_requires_mod and len(day_4_muscle_groups) < 0.6 * len(chest_n_back):
+        day_4_requires_mod = True
+    if not day_5_requires_mod and len(day_5_muscle_groups) < 0.6 * len(sarms):
+        day_5_requires_mod = True
+    if not day_6_requires_mod and len(day_6_muscle_groups) < 0.6 * len(legs_2):
+        day_6_requires_mod = True
+    
     
     further_modifications_required = day_1_requires_mod or day_2_requires_mod or day_3_requires_mod or day_4_requires_mod or day_5_requires_mod or day_6_requires_mod
 

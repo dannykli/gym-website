@@ -120,6 +120,8 @@ def get_exercises(df, training_split, valid_muscle_groups, max_sets_per_muscle_p
             sets_per_muscle_per_week[muscle_group] += daily_sets
         
         if time < 0.6 * time_per_session:
+            print("Training split: ", training_split)
+            print("Exercises: ", day_workout_exercises)
             error_encountered = True
             result["error"] = {
                 "statusCode": 400,
@@ -132,7 +134,7 @@ def get_exercises(df, training_split, valid_muscle_groups, max_sets_per_muscle_p
         
         workout_programme.append(day_workout_exercises)
     
-    for muscle_group, weekly_sets in sets_per_muscle_per_day.items():
+    for muscle_group, weekly_sets in sets_per_muscle_per_week.items():
         print(muscle_group, weekly_sets)
         if weekly_sets > max_sets_per_muscle_per_week[muscle_group]:
             result["error"] = {
