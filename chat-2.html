@@ -18,7 +18,7 @@
                 </div>
             </div>
             <div class="chat-actions">
-                <button class="action-btn" id="clearChat">Clear</button>
+                <button class="action-btn" id="clearChat">Restart</button>
             </div>
         </div>
 
@@ -30,7 +30,7 @@
             <div class="message bot-message">
                 <div class="message-avatar">PT</div>
                 <div class="message-content">
-                    <div class="message-text">What days of the week do you want to train on? </div>
+                    <div class="message-text">What days of the week do you want to train on?</div>
                     <div class="message-time">12:30 PM</div>
                 </div>
             </div>
@@ -47,7 +47,7 @@
         </div>
 
         <!-- Chat Input Area -->
-        <div class="chat-input-container">
+        <div id="chat-input-box" class="chat-input-container">
             <div class="chat-input">
                 <input type="text" id="messageInput" placeholder="Type your message..." autocomplete="off">
                 <button class="send-btn" id="sendBtn">
@@ -58,6 +58,9 @@
                 </button>
             </div>
         </div>
+
+		<!-- Build Button -->
+		<button class="done-btn" id="buildBtn">Build Programme</button>
     </div>
 
     <script src="chat-2-script.js"></script>
