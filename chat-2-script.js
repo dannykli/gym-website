@@ -526,7 +526,7 @@ class ChatInterface {
 
 		const extraPreferences = await result.json();
 
-	    this.userPreferences = { ...this.userPreferences, ...extraPreferences};
+	  this.userPreferences = { ...this.userPreferences, ...extraPreferences};
 	
 		const requiredKeys = ["days", "timePerSession", "equipment", "beginnerFriendly", "exerciseVariation", "excludedMuscleGroups", "preferredMuscleGroups"]
 		for (const key of requiredKeys) {
@@ -539,6 +539,26 @@ class ChatInterface {
 		console.log(JSON.stringify(this.userPreferences, null, 2));
 
 		// Now call lambda func to build programme
+		const response = await fetch('https://dbpabt1af4.execute-api.eu-west-2.amazonaws.com/default/buildProgramme', {
+			method: 'POST',
+			headers: {
+			'Content-Type': 'application/json',
+			},
+			body: JSON.stringify(this.userPreferences),
+		});
+
+		if (response["statusCode"] != 200)
+
+		const programme = await response.json();
+
+		console.log(JSON.stringify(programme, null, 2));
+
+		if (response)
+
+		localStorage.setItem("generatedProgramme", JSON.stringify(programme));
+
+    location.href='./programme.html'
+
 	}
 	
     async sendMessage() {

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Gym Programme</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="programme-style.css">
+</head>
+<body>
+    <div class="programme-container">
+        <!-- Programme Header -->
+        <div class="programme-header">
+            <div class="header-info">
+                <div class="avatar">💪</div>
+                <div class="header-details">
+                    <h2>Your Personalized Gym Programme</h2>
+                    <span class="programme-subtitle">Weekly Training Schedule</span>
+                </div>
+            </div>
+            <div class="header-actions">
+                <button class="action-btn" id="printBtn">Print</button>
+                <button class="action-btn" id="editBtn">Edit</button>
+            </div>
+        </div>
+
+        <!-- Programme Content -->
+        <div class="programme-content">
+            <div class="weekly-schedule" id="weeklySchedule">
+                <!-- Days will be populated by JavaScript -->
+            </div>
+        </div>
+
+        <!-- Programme Footer -->
+        <div class="programme-footer">
+            <div class="programme-notes">
+                <h4>Training Notes:</h4>
+                <ul>
+                    <li>Rest 48-72 hours between training the same muscle groups</li>
+                    <li>Warm up for 5-10 minutes before each session</li>
+                    <li>Focus on proper form over heavy weight</li>
+                    <li>Stay hydrated and get adequate sleep for recovery</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for exercise database -->
+    <div class="modal" id="databaseModal">
+        <div class="modal-content">
+            <span class="close-button" id="closeDatabaseModal">&times;</span>
+            <h2>Exercise Database</h2>
+            
+            <div class="search-container">
+                <input type="text" class="search-input" placeholder="Search exercises..." id="exerciseSearch">
+            </div>
+            
+            <div class="exercise-list" id="exerciseList">
+                <!-- Exercise list will be populated by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for exercise details -->
+    <div class="modal" id="exerciseDetailModal">
+      <div class="modal-content">
+        <span class="close-button" id="closeExerciseDetail">&times;</span>
+        <h2>Exercise Details</h2>
+      </div>
+    </div>
+
+
+    <script src="programme-script.js"></script>
+</body>
+</html>
