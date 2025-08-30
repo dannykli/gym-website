@@ -19,7 +19,7 @@
                 </div>
             </div>
             <div class="header-actions">
-                <button class="action-btn" id="printBtn">Print</button>
+                <button class="action-btn" id="downloadBtn">Download</button>
                 <button class="action-btn" id="editBtn">Edit</button>
             </div>
         </div>
@@ -49,11 +49,65 @@
     <div class="modal" id="databaseModal">
         <div class="modal-content">
             <span class="close-button" id="closeDatabaseModal">&times;</span>
-            <h2>Exercise Database</h2>
+            <h2>Select Exercise</h2>
             
             <div class="search-container">
                 <input type="text" class="search-input" placeholder="Search exercises..." id="exerciseSearch">
             </div>
+            <div class="filters">
+                <div class="filter-group">
+                    <label for="muscleFilter">Primary Muscle</label>
+                    <select id="muscleFilter">
+                        <option value="">All</option>
+                        <option value="abs">Abs</option>
+                        <option value="abductors">Abductors</option>
+                        <option value="adductors">Adductors</option>
+                        <option value="back">Back</option>
+                        <option value="biceps">Biceps</option>
+                        <option value="calves">Calves</option>
+                        <option value="chest">Chest</option>
+                        <option value="forearms">Forearms</option>
+                        <option value="front delt">Front delt</option>
+                        <option value="glutes">Glutes</option>
+                        <option value="hamstrings">Hamstrings</option>
+                        <option value="lateral delt">Lateral delt</option>
+                        <option value="lower back">Lower back</option>
+                        <option value="quads">Quads</option>
+                        <option value="rear delt">Rear delt</option>
+                        <option value="traps">Traps</option>
+                        <option value="triceps">Triceps</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label for="equipmentFilter">Equipment</label>
+                    <select id="equipmentFilter">
+                        <option value="">All</option>
+                        <option value="ab roller">Ab roller</option>
+                        <option value="bands">Bands</option>
+                        <option value="barbell">Barbell</option>
+                        <option value="bodyweight">Bodyweight</option>
+                        <option value="cable">Cable</option>
+                        <option value="dip bar">Dip bar</option>
+                        <option value="dumbbell">Dumbbell</option>
+                        <option value="exercise ball">Exercise ball</option>
+                        <option value="EZ curl bar">EZ curl bar</option>
+                        <option value="kettlebell">Kettlebell</option>
+                        <option value="machine">Machine</option>
+                        <option value="pull up bar">Pull-Up bar</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label for="beginnerFilter">Beginner Friendly</label>
+                    <select id="beginnerFilter">
+                        <option value="">All</option>
+                        <option value="true">Yes</option>
+                        <option value="false">No</option>
+                    </select>
+                </div>
+            </div>
+
             
             <div class="exercise-list" id="exerciseList">
                 <!-- Exercise list will be populated by JavaScript -->
@@ -61,11 +115,82 @@
         </div>
     </div>
 
+    <!-- Modal for confirmation of exercise swap/addition -->
+    <div id="confirmExerciseModal" class="modal">
+        <div class="modal-content">
+            <span id="closeConfirmModal" class="close">&times;</span>
+            <h2>Edit Confirmation</h2>
+            <p id="confirmMessage"></p>
+            
+            <label for="confirmSets">Select number of sets:</label>
+            <input type="number" id="confirmSets" min="1" max="9" value="3">
+
+            <button id="confirmExerciseBtn" class="action-btn">Confirm</button>
+        </div>
+    </div>
+
     <!-- Modal for exercise details -->
     <div class="modal" id="exerciseDetailModal">
       <div class="modal-content">
         <span class="close-button" id="closeExerciseDetail">&times;</span>
-        <h2>Exercise Details</h2>
+
+        <!-- Title -->
+        <h2 id="detailName" class="detail-title"></h2>
+        <div class="detail-section">
+            <h3>Basic Info</h3>
+            <div class="exercise-info-card">
+                <div class="info-row">
+                    <span class="label">Primary Muscle:</span>
+                    <span class="value" id="detailPrimary"></span>
+                </div>
+                <div class="info-row">
+                    <span class="label">Secondary Muscles:</span>
+                    <span class="value" id="detailSecondary"></span>
+                </div>
+                <div class="info-row">
+                    <span class="label">Equipment:</span>
+                    <span class="value" id="detailEquipment"></span>
+                </div>
+                <div class="info-row">
+                    <span class="label">Recommended Sets:</span>
+                    <span class="value" id="detailSets"></span>
+                </div>
+                <div class="info-row">
+                    <span class="label">Recommended Reps:</span>
+                    <span class="value" id="detailReps"></span>
+                </div>
+                <div class="info-row">
+                    <span class="label">Beginner Friendly:</span>
+                    <span class="value" id="detailBeginner"></span>
+                </div>
+            </div>
+        </div>
+
+
+
+
+        <!-- Instructions -->
+        <div class="detail-section">
+            <h3>Instructions</h3>
+            <ul id="detailInstructions"></ul>
+        </div>
+
+        <!-- Image Carousel -->
+        <div class="carousel">
+        <button class="carousel-btn prev" id="prevImage">&#10094;</button>
+        <div class="carousel-track-container">
+            <div class="carousel-track" id="detailImageTrack">
+            <!-- Images injected by JS -->
+            </div>
+        </div>
+        <button class="carousel-btn next" id="nextImage">&#10095;</button>
+        </div>
+
+        <!-- Video -->
+        <div class="detail-section">
+            <h3>Video Demonstration</h3>
+            <div id="detailVideoContainer"></div>
+        </div>
       </div>
     </div>
 

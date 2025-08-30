@@ -2,7 +2,7 @@
         class ProgrammeDisplay {
             constructor() {
                 this.weeklySchedule = document.getElementById('weeklySchedule');
-                this.printBtn = document.getElementById('printBtn');
+                this.downloadBtn = document.getElementById('downloadBtn');
                 this.editBtn = document.getElementById('editBtn');
                 this.databaseModal = document.getElementById('databaseModal');
                 this.closeDatabaseModal = document.getElementById('closeDatabaseModal');
@@ -10,8 +10,18 @@
                 this.exerciseSearch = document.getElementById('exerciseSearch');
                 this.exerciseDetailModal = document.getElementById('exerciseDetailModal');
                 this.closeExerciseDetail = document.getElementById('closeExerciseDetail');
-
+                this.muscleFilter = document.getElementById('muscleFilter');
+                this.equipmentFilter = document.getElementById('equipmentFilter');
+                this.beginnerFilter = document.getElementById('beginnerFilter');
+                this.confirmExerciseModal = document.getElementById('confirmExerciseModal');
+                this.closeConfirmModal = document.getElementById('closeConfirmModal');
+                this.confirmMessage = document.getElementById('confirmMessage');
+                this.confirmSets = document.getElementById('confirmSets');
+                this.confirmExerciseBtn = document.getElementById('confirmExerciseBtn');
                 
+
+
+                this.editFirstTime = true;
                 this.editMode = false;
                 this.currentDay = null;
                 this.currentExercise = null;
@@ -100,92 +110,105 @@
                 };*/
                 
                 // Sample exercise database
+                /*
                 this.exerciseDatabase = [
                     {
                         "id": 1,
                         "name": "Barbell Bench Press",
                         "rep_range": "8-12",
-                        "no_of_sets": 3,
-                        "primary_muscle": "chest"
+                        "primary_muscle": "chest",
+                        "beginner_friendly": true,
+                        "equipment": "barbell"
                     },
                     {
                         "id": 2,
                         "name": "Incline Dumbbell Press",
                         "rep_range": "10-15",
-                        "no_of_sets": 3,
-                        "primary_muscle": "chest"
+                        "primary_muscle": "chest",
+                        "beginner_friendly": true,
+                        "equipment": "dumbbell"
                     },
                     {
                         "id": 3,
                         "name": "Tricep Dips",
                         "rep_range": "12-15",
-                        "no_of_sets": 3,
-                        "primary_muscle": "triceps"
+                        "primary_muscle": "triceps",
+                        "beginner_friendly": false,
+                        "equipment": "bodyweight"
                     },
                     {
                         "id": 4,
                         "name": "Deadlift",
                         "rep_range": "5-8",
-                        "no_of_sets": 4,
-                        "primary_muscle": "back"
+                        "primary_muscle": "back",
+                        "beginner_friendly": false,
+                        "equipment": "barbell"
                     },
                     {
                         "id": 5,
                         "name": "Pull-ups",
                         "rep_range": "8-12",
-                        "no_of_sets": 3,
-                        "primary_muscle": "back"
+                        "primary_muscle": "back",
+                        "beginner_friendly": false,
+                        "equipment": "bodyweight"
                     },
                     {
                         "id": 6,
                         "name": "Barbell Rows",
                         "rep_range": "10-12",
-                        "no_of_sets": 3,
-                        "primary_muscle": "back"
+                        "primary_muscle": "back",
+                        "beginner_friendly": true,
+                        "equipment": "barbell"
                     },
                     {
                         "id": 7,
                         "name": "Squats",
                         "rep_range": "8-12",
-                        "no_of_sets": 4,
-                        "primary_muscle": "legs"
+                        "primary_muscle": "legs",
+                        "beginner_friendly": true,
+                        "equipment": "barbell"
                     },
                     {
                         "id": 8,
                         "name": "Romanian Deadlift",
                         "rep_range": "10-15",
-                        "no_of_sets": 3,
-                        "primary_muscle": "hamstrings"
+                        "primary_muscle": "hamstrings",
+                        "beginner_friendly": false,
+                        "equipment": "barbell"
                     },
                     {
                         "id": 9,
                         "name": "Calf Raises",
                         "rep_range": "15-20",
-                        "no_of_sets": 4,
-                        "primary_muscle": "calves"
+                        "primary_muscle": "calves",
+                        "beginner_friendly": true,
+                        "equipment": "bodyweight"
                     },
                     {
                         "id": 10,
                         "name": "Dumbbell Curls",
                         "rep_range": "10-12",
-                        "no_of_sets": 3,
-                        "primary_muscle": "biceps"
+                        "primary_muscle": "biceps",
+                        "beginner_friendly": true,
+                        "equipment": "dumbbell"
                     },
                     {
                         "id": 11,
                         "name": "Shoulder Press",
                         "rep_range": "8-12",
-                        "no_of_sets": 3,
-                        "primary_muscle": "shoulders"
+                        "primary_muscle": "shoulders",
+                        "beginner_friendly": true,
+                        "equipment": "dumbbell"
                     },
                     {
                         "id": 12,
                         "name": "Lunges",
                         "rep_range": "10-12",
-                        "no_of_sets": 3,
-                        "primary_muscle": "legs"
+                        "primary_muscle": "legs",
+                        "beginner_friendly": true,
+                        "equipment": "bodyweight"
                     }
-                ];
+                ];*/
                 
                 this.init();
             }
@@ -196,27 +219,59 @@
             }
             
             attachEventListeners() {
-                this.printBtn.addEventListener('click', () => this.printProgramme());
+                this.downloadBtn.addEventListener('click', () => this.downloadProgramme());
                 this.editBtn.addEventListener('click', () => this.toggleEditMode());
                 this.closeDatabaseModal.addEventListener('click', () => this.closeModal());
                 this.closeExerciseDetail.addEventListener('click', () => this.closeExerciseDetailModal());
+                this.muscleFilter.addEventListener('change', () => this.renderExerciseList());
+                this.equipmentFilter.addEventListener('change', () => this.renderExerciseList());
+                this.beginnerFilter.addEventListener('change', () => this.renderExerciseList());
                 
-                // Close exercise search modal when clicking outside
                 window.addEventListener('click', (event) => {
+                    if (event.target === this.confirmExerciseModal) {
+                        this.confirmExerciseModal.style.display = 'none';
+                    }
                     if (event.target === this.databaseModal) {
                         this.closeModal();
                     }
-                });
-
-                // Close exercise detail modal when clicking outside
-                window.addEventListener('click', (event) => {
                     if (event.target === this.exerciseDetailModal) {
-                      this.closeExerciseDetailModal();
+                        this.closeExerciseDetailModal();
                     }
                 });
-                                  
+
                 // Search functionality
                 this.exerciseSearch.addEventListener('input', () => this.filterExercises());
+
+                this.closeConfirmModal.addEventListener('click', () => {
+                    this.confirmExerciseModal.style.display = 'none';
+                });
+
+                this.confirmExerciseBtn.addEventListener('click', () => {
+                    if (this.isDelete) {
+                        this.deleteExercise();
+                        this.isDelete = false;
+                    } else {
+                        const sets = Math.min(9, Math.max(1, parseInt(this.confirmSets.value) || 3));
+
+                        const formattedExercise = {
+                            id: this.selectedExercise.id,
+                            name: this.selectedExercise.name,
+                            rep_range: this.selectedExercise.rep_range,
+                            no_of_sets: sets,
+                            primary_muscle: this.selectedExercise.primary_muscle
+                        };
+
+                        if (this.isSwap) {
+                            this.swapExercise(this.currentDay, this.currentExercise.id, formattedExercise);
+                        } else {
+                            this.addExerciseToDay(this.currentDay, formattedExercise);
+                        }
+                    }
+
+                    this.confirmExerciseModal.style.display = 'none';
+                    this.closeModal(); // close the database modal too
+                });
+
             }
             
             renderProgramme() {
@@ -337,7 +392,13 @@
                 deleteBtn.setAttribute('data-action', 'delete');
                 deleteBtn.addEventListener('click', (e) => {
                     e.stopPropagation();
-                    this.deleteExercise(dayKey, exercise.id);
+                    this.confirmMessage.innerHTML = `Delete <strong id="exercise">${exercise.name}</strong> on <strong>${this.capitalizeFirstLetter(dayKey)}</strong>?`;
+                    document.getElementById('confirmSets').style.display = 'none';
+                    document.querySelector('label[for="confirmSets"]').style.display = 'none';
+                    this.isDelete = true;
+                    this.dayKey = dayKey;
+                    this.deletedExercise = exercise;
+                    this.confirmExerciseModal.style.display = 'flex';
                 });
                 
                 editControls.appendChild(swapBtn);
@@ -348,7 +409,7 @@
                 card.appendChild(editControls);
 
                 card.addEventListener('click', () => {
-                    this.openExerciseDetailModal(exercise.id);
+                    this.openExerciseDetailModal(exercise.id, exercise.no_of_sets);
                 });
 
                 return card;
@@ -358,15 +419,93 @@
                 return string.charAt(0).toUpperCase() + string.slice(1);
             }
             
-            printProgramme() {
-                window.print();
+            async downloadProgramme() {
+                const { jsPDF } = window.jspdf;
+                const element = document.getElementById("programmeContent");
+
+                // Use html2canvas to capture
+                const canvas = await html2canvas(element, { scale: 2 }); // higher scale = sharper PDF
+                const imgData = canvas.toDataURL("image/png");
+
+                // Create PDF
+                const pdf = new jsPDF("p", "mm", "a4");
+                const pdfWidth = pdf.internal.pageSize.getWidth();
+                const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
+
+                pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight);
+                pdf.save("fitness-programme.pdf");
             }
             
-            toggleEditMode() {
+            async toggleEditMode() {
+                if (this.editFirstTime) {
+                    // load database
+                    await this.loadExerciseDatabase();
+                    this.processLoadedExerciseDatabase();
+                    this.editFirstTime = false;
+                }
                 this.editMode = !this.editMode;
                 document.body.classList.toggle('edit-mode');
                 this.editBtn.textContent = this.editMode ? 'Done Editing' : 'Edit';
                 this.renderProgramme();
+            }
+
+            async loadExerciseDatabase() {
+                try {
+                    const response = await fetch("https://dbpabt1af4.execute-api.eu-west-2.amazonaws.com/default/getMinimalExercisesFromDatabase");
+                    if (!response.ok) {
+                        throw new Error("Database Load Error");
+                    }
+                    const data = await response.json();
+                    console.log("FIRST ", data.exercises);
+                    this.exerciseDatabase = data.exercises;
+                    console.log("SECOND ", this.exerciseDatabase);
+                } catch (err) {
+                    console.error("Error fetching exercises:", err);
+                }
+            }
+
+            processLoadedExerciseDatabase() {
+                for (const exercise of this.exerciseDatabase) {
+                    // primary muscle
+                    if (exercise.primary_muscle == "middle back" || exercise.primary_muscle == "lats") {
+                        exercise.primary_muscle = "back";
+                        console.log("processDB " + exercise.primary_muscle);
+                    } else if (exercise.primary_muscle == "abdominals") {
+                        exercise.primary_muscle = "abs";
+                    } else if (exercise.primary_muscle == "quadriceps") {
+                        exercise.primary_muscle = "quads";
+                    } 
+
+                    /*
+                    <option value="">All</option>
+                        <option value="ab roller">Ab roller</option>
+                        <option value="bands">Bands</option>
+                        <option value="barbell">Barbell</option>
+                        <option value="bodyweight">Bodyweight</option>
+                        <option value="cable">Cable</option>
+                        <option value="dip bar">Dip bar</option>
+                        <option value="dumbbell">Dumbbell</option>
+                        <option value="exercise ball">Exercise ball</option>
+                        <option value="EZ curl bar">EZ curl bar</option>
+                        <option value="kettlebell">Kettlebell</option>
+                        <option value="machine">Machine</option>
+                        <option value="pull up bar">Pull-Up bar</option>
+                    */
+
+                    // equipment
+                    if (exercise.equipment == "body only") {
+                        if (exercise.pull_up_bar_required) {
+                            exercise.equipment = "Pull-Up bar";
+                        } else {
+                            exercise.equipment = "bodyweight";
+                        }
+                    } else if (exercise.equipment == "e-z curl bar") {
+                        exercise.equipment = "EZ curl bar";
+                    } else if (exercise.equipment == "kettlebells") {
+                        exercise.equipment = "Kettlebell";
+                    }
+
+                }
             }
             
             openDatabaseModal(dayKey, isSwap = false) {
@@ -376,9 +515,84 @@
                 this.renderExerciseList();
             }
 
-            openExerciseDetailModal(exerciseId) { 
+            async openExerciseDetailModal(exerciseId, exerciseSets) {
+                
+                const result = await fetch('https://dbpabt1af4.execute-api.eu-west-2.amazonaws.com/default/getExerciseFromDatabase', {
+                    method: 'POST',
+                    headers: {
+                    'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ exerciseId }),
+                });
+
+                if (!result.ok) {
+                    throw new Error('Database query error');
+                }
+
+                const exercise = await result.json();
+
+                console.log(exercise);
+
+                const equipment = this.capitalizeFirstLetter(exercise.equipment) + ((exercise.bench_required) ? ", Bench" : "") + ((exercise.pull_up_bar_required) ? ", Pull-Up bar" : "");
+                
+                // Fill text info
+                document.getElementById('detailName').textContent = exercise.name;
+                document.getElementById('detailSets').textContent = exerciseSets;
+                document.getElementById('detailReps').textContent = exercise.rep_range;
+                document.getElementById('detailPrimary').textContent = this.capitalizeFirstLetter(exercise.primary_muscle);
+                document.getElementById('detailSecondary').textContent = exercise.secondary_muscles.map(muscle => this.capitalizeFirstLetter(muscle))?.join(", ") || "None";
+                document.getElementById('detailBeginner').textContent = exercise.beginner_friendly ? "Yes" : "No";
+                document.getElementById('detailEquipment').textContent = equipment;
+                const instructionList = document.getElementById('detailInstructions');
+
+                // Clear previous instructions
+                instructionList.innerHTML = '';
+
+                // Add each instruction as a list item
+                exercise.instructions.forEach(inst => {
+                    const li = document.createElement('li');
+                    li.textContent = inst;
+                    instructionList.appendChild(li);
+                });
+
+                // Images (carousel)
+                const images = exercise.images.map(img => "exercise-images/" + img);
+                const track = document.getElementById('detailImageTrack');
+                track.innerHTML = "";
+                images.forEach(imgUrl => {
+                    const img = document.createElement('img');
+                    img.src = imgUrl;
+                    track.appendChild(img);
+                });
+
+                let currentIndex = 0;
+                const prevBtn = document.getElementById('prevImage');
+                const nextBtn = document.getElementById('nextImage');
+
+                const updateCarousel = () => {
+                    track.style.transform = `translateX(-${currentIndex * 100}%)`;
+                };
+
+                prevBtn.onclick = () => {
+                    currentIndex = (currentIndex === 0) ? exercise.images.length - 1 : currentIndex - 1;
+                    updateCarousel();
+                };
+
+                nextBtn.onclick = () => {
+                    currentIndex = (currentIndex + 1) % exercise.images.length;
+                    updateCarousel();
+                };
+
+                // Video
+                const videoContainer = document.getElementById('detailVideoContainer');
+                videoContainer.innerHTML = exercise.video 
+                    ? `<iframe src="${exercise.video}" frameborder="0" allowfullscreen></iframe>`
+                    : "<p>No video available.</p>";
+
+                // Show modal
                 this.exerciseDetailModal.style.display = 'flex';
             }
+
             
             closeModal() {
                 this.databaseModal.style.display = 'none';
@@ -391,31 +605,80 @@
             
             renderExerciseList() {
                 this.exerciseList.innerHTML = '';
+
+                const searchTerm = this.exerciseSearch.value.toLowerCase();
+                const muscle = this.muscleFilter.value;
+                const equipment = this.equipmentFilter.value;
+                const beginner = this.beginnerFilter.value;
                 
-                this.exerciseDatabase.forEach(exercise => {
-                    const exerciseItem = document.createElement('div');
-                    exerciseItem.className = 'exercise-item';
-                    exerciseItem.setAttribute('data-exercise-id', exercise.id);
-                    
-                    exerciseItem.innerHTML = `
-                        <div>
-                            <div class="exercise-name">${exercise.name}</div>
-                            <div>${this.capitalizeFirstLetter(exercise.primary_muscle)} • ${exercise.no_of_sets} x ${exercise.rep_range}</div>
-                        </div>
-                        <button class="action-btn select-exercise">Select</button>
-                    `;
-                    
-                    exerciseItem.querySelector('.select-exercise').addEventListener('click', () => {
-                        if (this.isSwap) {
-                            this.swapExercise(this.currentDay, this.currentExercise.id, exercise);
-                        } else {
-                            this.addExerciseToDay(this.currentDay, exercise);
+                this.exerciseDatabase
+                    .filter(exercise => {
+                        const matchesSearch = exercise.name.toLowerCase().includes(searchTerm);
+                        const matchesMuscle = !muscle || exercise.primary_muscle === muscle;
+                        const matchesEquipment = !equipment || exercise.equipment === equipment;
+                        const matchesBeginner = !beginner || exercise.beginner_friendly?.toString() === beginner;
+
+                        return matchesSearch && matchesMuscle && matchesEquipment && matchesBeginner;
+                    })
+                    .forEach(exercise => {
+                        const exerciseItem = document.createElement('div');
+                        exerciseItem.className = 'exercise-item';
+                        exerciseItem.setAttribute('data-exercise-id', exercise.id);
+
+                        let beginnerTag = '';
+                        if (exercise.beginner_friendly) {
+                            beginnerTag = `<span class="tag beginner">Beginner friendly</span>`;
                         }
-                        this.closeModal();
+
+                        exerciseItem.innerHTML = `
+                            <div>
+                                <div class="exercise-name">${exercise.name}</div>
+                                <div class="exercise-tags">
+                                    <span class="tag muscle">${this.capitalizeFirstLetter(exercise.primary_muscle)}</span>
+                                    <span class="tag equipment">${this.capitalizeFirstLetter(exercise.equipment)}</span>
+                                    ${beginnerTag}
+                                </div>
+                            </div>
+                            <button class="action-btn select-exercise">Select</button>
+                        `;
+
+                        const selectBtn = exerciseItem.querySelector('.select-exercise');
+
+                        selectBtn.addEventListener('click', () => {
+                            this.selectedExercise = exercise; // store exercise
+
+                            if (this.isSwap) {
+                                this.confirmMessage.innerHTML =
+                                    `Swap <strong id="exercise">${this.currentExercise.name}</strong> with <strong id="exercise">${exercise.name}</strong> on <strong>${this.capitalizeFirstLetter(this.currentDay)}</strong>?`;
+                            } else {
+                                this.confirmMessage.innerHTML =
+                                    `Add <strong id="exercise">${exercise.name}</strong> to <strong>${this.capitalizeFirstLetter(this.currentDay)}</strong>?`;
+                            }
+
+                            this.confirmSets.value = 3; // default
+                            this.confirmExerciseModal.style.display = 'flex';
+                        });
+
+                        /*
+                        selectBtn.addEventListener('click', () => {
+                            const sets = parseInt(setsInput.value) || 3; // fallback if empty
+                            const formattedExercise = {
+                                id: exercise.id,
+                                name: exercise.name,
+                                rep_range: exercise.rep_range,
+                                no_of_sets: sets,
+                                primary_muscle: exercise.primary_muscle
+                            };
+                            if (this.isSwap) {
+                                this.swapExercise(this.currentDay, this.currentExercise.id, formattedExercise);
+                            } else {
+                                this.addExerciseToDay(this.currentDay, exercise);
+                            }
+                            this.closeModal();
+                        });*/
+
+                        this.exerciseList.appendChild(exerciseItem);
                     });
-                    
-                    this.exerciseList.appendChild(exerciseItem);
-                });
             }
             
             filterExercises() {
@@ -441,17 +704,18 @@
                 this.renderProgramme();
             }
             
-            deleteExercise(dayKey, exerciseId) {
-                if (confirm("Are you sure you want to remove this exercise?")) {
-                    this.programmeData[dayKey] = this.programmeData[dayKey].filter(ex => ex.id !== exerciseId);
-                    
-                    // If no exercises left, set day to rest
-                    if (this.programmeData[dayKey].length === 0) {
-                        this.programmeData[dayKey] = "rest";
-                    }
-                    
-                    this.renderProgramme();
+            deleteExercise() {
+                
+               
+                this.programmeData[this.dayKey] = this.programmeData[this.dayKey].filter(ex => ex.id !== this.deletedExercise.id);
+                
+                // If no exercises left, set day to rest
+                if (this.programmeData[this.dayKey].length === 0) {
+                    this.programmeData[this.dayKey] = "rest";
                 }
+                
+                this.renderProgramme();
+                
             }
             
             swapExercise(dayKey, oldExerciseId, newExercise) {
