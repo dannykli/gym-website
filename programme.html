@@ -8,14 +8,24 @@
     <link rel="stylesheet" href="programme-style.css">
 </head>
 <body>
-    <div class="programme-container">
+    <nav class="navbar">
+        <a onclick="location.href='./chat-2.html'" class="site-name">
+            <strong id="domain-part1" class="domainPart">my</strong><strong id="domain-part2" class="domainPart">fitness</strong><strong id="domain-part3" class="domainPart">programme</strong><strong id="domain-part4" class="domainPart">builder</strong><strong id="domain-part5" class="domainPart">.com</strong>
+        </a>
+        <a onclick="location.href='./chat-2.html'" class="home">
+            <strong id="home-part1">H</strong><strong id="home-part2">o</strong><strong id="home-part3">m</strong><strong id="home-part4">e</strong>
+        </a>
+        <a onclick="location.href='./contact_page.html'"><i class="fa fa-envelope"></i> Contact</a>
+    </nav>
+
+    <div class="programme-container" id="programmeContent">
         <!-- Programme Header -->
         <div class="programme-header">
             <div class="header-info">
-                <div class="avatar">💪</div>
+                <div class="avatar"><i class="fa-solid fa-dumbbell"></i></div>
                 <div class="header-details">
-                    <h2>Your Personalized Gym Programme</h2>
-                    <span class="programme-subtitle">Weekly Training Schedule</span>
+                    <h2>Your Weekly Fitness Programme</h2>
+                    <span class="programme-subtitle">Tap an exercise to view more information</span>
                 </div>
             </div>
             <div class="header-actions">
@@ -36,11 +46,25 @@
             <div class="programme-notes">
                 <h4>Training Notes:</h4>
                 <ul>
-                    <li>Rest 48-72 hours between training the same muscle groups</li>
-                    <li>Warm up for 5-10 minutes before each session</li>
-                    <li>Focus on proper form over heavy weight</li>
-                    <li>Stay hydrated and get adequate sleep for recovery</li>
+                    <li>Ensure to rest between exercises. Between 2-3 minutes is recommended depending on the muscle group.</li>
+                    <li>Warm up before each session. This could be a light run, or a couple of sets with lighter weight.</li>
+                    <li>Focus on mastering correct form before increasing the weight.</li>
+                    <li>Drink plenty of water, and get adequate sleep for recovery.</li>
+                    <li>Eat plenty of protein (aim for 2g per kg of bodyweight daily).</li>
+                    <li>Whilst the focus of this programme is to build muscle, ensure you do some form of cardio every week.</li>
                 </ul>
+                <br>
+
+                <h4>Medical disclaimer:</h4>
+                <p>
+                    This website is not a medical service and does not provide medical advice. 
+                    You should consult your physician or other qualified health professional 
+                    before starting any new exercise programme. You agree that you are 
+                    voluntarily participating in the activities suggested by this app at your 
+                    own risk and assume all responsibility for any injury, loss, or damage 
+                    that may result.
+                </p>
+
             </div>
         </div>
     </div>
@@ -166,15 +190,6 @@
             </div>
         </div>
 
-
-
-
-        <!-- Instructions -->
-        <div class="detail-section">
-            <h3>Instructions</h3>
-            <ul id="detailInstructions"></ul>
-        </div>
-
         <!-- Image Carousel -->
         <div class="carousel">
         <button class="carousel-btn prev" id="prevImage">&#10094;</button>
@@ -186,6 +201,12 @@
         <button class="carousel-btn next" id="nextImage">&#10095;</button>
         </div>
 
+        <!-- Instructions -->
+        <div class="detail-section">
+            <h3>Instructions</h3>
+            <ul id="detailInstructions"></ul>
+        </div>
+
         <!-- Video -->
         <div class="detail-section">
             <h3>Video Demonstration</h3>
@@ -194,7 +215,9 @@
       </div>
     </div>
 
-
+    
+    <script src="./libs/html2canvas.min.js"></script>
+    <script src="./libs/jspdf.umd.min.js"></script>
     <script src="programme-script.js"></script>
 </body>
 </html>

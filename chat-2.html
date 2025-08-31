@@ -5,8 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chat Interface</title>
     <link rel="stylesheet" href="chat-2-style.css">
+    <script src="https://kit.fontawesome.com/a062df7e69.js" crossorigin="anonymous"></script>
 </head>
 <body>
+    <nav class="navbar">
+        <a onclick="location.href='./chat-2.html'" class="site-name">
+            <strong id="domain-part1" class="domainPart">my</strong><strong id="domain-part2" class="domainPart">fitness</strong><strong id="domain-part3" class="domainPart">programme</strong><strong id="domain-part4" class="domainPart">builder</strong><strong id="domain-part5" class="domainPart">.com</strong>
+        </a>
+        <a onclick="location.href='./chat-2.html'" class="home">
+            <strong id="home-part1">H</strong><strong id="home-part2">o</strong><strong id="home-part3">m</strong><strong id="home-part4">e</strong>
+        </a>
+        <a onclick="location.href='./contact_page.html'"><i class="fa fa-envelope"></i> Contact</a>
+    </nav>
+
     <div class="chat-container">
         <!-- Chat Header -->
         <div class="chat-header">
@@ -15,6 +26,7 @@
                 <div class="user-details">
                     <h3>Fitness Programme Builder</h3>
                     <span class="status">Build the programme that suits your needs to build muscle</span>
+                    <span class="mini-status">Suit your needs to build muscle</span>
                 </div>
             </div>
             <div class="chat-actions">
@@ -61,7 +73,18 @@
 
 		<!-- Build Button -->
 		<button class="done-btn" id="buildBtn">Build Programme</button>
+
+        <!-- Loading Overlay -->
+         <div id="loadingOverlay" class="loading-overlay">
+            <div class="loading-content">
+                <div class="spinner"></div>
+                <p>Generating your programme...</p>
+            </div>
+        </div>
+
     </div>
+
+    
 
     <script src="chat-2-script.js"></script>
 </body>

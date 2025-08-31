@@ -6,15 +6,98 @@
 
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 20px;
+    background-position: center;
+    background-size: cover;
+    background-image: url("./images/Homepage/RowInHotel9.jpg");
 }
 
+#myNavbar{
+    background: linear-gradient(
+        135deg,
+        rgba(59, 55, 194, 1),
+        rgba(91, 46, 189, 1)
+    );
+}
+
+/* Navbar container */
+.navbar {
+  display: flex;
+  justify-content: space-between; /* Pushes items to edges */
+  align-items: center;
+  padding: 8px 20px;
+  background: linear-gradient(
+        135deg,
+        rgba(59, 55, 194, 1), 
+        rgba(91, 46, 189, 1)
+    );
+  position: fixed;
+  /* Fix navbar at top */
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 10000;
+}
+
+/* Navbar links / site name */
+.navbar a {
+  color: white;
+  text-decoration: none;
+  padding: 8px 15px;
+  font-weight: bold;
+}
+
+/* Hover effect */
+.navbar a:hover {
+  background-color: #ddd;  
+  color: #333;               /* dark text on hover */
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+a.site-name:hover #domain-part1 { color: #333; }
+a.site-name:hover #domain-part2 { color: #333; }
+a.site-name:hover #domain-part3 { color: #333; }
+a.site-name:hover #domain-part4 { color: #333; }
+a.site-name:hover #domain-part5 { color: #333; }
+
+a.home:hover #domain-part1 { color: #333; }
+a.home:hover #domain-part2 { color: #333; }
+a.home:hover #domain-part3 { color: #333; }
+a.home:hover #domain-part4 { color: #333; }
+a.home:hover #domain-part5 { color: #333; }
+
+/* Website name styling */
+.site-name {
+  font-size: 1.2em;
+}
+
+.home {
+  display: none;
+}
+
+#domain-part1 { color: #ff6666; }  /* light rosy red */
+#domain-part2 { color: #ff8f66; }  /* soft coral */
+#domain-part3 { color: #ffb266; }  /* orange-peach */
+#domain-part4 { color: #ffd966; }  /* warm yellow */
+#domain-part5 { color: #fff5b7; }  /* pale yellow for .com */
+
+#home-part1 { color: #ff8f66; }  
+#home-part2 { color: #ffb266; }  
+#home-part3 { color: #ffd966; }
+#home-part4 { color: #fff5b7; }  
+
+.mini-status {
+  display: none;
+}
+
+
 .chat-container {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
     width: 100%;
     max-width: 500px;
     height: 100%;             /* take full height of parent */
@@ -25,8 +108,8 @@ body {
     display: flex;
     flex-direction: column;
     overflow: hidden;
-    backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.2);
+    
 }
 
 /* Chat Header */
@@ -63,6 +146,11 @@ body {
 }
 
 .status {
+    font-size: 12px;
+    opacity: 0.8;
+}
+
+.mini-status {
     font-size: 12px;
     opacity: 0.8;
 }
@@ -286,10 +374,11 @@ body {
 @media (max-width: 768px) {
     body {
         padding: 10px;
+        padding-top: 45px;
     }
     
     .chat-container {
-        height: calc(100vh - 20px);
+        height: calc(100vh - 80px);
         border-radius: 15px;
     }
     
@@ -303,6 +392,59 @@ body {
     
     .chat-messages {
         padding: 15px;
+    }
+
+    .navbar {
+        padding: 3px 10px;
+    }
+
+    .site-name {
+        display: none;
+    }
+
+    .home {
+        display: block;
+    }
+}
+
+@media (max-width: 420px) {
+    body {
+        padding: 10px;
+        padding-top: 45px;
+    }
+    
+    .chat-container {
+        height: calc(100vh - 60px);
+        border-radius: 15px;
+    }
+    
+    .message {
+        max-width: 90%;
+    }
+    
+    .chat-header {
+        padding: 10px;
+    }
+    
+    .chat-messages {
+        padding: 15px;
+    }
+
+    .status {
+        display: none;
+    }
+
+    .mini-status {
+        display: block;
+    }
+
+    .navbar {
+        padding: 3px 5px;
+    }
+
+    .avatar {
+      width: 35px;
+      height: 35px;
     }
 }
 
@@ -541,3 +683,38 @@ input[type="radio"]:disabled + .radio-checkmark {
   display: none;
   font-size: 20px;
 }
+
+.loading-overlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  display: none; /* hidden by default */
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.loading-content {
+  background: white;
+  padding: 2rem;
+  border-radius: 1rem;
+  text-align: center;
+  font-size: 1.2rem;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+}
+
+.spinner {
+  border: 6px solid #f3f3f3;
+  border-top: 6px solid #2563eb;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  margin: 0 auto 1rem;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  100% { transform: rotate(360deg); }
+}
+

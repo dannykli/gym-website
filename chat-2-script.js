@@ -7,21 +7,24 @@ class ChatInterface {
         this.typingIndicator = document.getElementById('typingIndicator');
         this.errorDiv = document.getElementById('chatError');
         this.userPreferences = {};
-		this.chatHistory = [];
-		this.buildBtn = document.getElementById("buildBtn");
-		this.chatMessageBox = document.getElementById("chat-input-box");
+				this.chatHistory = [];
+				this.buildBtn = document.getElementById("buildBtn");
+				this.chatMessageBox = document.getElementById("chat-input-box");
         
         this.init();
     }
     
     init() {
-		// Set time for first bot question: 
-		const messageTime = document.querySelector('.chat-messages .message-time');
-		const currentTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-		messageTime.textContent = currentTime;
+			// Set time for first bot question: 
+			const messageTime = document.querySelector('.chat-messages .message-time');
+			const currentTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+			
+			messageTime.textContent = currentTime;
 
-        // Add days of the week input to chat
-		this.setUpDaysInput();
+			this.clearBtn.addEventListener('click', () => this.clearChat());
+
+			// Add days of the week input to chat
+			this.setUpDaysInput();
     }
 
 	setUpDaysInput() {
@@ -267,6 +270,7 @@ class ChatInterface {
 					<label class="container"><input type="checkbox" value="exercise ball">Exercise Ball<span class="checkmark"></span></label>
 					<label class="container"><input type="checkbox" value="e-z curl bar">EZ Curl Bar<span class="checkmark"></span></label>
 					<label class="container"><input type="checkbox" value="kettlebells">Kettlebells<span class="checkmark"></span></label>
+					<label class="container"><input type="checkbox" value="pull up bar">Pull-Up bar<span class="checkmark"></span></label>
 					<label class="container"><input type="checkbox" value="machine">Weight Machines<span class="checkmark"></span></label>
 					<button id="equipmentDoneButton" class="done-btn">Done</button>
 				</div>
@@ -446,9 +450,11 @@ class ChatInterface {
 
 			console.log(selected.value);
 
-			let variety_score = 0.5; 
+			let variety_score = 0; 
 			if (selected.value == "yes") {
 				variety_score = 1.1;
+			} if (selected.value == "not bothered") {
+				variety_score = 0.5;
 			}
 
 			this.userPreferences["exerciseVariation"] = variety_score;
@@ -474,7 +480,7 @@ class ChatInterface {
 
 	async setUpMuscleGroupInput() {
 		// Show typing indicator
-        this.showTypingIndicator();
+    this.showTypingIndicator();
 
 		const delay = Math.random() * 200 + 100;
 		await this.sleep(delay);
@@ -483,7 +489,7 @@ class ChatInterface {
 
 		const question = `Are there any muscle groups you'd like to avoid working out? (e.g., due to injury or preference)`
 
-        this.addMessage(question, 'bot', true);
+    this.addMessage(question, 'bot', true);
 
 		// Reduce bottom padding
 		const chatMessages = document.querySelector('.chat-messages');
@@ -498,20 +504,22 @@ class ChatInterface {
 		this.buildBtn.addEventListener('click', () => this.handleBuildProgramme());
 
 		// Event listeners
-        this.sendBtn.addEventListener('click', () => this.sendMessage());
+		this.sendBtn.addEventListener('click', () => this.sendMessage());
 
-        this.messageInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
-                this.sendMessage();
-            }
-        });
-        this.clearBtn.addEventListener('click', () => this.clearChat());
-        
-        // Auto-resize input
-        this.messageInput.addEventListener('input', () => this.handleInputChange());
+		this.messageInput.addEventListener('keypress', (e) => {
+				if (e.key === 'Enter') {
+						this.sendMessage();
+				}
+		});
+		
+		// Auto-resize input
+		this.messageInput.addEventListener('input', () => this.handleInputChange());
 	}
 
 	async handleBuildProgramme() {
+		// Show overlay
+		document.getElementById("loadingOverlay").style.display = "flex";
+
 		const result = await fetch('https://dbpabt1af4.execute-api.eu-west-2.amazonaws.com/default/populateExtraInfoJSON', {
 			method: 'POST',
 			headers: {
@@ -547,7 +555,30 @@ class ChatInterface {
 			body: JSON.stringify(this.userPreferences),
 		});
 
-		if (response["statusCode"] != 200)
+		console.log(response.status)
+
+		if (response.status !== 200) {
+    try {
+        const response_body = await response.json();
+        
+        // The body is a JSON string, so we need to parse it again
+        const body_data = JSON.parse(response_body.body);
+        const error_message = body_data.error;
+        
+        if (error_message) {
+            alert(error_message + " Please try again.");
+        } else {
+            alert("Something went wrong! Please try again.");
+        }
+        
+        window.location.reload();
+        
+    } catch (parseError) {
+        // Fallback if parsing fails
+        alert("Something went wrong! Please try again.");
+        window.location.reload();
+    }
+}
 
 		const programme = await response.json();
 
@@ -556,6 +587,10 @@ class ChatInterface {
 		if (response)
 
 		localStorage.setItem("generatedProgramme", JSON.stringify(programme));
+
+
+		// Hide overlay
+		document.getElementById("loadingOverlay").style.display = "none";
 
     location.href='./programme.html'
 
@@ -677,6 +712,7 @@ class ChatInterface {
     }
     
     clearChat() {
+				console.log("Clear");
         // Keep the initial welcome message
         this.chatMessages.innerHTML = `
             <div class="message bot-message">
@@ -688,11 +724,12 @@ class ChatInterface {
             </div>
         `;
         this.hideTypingIndicator();
-		this.buildBtn.style.display = "none";
-		this.chatMessageBox.style.display = "none";
-		this.userPreferences = {};
-		// Add days of the week input to chat
-		this.setUpDaysInput();
+				this.buildBtn.style.display = "none";
+				this.chatMessageBox.style.display = "none";
+				this.userPreferences = {};
+				this.chatHistory = [];
+				// Add days of the week input to chat
+				this.setUpDaysInput();
     }
     
     scrollToBottom() {
