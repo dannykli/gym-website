@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Fitness Programme Builder</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="browse-style.css">
+</head>
+<body>
+  <nav class="navbar">
+      <div class="navbar-left">
+        <a onclick="location.href='../home/index.html'" class="site-name">
+            <strong id="domain-part1" class="domainPart">my</strong><strong id="domain-part2" class="domainPart">fitness</strong><strong id="domain-part3" class="domainPart">programme</strong><strong id="domain-part4" class="domainPart">builder</strong><strong id="domain-part5" class="domainPart">.com</strong>
+        </a>
+        <a onclick="location.href='../home/index.html'" class="home">
+            <strong id="home-part1">H</strong><strong id="home-part2">o</strong><strong id="home-part3">m</strong><strong id="home-part4">e</strong>
+        </a>
+      </div>
+      <div class="navbar-right">
+        <a onclick="location.href='./exercises/index.html'"><i class="fa-solid fa-dumbbell"></i> Exercises</a>
+        <a onclick="location.href='../contact/index.html'"><i class="fa fa-envelope"></i> Contact</a>
+      </div>
+  </nav>
+
+  <div class="modal-content">
+      <h2>Browse Exercises</h2>
+      
+      <div class="search-container">
+          <input type="text" class="search-input" placeholder="Search exercises..." id="exerciseSearch">
+      </div>
+      <div class="filters">
+          <div class="filter-group">
+              <label for="muscleFilter">Primary Muscle</label>
+              <select id="muscleFilter">
+                  <option value="">All</option>
+                  <option value="abs">Abs</option>
+                  <option value="abductors">Abductors</option>
+                  <option value="adductors">Adductors</option>
+                  <option value="back">Back</option>
+                  <option value="biceps">Biceps</option>
+                  <option value="calves">Calves</option>
+                  <option value="chest">Chest</option>
+                  <option value="forearms">Forearms</option>
+                  <option value="front delt">Front delt</option>
+                  <option value="glutes">Glutes</option>
+                  <option value="hamstrings">Hamstrings</option>
+                  <option value="lateral delt">Lateral delt</option>
+                  <option value="lower back">Lower back</option>
+                  <option value="quads">Quads</option>
+                  <option value="rear delt">Rear delt</option>
+                  <option value="traps">Traps</option>
+                  <option value="triceps">Triceps</option>
+              </select>
+          </div>
+
+          <div class="filter-group">
+              <label for="equipmentFilter">Equipment</label>
+              <select id="equipmentFilter">
+                  <option value="">All</option>
+                  <option value="ab roller">Ab roller</option>
+                  <option value="bands">Bands</option>
+                  <option value="barbell">Barbell</option>
+                  <option value="bodyweight">Bodyweight</option>
+                  <option value="cable">Cable</option>
+                  <option value="dip bar">Dip bar</option>
+                  <option value="dumbbell">Dumbbell</option>
+                  <option value="exercise ball">Exercise ball</option>
+                  <option value="EZ curl bar">EZ curl bar</option>
+                  <option value="kettlebell">Kettlebell</option>
+                  <option value="machine">Machine</option>
+                  <option value="pull up bar">Pull-Up bar</option>
+              </select>
+          </div>
+
+          <div class="filter-group">
+              <label for="beginnerFilter">Beginner Friendly</label>
+              <select id="beginnerFilter">
+                  <option value="">All</option>
+                  <option value="true">Yes</option>
+                  <option value="false">No</option>
+              </select>
+          </div>
+      </div>
+
+      
+      <div class="exercise-list" id="exerciseList">
+          <!-- Exercise list will be populated by JavaScript -->
+      </div>
+
+      <!-- Loading Overlay -->
+      <div id="loadingOverlay" class="loading-overlay">
+            <div class="loading-content">
+                <div class="spinner"></div>
+                <p>Loading exercises...</p>
+            </div>
+      </div>
+  </div>
+
+  <!-- Modal for exercise details -->
+  <div class="modal" id="exerciseDetailModal">
+    <div class="modal-content">
+      <span class="close-button" id="closeExerciseDetail">&times;</span>
+
+      <!-- Title -->
+      <h2 id="detailName" class="detail-title"></h2>
+      <div class="detail-section">
+          <h3>Basic Info</h3>
+          <div class="exercise-info-card">
+              <div class="info-row">
+                  <span class="label">Primary Muscle:</span>
+                  <span class="value" id="detailPrimary"></span>
+              </div>
+              <div class="info-row">
+                  <span class="label">Secondary Muscles:</span>
+                  <span class="value" id="detailSecondary"></span>
+              </div>
+              <div class="info-row">
+                  <span class="label">Equipment:</span>
+                  <span class="value" id="detailEquipment"></span>
+              </div>
+              <div class="info-row">
+                  <span class="label">Recommended Sets:</span>
+                  <span class="value" id="detailSets"></span>
+              </div>
+              <div class="info-row">
+                  <span class="label">Recommended Reps:</span>
+                  <span class="value" id="detailReps"></span>
+              </div>
+              <div class="info-row">
+                  <span class="label">Beginner Friendly:</span>
+                  <span class="value" id="detailBeginner"></span>
+              </div>
+          </div>
+      </div>
+
+      <!-- Image Carousel -->
+      <div class="carousel">
+      <button class="carousel-btn prev" id="prevImage">&#10094;</button>
+      <div class="carousel-track-container">
+          <div class="carousel-track" id="detailImageTrack">
+          <!-- Images injected by JS -->
+          </div>
+      </div>
+      <button class="carousel-btn next" id="nextImage">&#10095;</button>
+      </div>
+
+      <!-- Instructions -->
+      <div class="detail-section">
+          <h3>Instructions</h3>
+          <ul id="detailInstructions"></ul>
+      </div>
+
+      <!-- Video -->
+      <div class="detail-section">
+          <h3>Video Demonstration</h3>
+          <div id="detailVideoContainer"></div>
+      </div>
+    </div>
+  </div>
+  <script src="browse-script.js"></script>
+</body>
+</html>
+
+
