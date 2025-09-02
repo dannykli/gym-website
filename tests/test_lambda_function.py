@@ -6,7 +6,7 @@ import os
 # Add the parent directory to Python path
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 
-from backend.buildProgramme.lambda_function import lambda_handler
+from backend.buildProgramme_Local.lambda_function import lambda_handler
 
 DUMP_DIR = os.path.join(os.path.dirname(__file__), "build_programme_lambda_outputs")
 

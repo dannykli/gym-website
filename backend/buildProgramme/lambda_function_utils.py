@@ -1,5 +1,4 @@
 import os
-from dotenv import load_dotenv
 from sqlalchemy import create_engine
 
 def re_order_muscle_groups(ordered_muscle_groups, template_order = 
@@ -12,14 +11,12 @@ def re_order_muscle_groups(ordered_muscle_groups, template_order =
     return new_ordered_muscle_groups
 
 def connect_to_database():
-     # Load environment variables from the .env file
-    load_dotenv()
 
-    DB_HOST = os.getenv("DB_HOST")
-    DB_PORT = os.getenv("DB_PORT")
-    DB_NAME = os.getenv("DB_NAME")
-    DB_USER = os.getenv("DB_USER")
-    DB_PASSWORD = os.getenv("DB_PASSWORD")
+    DB_HOST = os.environ.get("DB_HOST")
+    DB_PORT = os.environ.get("DB_PORT")
+    DB_NAME = os.environ.get("DB_NAME")
+    DB_USER = os.environ.get("DB_USER")
+    DB_PASSWORD = os.environ.get("DB_PASSWORD")
 
     DATABASE_URL = f"postgresql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
 
@@ -52,6 +49,7 @@ def get_ordered_programme(workout_programme, days, df, muscle_group_ordering):
             ascending=[True, True]
         )
         # Can filter out any non-needed columns here
+        day_df = day_df[["id", "name", "primary_muscle", "no_of_sets", "rep_range"]]
         final_programme[day] = day_df.to_dict('records')
       
     return final_programme

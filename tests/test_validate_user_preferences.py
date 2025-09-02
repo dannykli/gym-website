@@ -6,9 +6,9 @@ import os
 # Add the parent directory to Python path
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 
-from backend.buildProgramme.validate_user_preferences import validate_excluded_muscle_groups
-from backend.buildProgramme.validate_user_preferences import validate_preferred_muscle_groups
-from backend.buildProgramme.validate_user_preferences import validate_equipment
+from backend.buildProgramme_Local.validate_user_preferences import validate_excluded_muscle_groups
+from backend.buildProgramme_Local.validate_user_preferences import validate_preferred_muscle_groups
+from backend.buildProgramme_Local.validate_user_preferences import validate_equipment
 
 class TestValidateUserPreferences:
     def test_validate_excluded_muscle_groups(self):

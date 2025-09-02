@@ -1,4 +1,4 @@
-from .get_training_split_utils import orderMuscleGroups, removeLastOccurrence, initialiseOrderedMuscleGroups
+from get_training_split.get_training_split_utils import orderMuscleGroups, removeLastOccurrence, initialiseOrderedMuscleGroups
 
 # pre: excluded_muscle_groups, preferred_muscle_groups are both arrays with valid muscle group values 
 #      and excluded_muscle_groups and preferred_muscle_groups share no common values

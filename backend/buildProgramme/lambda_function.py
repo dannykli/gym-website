@@ -4,26 +4,22 @@ from sqlalchemy import text
 import os
 import sys
 
-# Add the parent directory to Python path
-sys.path.append(os.path.join(os.path.dirname(__file__), '../..'))
+from get_training_split.get_1_day_training_split import get_1_day_training_split
+from get_training_split.get_2_day_training_split import get_2_day_training_split
+from get_training_split.get_3_day_training_split import get_3_day_training_split
+from get_training_split.get_4_day_training_split import get_4_day_training_split
+from get_training_split.get_5_day_training_split import get_5_day_training_split
+from get_training_split.get_6_day_training_split import get_6_day_training_split
 
-from backend.buildProgramme.get_training_split.get_1_day_training_split import get_1_day_training_split
-from backend.buildProgramme.get_training_split.get_2_day_training_split import get_2_day_training_split
-from backend.buildProgramme.get_training_split.get_3_day_training_split import get_3_day_training_split
-from backend.buildProgramme.get_training_split.get_4_day_training_split import get_4_day_training_split
-from backend.buildProgramme.get_training_split.get_5_day_training_split import get_5_day_training_split
-from backend.buildProgramme.get_training_split.get_6_day_training_split import get_6_day_training_split
+from validate_user_preferences import validate_excluded_muscle_groups
+from validate_user_preferences import validate_preferred_muscle_groups
+from validate_user_preferences import validate_equipment
 
-from backend.buildProgramme.validate_user_preferences import validate_excluded_muscle_groups
-from backend.buildProgramme.validate_user_preferences import validate_preferred_muscle_groups
-from backend.buildProgramme.validate_user_preferences import validate_equipment
-#from backend.buildProgramme.validate_user_preferences import validate_excluded_exercises
+from get_exercises import get_exercises
 
-from backend.buildProgramme.get_exercises import get_exercises
-
-from backend.buildProgramme.lambda_function_utils import re_order_muscle_groups
-from backend.buildProgramme.lambda_function_utils import connect_to_database
-from backend.buildProgramme.lambda_function_utils import get_ordered_programme
+from lambda_function_utils import re_order_muscle_groups
+from lambda_function_utils import connect_to_database
+from lambda_function_utils import get_ordered_programme
 
 def lambda_handler(event, context):
     try:
@@ -32,6 +28,10 @@ def lambda_handler(event, context):
     except (KeyError, json.JSONDecodeError):
         return {
             "statusCode": 400,
+            "headers": { 
+                "Access-Control-Allow-Origin": "*",
+                "Content-Type": "application/json"
+            },
             "body": json.dumps({"error": "Invalid or missing JSON body"})
         }
 
@@ -40,7 +40,7 @@ def lambda_handler(event, context):
                    "middle back", "lats", "traps", "triceps"]
     
     valid_equipment = ["body only", "bands", "kettlebells", "cable", "ab roller", "barbell", "machine", "exercise ball",
-              "e-z curl bar", "medicine ball", "dip bar", "dumbbell", "bench", "pull up bar"]
+              "e-z curl bar", "dip bar", "dumbbell", "bench", "pull up bar"]
     
 
     sets_per_muscle = {
@@ -167,7 +167,6 @@ def lambda_handler(event, context):
     beginner_friendly = user_preferences["beginnerFriendly"]
     variability_multiplier = user_preferences["exerciseVariation"]
     excluded_muscle_groups = user_preferences["excludedMuscleGroups"]
-    # excluded_exercises = user_preferences["excludedExercises"]
     preferred_muscle_groups = user_preferences["preferredMuscleGroups"]
 
 	# Validate user preferences
@@ -187,7 +186,7 @@ def lambda_handler(event, context):
     beginner_clause = "AND beginner_friendly" if beginner_friendly else ""
 
     query = text(f'''
-        SELECT name, mechanic, equipment, primary_muscle, secondary_muscles, 
+        SELECT id, name, mechanic, equipment, primary_muscle, secondary_muscles, 
             beginner_friendly, instructions, images, hypertrophy_score, 
             rep_range, bench_required, pull_up_bar_required
         FROM exercises
@@ -204,13 +203,6 @@ def lambda_handler(event, context):
                  params={'equipment': equipment, 
                          'excluded_muscles': excluded_muscle_groups})
     
-    # Validate names of excluded exercises
-    # valid_exercises = df['name'].unique().tolist()
-    # validate_excluded_exercises(excluded_exercises, valid_exercises)
-
-    # Filter df by removing excluded exercises
-    # df = df[~df['name'].isin(excluded_exercises)]
-    
 	# Add all muscle groups that have no eligible exercises to excluded_muscle_groups, e.g. body only, no pull up bar - lats
     eligible_muscle_groups = set(valid_muscle_groups) - set(excluded_muscle_groups)
     for muscle_group in eligible_muscle_groups:
@@ -221,6 +213,10 @@ def lambda_handler(event, context):
     if len(set(valid_muscle_groups) - set(excluded_muscle_groups)) < min_num_eligible_muscle_groups[no_of_days]:
         return {
             "statusCode": 400,
+            "headers": { 
+                "Access-Control-Allow-Origin": "*",
+                "Content-Type": "application/json"
+            },
             "body": json.dumps({"error": "Too few eligible exercises to generate programme"})
         }
 
@@ -228,6 +224,10 @@ def lambda_handler(event, context):
     if no_of_days == 0:
         return {
             "statusCode": 400,
+            "headers": { 
+                "Access-Control-Allow-Origin": "*",
+                "Content-Type": "application/json"
+            },
             "body": json.dumps({"error": "Number of days is zero"})
         }
     elif no_of_days == 1:
@@ -273,25 +273,14 @@ def lambda_handler(event, context):
 
     return {
         "statusCode": 200,
+        "headers": { 
+            "Access-Control-Allow-Origin": "*",
+            "Content-Type": "application/json"
+        },
         "body": json.dumps(programme)
     }
     
-        
-# Temporary main to test lambda function
-test_event = {
-    "body": json.dumps({
-        "days": ["monday"],
-        "timePerSession": 45,
-        "equipment": [],
-        "beginnerFriendly": True,
-        "exerciseVariation": 0.5,
-        "excludedMuscleGroups": [],
-        # "excludedExercises": [],
-        "preferredMuscleGroups": []
-    })
-}
-context = None
-lambda_handler(test_event, context)
+
         
 
     

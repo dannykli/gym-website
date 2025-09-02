@@ -125,6 +125,10 @@ def get_exercises(df, training_split, valid_muscle_groups, max_sets_per_muscle_p
             error_encountered = True
             result["error"] = {
                 "statusCode": 400,
+                "headers": { 
+                    "Access-Control-Allow-Origin": "*",
+                    "Content-Type": "application/json"
+                },
                 "body": json.dumps(
                     {"error": 
                         "Error when generating the programme - "
@@ -139,6 +143,10 @@ def get_exercises(df, training_split, valid_muscle_groups, max_sets_per_muscle_p
         if weekly_sets > max_sets_per_muscle_per_week[muscle_group]:
             result["error"] = {
                 "statusCode": 400,
+                "headers": { 
+                    "Access-Control-Allow-Origin": "*",
+                    "Content-Type": "application/json"
+                },
                 "body": json.dumps(
                     {"error": 
                         "Error when generating the programme - "

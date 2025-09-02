@@ -8,9 +8,9 @@ from sqlalchemy import text
 # Add the parent directory to Python path
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 
-from backend.buildProgramme.lambda_function_utils import re_order_muscle_groups
-from backend.buildProgramme.lambda_function_utils import connect_to_database
-from backend.buildProgramme.lambda_function_utils import get_ordered_programme
+from backend.buildProgramme_Local.lambda_function_utils import re_order_muscle_groups
+from backend.buildProgramme_Local.lambda_function_utils import connect_to_database
+from backend.buildProgramme_Local.lambda_function_utils import get_ordered_programme
 
 class TestLambdaFunctionUtils:
     def test_re_order_muscle_groups(self):

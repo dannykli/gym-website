@@ -6,7 +6,7 @@ import os
 # Add the parent directory to Python path
 sys.path.append(os.path.join(os.path.dirname(__file__), '../..'))
 
-from backend.buildProgramme.get_training_split.get_training_split_utils import orderMuscleGroups, removeLastOccurrence, initialiseOrderedMuscleGroups
+from backend.buildProgramme_Local.get_training_split.get_training_split_utils import orderMuscleGroups, removeLastOccurrence, initialiseOrderedMuscleGroups
 
 class TestGet1DayTrainingSplit:
     def test_orderMuscleGroups(self):
