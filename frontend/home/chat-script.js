@@ -10,6 +10,9 @@ class ChatInterface {
 				this.chatHistory = [];
 				this.buildBtn = document.getElementById("buildBtn");
 				this.chatMessageBox = document.getElementById("chat-input-box");
+				this.retryModal = document.getElementById("retryModal");
+				this.closeRetryModal = document.getElementById("closeRetryModal");
+				this.okBtn = document.getElementById("okBtn");
         
         this.init();
     }
@@ -24,6 +27,22 @@ class ChatInterface {
 			this.clearBtn.addEventListener('click', () => this.clearChat());
 
 			this.buildBtn.addEventListener('click', () => this.handleBuildProgramme());
+
+			window.addEventListener('click', (event) => {
+					if (event.target === this.retryModal) {
+							this.retryModal.style.display = 'none';
+							this.clearChat();
+					}
+			});
+
+			this.closeRetryModal.addEventListener('click', () => {
+					this.retryModal.style.display = 'none';
+			})
+	
+			this.okBtn.addEventListener('click', () => {
+					this.retryModal.style.display = 'none';
+					this.clearChat();
+			})
 
 			// Add days of the week input to chat
 			this.setUpDaysInput();
@@ -555,40 +574,37 @@ class ChatInterface {
 		console.log(response.status)
 
 		if (response.status !== 200) {
-            try {
-                const response_body = await response.json();
-                
-                // The body is a JSON string, so we need to parse it again
-                const body_data = JSON.parse(response_body.body);
-                const error_message = body_data.error;
-                
-                if (error_message) {
-                    alert(error_message + " Please try again.");
-                } else {``
-                    alert("Something went wrong! Please try again.");
-                }
-                
-                window.location.reload();
-                
-            } catch (parseError) {
-                // Fallback if parsing fails
-                alert("Something went wrong! Please try again.");
-                window.location.reload();
-            }
-        }
+				try {
+						const response_body = await response.json();
+						
+						// The body is a JSON string, so we need to parse it again
+						const body_data = JSON.parse(response_body.body);
+						const error_message = body_data.error;
+						
+						if (error_message) {
+								console.error(error_message);
+						} 
+						
+				} finally {
+		        // Hide loading overlay
+		        document.getElementById("loadingOverlay").style.display = "none";
+            // Show retry modal
+						this.retryModal.style.display = 'flex';
+				}
+		}
 
 		const programme = await response.json();
 
 		console.log(JSON.stringify(programme, null, 2));
 
-		if (response)
+		if (response) {
+				localStorage.setItem("generatedProgramme", JSON.stringify(programme));
 
-		localStorage.setItem("generatedProgramme", JSON.stringify(programme));
-
-		// Hide overlay
-		document.getElementById("loadingOverlay").style.display = "none";
+				// Hide overlay
+				document.getElementById("loadingOverlay").style.display = "none";
 
         location.href='../programme/index.html'
+		}
 	}
 	
     async sendMessage() {
@@ -604,12 +620,12 @@ class ChatInterface {
         // Show typing indicator
         this.showTypingIndicator();
         
-		// Get bot response
-		const response = await this.getAssistantResponse();
+        // Get bot response
+        const response = await this.getAssistantResponse();
 
-		this.hideTypingIndicator();
+        this.hideTypingIndicator();
 
-		this.addMessage(response, 'bot', true);
+        this.addMessage(response, 'bot', true);
     }
 
 	async getAssistantResponse() {

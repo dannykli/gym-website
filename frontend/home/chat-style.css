@@ -595,3 +595,73 @@ input[type="radio"]:disabled + .radio-checkmark {
   font-weight: bold;
   padding: 15px;
 }
+
+#retryModal {
+  display: none; 
+  position: fixed;
+  z-index: 1001; /* above other modals if needed */
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.6); /* dark overlay */
+  justify-content: center;
+  align-items: center;
+  border: solid 2px #b71c1c;
+}
+
+#retryModal .modal-content {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 1rem;
+  width: 400px;
+  max-width: 90%;
+  text-align: center;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+  animation: fadeIn 0.25s ease-out;
+}
+
+#retryModal h2 {
+  margin-top: 0;
+  font-size: 1.5rem;
+  color: #333;
+}
+
+#retryModal p {
+  margin: 1rem 0;
+  font-size: 1rem;
+  color: #555;
+}
+
+#okBtn {
+  display: inline-block;
+  margin-top: 1rem;
+  padding: 0.6rem 1.2rem;
+  font-size: 1rem;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s ease-in-out;
+}
+
+#okBtn:hover {
+  background: #0056b3;
+}
+
+#closeRetryModal {
+  position: absolute;
+  top: 12px;
+  right: 18px;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #888;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+#closeRetryModal:hover {
+  color: #000;
+}
+
