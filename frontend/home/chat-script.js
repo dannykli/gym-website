@@ -603,7 +603,7 @@ class ChatInterface {
 				// Hide overlay
 				document.getElementById("loadingOverlay").style.display = "none";
 
-        location.href='../programme/index.html'
+        location.href='/programme/index.html'
 		}
 	}
 	

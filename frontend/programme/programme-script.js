@@ -418,7 +418,7 @@ class ProgrammeDisplay {
             });
 
             // Images (carousel)
-            const images = exercise.images.map(img => "../exercise-images/" + img);
+            const images = exercise.images.map(img => "/exercise-images/" + img);
             const track = document.getElementById('detailImageTrack');
             track.innerHTML = "";
             images.forEach(imgUrl => {
