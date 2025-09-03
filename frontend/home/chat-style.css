@@ -272,6 +272,13 @@ body {
     transform: none;
 }
 
+@media (max-height: 730px) {
+  .chat-messages{
+    padding-bottom: 20px;
+  }
+  
+}
+
 @media (max-width: 768px) {
     body {
         padding: 10px;

@@ -1,0 +1,25 @@
+{
+  "name": "gym-website",
+  "version": "1.0.0",
+  "description": "- Built a multi-paged, interactive website that enables users to build a personalised fitness programme that suits their schedule.\r - It allows the user to select the days of the week they would like to train on, as well as how long they would like to spend in the gym.\r - Includes a Gym tips page which contains step-by-step instructions on how to complete exercises, or any other general health and fitness advice.\r - If the user is unsure of how to perform an exercise in their programme, they can simply press the info button and an image alongside a concise description will appear detailing how to perform the exercise. \r - Used a CSS template with additional HTML and CSS for the user interface, and JavaScript for the functionality.",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "dependencies": {},
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dannykli/gym-website.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dannykli/gym-website/issues"
+  },
+  "homepage": "https://github.com/dannykli/gym-website#readme"
+}

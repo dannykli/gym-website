@@ -1,3 +1,4 @@
+let supabase; 
 
 class ProgrammeDisplay {
     constructor() {
@@ -299,6 +300,7 @@ class ProgrammeDisplay {
     }
 
     async loadExerciseDatabase() {
+        /*
         try {
             const response = await fetch("https://dbpabt1af4.execute-api.eu-west-2.amazonaws.com/default/getMinimalExercisesFromDatabase");
             if (!response.ok) {
@@ -306,6 +308,22 @@ class ProgrammeDisplay {
             }
             const data = await response.json();
             this.exerciseDatabase = data.exercises;
+        } catch (err) {
+            console.error("Error fetching exercises:", err);
+        } */
+
+        try {
+            const { data, error } = await supabase
+                .from('exercises')
+                .select('id, name, primary_muscle, beginner_friendly, equipment, rep_range')
+                .eq('hidden', false) 
+                .order('name');    
+
+            if (error) {
+                throw error;
+            }
+
+            this.exerciseDatabase = data;  // assign to your state
         } catch (err) {
             console.error("Error fetching exercises:", err);
         }
@@ -348,8 +366,9 @@ class ProgrammeDisplay {
         
         try {
             // Show overlay
+            
             document.getElementById("loadingOverlay").style.display = "flex";
-
+            /*
             const result = await fetch('https://dbpabt1af4.execute-api.eu-west-2.amazonaws.com/default/getExerciseFromDatabase', {
                 method: 'POST',
                 headers: {
@@ -360,9 +379,19 @@ class ProgrammeDisplay {
 
             if (!result.ok) {
                 throw new Error('Database query error');
-            }
 
             const exercise = await result.json();
+            }*/
+
+            const { data: exercise, error } = await supabase
+                .from('exercises')
+                .select('*')
+                .eq('id', exerciseId)  
+                .single()
+
+            if (error) {
+                throw error;
+            }
 
             console.log(exercise);
 
@@ -547,5 +576,8 @@ class ProgrammeDisplay {
 
 // Initialize the programme display
 document.addEventListener('DOMContentLoaded', () => {
+    const PROJECT_URL = 'https://kufcgisrdhtdrggoovan.supabase.co';
+    const ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imt1ZmNnaXNyZGh0ZHJnZ29vdmFuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTY3NjMyNDEsImV4cCI6MjA3MjMzOTI0MX0.-GvscoYdhH5teJkuDcB0a9JVlyX-5fHibuP2pCfSpdE';
+    supabase = window.supabase.createClient(PROJECT_URL, ANON_KEY);
     const programmeDisplay = new ProgrammeDisplay();
 });

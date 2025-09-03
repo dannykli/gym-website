@@ -30,64 +30,64 @@ class ChatInterface {
     }
 
 	setUpDaysInput() {
-        const daysSelectionInput = document.createElement('div');
-        daysSelectionInput.id = "days-message";
-        daysSelectionInput.className = "message user-message";
+			const daysSelectionInput = document.createElement('div');
+			daysSelectionInput.id = "days-message";
+			daysSelectionInput.className = "message user-message";
 
-        daysSelectionInput.innerHTML = `
-        <div class="message-avatar">You</div>
-        <div class="message-content">
-            <div id="days-container" class="message-text">
-                <label class="container"><input type="checkbox" id="monday">Monday<span class="checkmark"></span></label>
-                <label class="container"><input type="checkbox" id="tuesday">Tuesday<span class="checkmark"></span></label>
-                <label class="container"><input type="checkbox" id="wednesday">Wednesday<span class="checkmark"></span></label>
-                <label class="container"><input type="checkbox" id="thursday">Thursday<span class="checkmark"></span></label>
-                <label class="container"><input type="checkbox" id="friday">Friday<span class="checkmark"></span></label>
-                <label class="container"><input type="checkbox" id="saturday">Saturday<span class="checkmark"></span></label>
-                <label class="container"><input type="checkbox" id="sunday">Sunday<span class="checkmark"></span></label>
-                <button id="daysDoneButton" class="done-btn">Done</button>
-            </div>
-            <div id="messageTimeForDays" class="message-time" class="widget-message-time"></div>
-        </div>
-        `;
-        this.chatMessages.appendChild(daysSelectionInput);
-        const doneButton = document.getElementById("daysDoneButton");
-        doneButton.addEventListener("click", () => {
-            const selectedDays = Array.from(document.querySelectorAll('#days-container input:checked'))
-                .map(input => input.id);
-            
-            if (selectedDays.length == 0) {
-                this.errorDiv.textContent = "⚠️ Please select at least one day before continuing.";
-                this.errorDiv.style.display = "block";
-                return;
+			daysSelectionInput.innerHTML = `
+			<div class="message-avatar">You</div>
+			<div class="message-content">
+					<div id="days-container" class="message-text">
+							<label class="container"><input type="checkbox" id="monday">Monday<span class="checkmark"></span></label>
+							<label class="container"><input type="checkbox" id="tuesday">Tuesday<span class="checkmark"></span></label>
+							<label class="container"><input type="checkbox" id="wednesday">Wednesday<span class="checkmark"></span></label>
+							<label class="container"><input type="checkbox" id="thursday">Thursday<span class="checkmark"></span></label>
+							<label class="container"><input type="checkbox" id="friday">Friday<span class="checkmark"></span></label>
+							<label class="container"><input type="checkbox" id="saturday">Saturday<span class="checkmark"></span></label>
+							<label class="container"><input type="checkbox" id="sunday">Sunday<span class="checkmark"></span></label>
+							<button id="daysDoneButton" class="done-btn">Done</button>
+					</div>
+					<div id="messageTimeForDays" class="message-time" class="widget-message-time"></div>
+			</div>
+			`;
+			this.chatMessages.appendChild(daysSelectionInput);
+			const doneButton = document.getElementById("daysDoneButton");
+			doneButton.addEventListener("click", () => {
+					const selectedDays = Array.from(document.querySelectorAll('#days-container input:checked'))
+							.map(input => input.id);
+					
+					if (selectedDays.length == 0) {
+							this.errorDiv.textContent = "⚠️ Please select at least one day before continuing.";
+							this.errorDiv.style.display = "block";
+							return;
 			} else if (selectedDays.length == 7) {
-                this.errorDiv.textContent = "⚠️ Please leave at least one rest day before continuing.";
-                this.errorDiv.style.display = "block";
-                return;
-            } else {
-                // Hide error if previously shown
-                    this.errorDiv.style.display = "none";
-                // Hide done button
-                doneButton.style.display = "none";
-                // Disable selection boxes
-                document.querySelectorAll('#days-container label.container').forEach(label => {
-                    const cb = label.querySelector('input[type="checkbox"]');
-                    cb.disabled = true;
-                    label.classList.add("disabled")
-                });
+							this.errorDiv.textContent = "⚠️ Please leave at least one rest day before continuing.";
+							this.errorDiv.style.display = "block";
+							return;
+					} else {
+							// Hide error if previously shown
+									this.errorDiv.style.display = "none";
+							// Hide done button
+							doneButton.style.display = "none";
+							// Disable selection boxes
+							document.querySelectorAll('#days-container label.container').forEach(label => {
+									const cb = label.querySelector('input[type="checkbox"]');
+									cb.disabled = true;
+									label.classList.add("disabled")
+							});
 
-				// Display timestamp of message send
-				const currentTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+			// Display timestamp of message send
+			const currentTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
-				const messageTimeDiv = document.getElementById("messageTimeForDays")
-				messageTimeDiv.innerHTML = currentTime
-				messageTimeDiv.style.display = "block";
-				this.userPreferences["days"] = selectedDays;
+			const messageTimeDiv = document.getElementById("messageTimeForDays")
+			messageTimeDiv.innerHTML = currentTime
+			messageTimeDiv.style.display = "block";
+			this.userPreferences["days"] = selectedDays;
 
-				// Now call function to add next bot message regarding time per session
-				this.setUpTimeInput()
-            }
-        });
+			// Now call function to add next bot message regarding time per session
+			this.setUpTimeInput()
+					}
+			});
 	}
 
 	sleep(ms) {
