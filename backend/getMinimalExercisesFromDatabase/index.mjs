@@ -1,3 +1,4 @@
+// LAMBDA IS NO LONGER NEEDED DUE TO MIGRATION OF DB TO SUPABASE
 import pkg from 'pg';
 
 const { Pool } = pkg;

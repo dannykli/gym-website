@@ -10,8 +10,8 @@ def order_muscle_groups_sets(ordered_muscle_groups_sets, template_order =
             new_ordered_muscle_groups.append(match[0])
     return new_ordered_muscle_groups
 
-def get_time_for_one_set(time_per_set, muslce_group, body_only):
-    time = time_per_set[muslce_group]
+def get_time_for_one_set(time_per_set, muscle_group, body_only):
+    time = time_per_set[muscle_group]
     if body_only:
         time -= 1
     return time
@@ -52,12 +52,16 @@ def get_exercises(df, training_split, valid_muscle_groups, max_sets_per_muscle_p
 
         # variable for tracking current time the workout takes to complete
         time = 0
+        # add an estimate for warm-up time
+        time += min(5, time_per_session // 10)
+        # add a heuristic amount to prevent going too far over time_per_session
+        time += min(5, time_per_session // 5 - 5)
 
         finished_daily_workout = False
         while not finished_daily_workout:
 
             # First go through muscle groups in order and get the exercises
-            for muscle_group, no_of_sets in day_muscle_groups:
+            for muscle_group, no_of_sets in day_muscle_groups.copy():
                 if time >= time_per_session:
                     finished_daily_workout = True
                     break

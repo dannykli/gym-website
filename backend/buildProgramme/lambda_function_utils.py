@@ -1,5 +1,5 @@
 import os
-from sqlalchemy import create_engine
+from supabase import create_client, Client
 
 def re_order_muscle_groups(ordered_muscle_groups, template_order = 
     ["chest", "middle back", "front delt", "quadriceps", "lats", "biceps", "triceps", "hamstrings", "lateral delt", 
@@ -11,7 +11,7 @@ def re_order_muscle_groups(ordered_muscle_groups, template_order =
     return new_ordered_muscle_groups
 
 def connect_to_database():
-
+    '''
     DB_HOST = os.environ.get("DB_HOST")
     DB_PORT = os.environ.get("DB_PORT")
     DB_NAME = os.environ.get("DB_NAME")
@@ -21,8 +21,15 @@ def connect_to_database():
     DATABASE_URL = f"postgresql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
 
     engine = create_engine(DATABASE_URL)
+    '''
 
-    return engine
+    SUPABASE_URL = "https://kufcgisrdhtdrggoovan.supabase.co"
+    SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imt1ZmNnaXNyZGh0ZHJnZ29vdmFuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTY3NjMyNDEsImV4cCI6MjA3MjMzOTI0MX0.-GvscoYdhH5teJkuDcB0a9JVlyX-5fHibuP2pCfSpdE"
+
+    # Create Supabase client
+    supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY)
+
+    return supabase
 
 def get_ordered_programme(workout_programme, days, df, muscle_group_ordering):
     df['order_score'] = (df['primary_muscle'].map(muscle_group_ordering) + 

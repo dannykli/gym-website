@@ -177,6 +177,7 @@ def lambda_handler(event, context):
     # Order preferred_muscle_groups to prioritise more important muscles
     preferred_muscle_groups = re_order_muscle_groups(preferred_muscle_groups)
     
+    """
     # Connect to database
     engine = connect_to_database()
 
@@ -184,6 +185,7 @@ def lambda_handler(event, context):
     pull_up_bar_clause = "AND NOT pull_up_bar_required" if "pull up bar" not in equipment else ""
     bench_clause = "AND NOT bench_required" if "bench" not in equipment else ""
     beginner_clause = "AND beginner_friendly" if beginner_friendly else ""
+    excluded_clause = "AND primary_muscle != ALL(:excluded_muscles)" if excluded_muscle_groups is not None else ""
 
     query = text(f'''
         SELECT id, name, mechanic, equipment, primary_muscle, secondary_muscles, 
@@ -192,7 +194,7 @@ def lambda_handler(event, context):
         FROM exercises
         WHERE NOT hidden 
             AND equipment = ANY(:equipment) 
-            AND primary_muscle != ALL(:excluded_muscles) 
+            {excluded_clause} 
             {beginner_clause}
             {pull_up_bar_clause}
             {bench_clause}
@@ -201,7 +203,34 @@ def lambda_handler(event, context):
 
     df = pd.read_sql(query, con=engine, 
                  params={'equipment': equipment, 
-                         'excluded_muscles': excluded_muscle_groups})
+                         'excluded_muscles': excluded_muscle_groups})"""
+    
+    supabase = connect_to_database()
+
+    # Build your Supabase query
+    query = (supabase.table('exercises')
+        .select('id, name, mechanic, equipment, primary_muscle, secondary_muscles, beginner_friendly, instructions, images, hypertrophy_score, rep_range, bench_required, pull_up_bar_required')
+        .eq('hidden', False)
+        .in_('equipment', equipment))
+    
+    # Add conditional filters
+    if excluded_muscle_groups is not None:
+        query = query.not_.in_('primary_muscle', excluded_muscle_groups)
+    
+    if beginner_friendly:
+        query = query.eq('beginner_friendly', True)
+    
+    if "pull up bar" not in equipment:
+        query = query.eq('pull_up_bar_required', False)
+    
+    if "bench" not in equipment:
+        query = query.eq('bench_required', False)
+    
+    # Execute query
+    response = query.order('id').execute()
+    
+    # Convert to DataFrame
+    df = pd.DataFrame(response.data)
     
 	# Add all muscle groups that have no eligible exercises to excluded_muscle_groups, e.g. body only, no pull up bar - lats
     eligible_muscle_groups = set(valid_muscle_groups) - set(excluded_muscle_groups)
