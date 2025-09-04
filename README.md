@@ -1,6 +1,6 @@
-# Gym Programme Builder Website
+# Fitness Programme Builder Website
 
-A full-stack web application that generates **personalised gym programmes** based on user preferences.  
+A full-stack web application that generates **personalised fitness programmes** based on user preferences.  
 The app combines a conversational chat-based interface, LLM-powered preference extraction, and a structured exercise database to produce a tailored training plan for the purpose of building muscle.
 
 You can visit it [here](https://myfitnessprogrammebuilder.com).
@@ -18,7 +18,7 @@ You can visit it [here](https://myfitnessprogrammebuilder.com).
   - Exercise variety
   - New to fitness
 
-![Chat UI Image](readme_images/chat-image.png)
+<img src="readme_images/chat-image.png" alt="Homepage Screenshot" width="300" height="400">
 
 ### 🤖 LLM Integration with Groq API
 - Chat back and forth using **Llama 3.1 model**
@@ -42,7 +42,7 @@ You can visit it [here](https://myfitnessprogrammebuilder.com).
 - If major muscle groups are excluded, certain days of the split will be completely re-populated by prioritising muscle groups that have been tarined less and muscle groups that have not been trained in adjacent days
 - Preferred muscle groups are selectively bumped up higher in the priority lists
 
-### 2. Obtain the exercises for each day according to the training split
+#### 2. Obtain the exercises for each day according to the training split
 - Exercises eligible for selection are loaded from **PostgreSQL** database into a Pandas DataFrame (so the query contains filters for equipment, beginner friendly, etc.)
 - For each muscle group in the training split, the exercise DataFrame is filtered by primary muscle such that a subset of eligible exercises selected
 - Out of this subset of exercises, the most suitable one is determined by calculating a **Suitability score** which is a function of the following:
@@ -53,7 +53,7 @@ You can visit it [here](https://myfitnessprogrammebuilder.com).
 - The time to complete a given exercise is calculated as: no_of_sets * time_to_do_a_set_and_rest
 - Once exercises have been selected for all days, a final check occurs to verify the safety and imbalance of the programme to ensure no muscle is being trained more than the recommended daily or weekly amount
 
-### 3. Exercises ordered in logical order for training
+#### 3. Exercises ordered in logical order for training
 - For each day, exercises are re-ordered to follow a logical standard:
   - Compound / large muscle exercises first.  
   - Isolation / smaller muscle exercises later.  
