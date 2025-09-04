@@ -457,7 +457,7 @@ class ProgrammeDisplay {
             // Show modal
             this.exerciseDetailModal.style.display = 'flex';
         } catch {
-            console.error("Error fetching exercise:", err);
+            console.error("Error fetching exercise");
         }
     }
 

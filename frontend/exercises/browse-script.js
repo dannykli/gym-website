@@ -128,81 +128,101 @@ class ExerciseBrowseDisplay {
     }
 
     async openExerciseDetailModal(exerciseId) {
-        
-        const result = await fetch('https://dbpabt1af4.execute-api.eu-west-2.amazonaws.com/default/getExerciseFromDatabase', {
-            method: 'POST',
-            headers: {
-            'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ exerciseId }),
-        });
+        try {
+            // Show overlay
+            
+            document.getElementById("loadingOverlay").style.display = "flex";
+            /*
+            const result = await fetch('https://dbpabt1af4.execute-api.eu-west-2.amazonaws.com/default/getExerciseFromDatabase', {
+                method: 'POST',
+                headers: {
+                'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ exerciseId }),
+            });
 
-        if (!result.ok) {
-            throw new Error('Database query error');
+            if (!result.ok) {
+                throw new Error('Database query error');
+
+            const exercise = await result.json();
+            }*/
+
+            const { data: exercise, error } = await supabase
+                .from('exercises')
+                .select('*')
+                .eq('id', exerciseId)  
+                .single()
+
+            if (error) {
+                throw error;
+            }
+
+            console.log(exercise);
+
+            const equipment = this.capitalizeFirstLetter(exercise.equipment) + ((exercise.bench_required) ? ", Bench" : "") + ((exercise.pull_up_bar_required) ? ", Pull-Up bar" : "");
+            
+            // Fill text info
+            document.getElementById('detailName').textContent = exercise.name;
+            document.getElementById('detailSets').textContent = this.setsPerMuscle[exercise.primary_muscle];
+            document.getElementById('detailReps').textContent = exercise.rep_range;
+            document.getElementById('detailPrimary').textContent = this.capitalizeFirstLetter(exercise.primary_muscle);
+            document.getElementById('detailSecondary').textContent = exercise.secondary_muscles.map(muscle => this.capitalizeFirstLetter(muscle))?.join(", ") || "None";
+            document.getElementById('detailBeginner').textContent = exercise.beginner_friendly ? "Yes" : "No";
+            document.getElementById('detailEquipment').textContent = equipment;
+            const instructionList = document.getElementById('detailInstructions');
+
+            // Clear previous instructions
+            instructionList.innerHTML = '';
+
+            // Add each instruction as a list item
+            exercise.instructions.forEach(inst => {
+                const li = document.createElement('li');
+                li.textContent = inst;
+                instructionList.appendChild(li);
+            });
+
+            // Images (carousel)
+            const images = exercise.images.map(img => "/exercise-images/" + img);
+            const track = document.getElementById('detailImageTrack');
+            track.innerHTML = "";
+            images.forEach(imgUrl => {
+                const img = document.createElement('img');
+                img.src = imgUrl;
+                track.appendChild(img);
+            });
+
+            let currentIndex = 0;
+            const prevBtn = document.getElementById('prevImage');
+            const nextBtn = document.getElementById('nextImage');
+
+            const updateCarousel = () => {
+                track.style.transform = `translateX(-${currentIndex * 100}%)`;
+            };
+
+            prevBtn.onclick = () => {
+                currentIndex = (currentIndex === 0) ? exercise.images.length - 1 : currentIndex - 1;
+                updateCarousel();
+            };
+
+            nextBtn.onclick = () => {
+                currentIndex = (currentIndex + 1) % exercise.images.length;
+                updateCarousel();
+            };
+
+            // Video
+            const videoContainer = document.getElementById('detailVideoContainer');
+            videoContainer.innerHTML = exercise.video 
+                ? `<iframe src="${exercise.video}" frameborder="0" allowfullscreen></iframe>`
+                : "<p>No video available.</p>";
+
+            // Hide overlay
+            document.getElementById("loadingOverlay").style.display = "none";
+
+            // Show modal
+            this.exerciseDetailModal.style.display = 'flex';
+        } catch {
+            console.error("Error fetching exercise");
         }
-
-        const exercise = await result.json();
-
-        console.log(exercise);
-
-        const equipment = this.capitalizeFirstLetter(exercise.equipment) + ((exercise.bench_required) ? ", Bench" : "") + ((exercise.pull_up_bar_required) ? ", Pull-Up bar" : "");
-        
-        // Fill text info
-        document.getElementById('detailName').textContent = exercise.name;
-        document.getElementById('detailSets').textContent = this.setsPerMuscle[exercise.primary_muscle];
-        document.getElementById('detailReps').textContent = exercise.rep_range;
-        document.getElementById('detailPrimary').textContent = this.capitalizeFirstLetter(exercise.primary_muscle);
-        document.getElementById('detailSecondary').textContent = exercise.secondary_muscles.map(muscle => this.capitalizeFirstLetter(muscle))?.join(", ") || "None";
-        document.getElementById('detailBeginner').textContent = exercise.beginner_friendly ? "Yes" : "No";
-        document.getElementById('detailEquipment').textContent = equipment;
-        const instructionList = document.getElementById('detailInstructions');
-
-        // Clear previous instructions
-        instructionList.innerHTML = '';
-
-        // Add each instruction as a list item
-        exercise.instructions.forEach(inst => {
-            const li = document.createElement('li');
-            li.textContent = inst;
-            instructionList.appendChild(li);
-        });
-
-        // Images (carousel)
-        const images = exercise.images?.map(img => "/exercise-images/" + img) || [];
-        const track = document.getElementById('detailImageTrack');
-        track.innerHTML = "";
-        images.forEach(imgUrl => {
-            const img = document.createElement('img');
-            img.src = imgUrl;
-            track.appendChild(img);
-        });
-
-        let currentIndex = 0;
-        const prevBtn = document.getElementById('prevImage');
-        const nextBtn = document.getElementById('nextImage');
-
-        const updateCarousel = () => {
-            track.style.transform = `translateX(-${currentIndex * 100}%)`;
-        };
-
-        prevBtn.onclick = () => {
-            currentIndex = (currentIndex === 0) ? exercise.images.length - 1 : currentIndex - 1;
-            updateCarousel();
-        };
-
-        nextBtn.onclick = () => {
-            currentIndex = (currentIndex + 1) % exercise.images.length;
-            updateCarousel();
-        };
-
-        // Video
-        const videoContainer = document.getElementById('detailVideoContainer');
-        videoContainer.innerHTML = exercise.video 
-            ? `<iframe src="${exercise.video}" frameborder="0" allowfullscreen></iframe>`
-            : "<p>No video available.</p>";
-
-        // Show modal
-        this.exerciseDetailModal.style.display = 'flex';
     }
 
     closeExerciseDetailModal() {

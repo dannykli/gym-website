@@ -665,3 +665,8 @@ input[type="radio"]:disabled + .radio-checkmark {
   color: #000;
 }
 
+#loading-supplementary-text {
+  color: #444;
+  font-size: 15px;
+  margin-top: 6px;
+}
