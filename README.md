@@ -69,7 +69,7 @@ You can visit it [here](https://myfitnessprogrammebuilder.com).
   - Edit mode: add, swap, or delete exercises
   - When adding/swapping exercises, user can browse exercise database
   - Separate **exercises** page with filtering and search (muscle group, equipment, beginner-friendly) for users to browse exercises and their details
-  - Separate **conact** page for user queries
+  - Separate **contact** page for user queries
 
 ### ⚙️ Backend & Infrastructure
 - **AWS Lambda** (Python & Node.js) handles backend logic.  
