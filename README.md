@@ -1,4 +1,4 @@
-# Fitness Programme Builder Website
+# Fitness Programme Builder Web App
 
 A full-stack web application that generates **personalised fitness programmes** based on user preferences.  
 The app combines a conversational chat-based interface, LLM-powered preference extraction, and a structured exercise database to produce a tailored training plan for the purpose of building muscle.
