@@ -725,7 +725,7 @@ class ChatInterface {
 			this.retryModal.style.display = "flex";
 			const retryMessage = document.querySelector("#retryModal p");
 			retryMessage.textContent = "Server busy. Please try again.";
-		}, 60000); // 60s timeout
+		}, 1000); // 60s timeout
 
 		try {
 			// ---- First fetch: extract extra preferences ----
