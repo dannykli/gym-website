@@ -725,7 +725,7 @@ class ChatInterface {
 			this.retryModal.style.display = "flex";
 			const retryMessage = document.querySelector("#retryModal p");
 			retryMessage.textContent = "Server busy. Please try again.";
-		}, 1000); // 60s timeout
+		}, 60000); // 60s timeout
 
 		try {
 			// ---- First fetch: extract extra preferences ----
@@ -735,7 +735,7 @@ class ChatInterface {
 					method: "POST",
 					headers: { "Content-Type": "application/json" },
 					body: JSON.stringify(this.chatHistory),
-					signal, // 👈 pass abort signal
+					signal, // pass abort signal
 				}
 			);
 
@@ -771,7 +771,7 @@ class ChatInterface {
 					method: "POST",
 					headers: { "Content-Type": "application/json" },
 					body: JSON.stringify(this.userPreferences),
-					signal, // 👈 pass abort signal
+					signal, // pass abort signal
 				}
 			);
 
@@ -787,7 +787,7 @@ class ChatInterface {
 					document.getElementById("loadingOverlay").style.display = "none";
 					this.retryModal.style.display = "flex";
 				}
-				return; // 👈 stop further execution
+				return; // stop further execution
 			}
 
 			const programme = await response.json();
