@@ -618,7 +618,7 @@ class ChatInterface {
 				document.getElementById("loadingOverlay").style.display = "none";
 				this.retryModal.style.display = 'flex';
 				resolve(); // resolve instead of reject to avoid throwing
-			}, 60000) // 60s timeout
+			}, 1000) // 60s timeout
 		);
 
 		try {
