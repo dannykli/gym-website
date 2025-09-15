@@ -532,6 +532,7 @@ class ChatInterface {
 		this.messageInput.addEventListener('input', () => this.handleInputChange());
 	}
 
+	/*
 	async handleBuildProgramme() {
 		// Show overlay
 		document.getElementById("loadingOverlay").style.display = "flex";
@@ -605,27 +606,108 @@ class ChatInterface {
 
         location.href='/programme/'
 		}
-	}
+	}*/
 
-	// Utility function for fetch with timeout
-	fetchWithTimeout(url, options = {}, timeout = 60000) { // 60s default
-		return new Promise((resolve, reject) => {
-			const timer = setTimeout(() => {
-				reject(new Error("Request timed out. Server might be busy. Please try again."));
-			}, timeout);
+	async handleBuildProgramme() {
+		// Show overlay
+		document.getElementById("loadingOverlay").style.display = "flex";
 
-			fetch(url, options)
-				.then(response => {
-					clearTimeout(timer);
-					resolve(response);
-				})
-				.catch(err => {
-					clearTimeout(timer);
-					reject(err);
+		// Timeout promise that shows retry modal
+		const timeout = new Promise(resolve =>
+			setTimeout(() => {
+				document.getElementById("loadingOverlay").style.display = "none";
+				this.retryModal.style.display = 'flex';
+				resolve(); // resolve instead of reject to avoid throwing
+			}, 60000) // 60s timeout
+		);
+
+		try {
+    await Promise.race([
+      (async () => {
+				// Show overlay
+				document.getElementById("loadingOverlay").style.display = "flex";
+
+				const result = await fetch('https://dbpabt1af4.execute-api.eu-west-2.amazonaws.com/default/populateExtraInfoJSON', {
+					method: 'POST',
+					headers: {
+					'Content-Type': 'application/json',
+					},
+					body: JSON.stringify(this.chatHistory),
 				});
-		});
+
+				if (!result.ok) {
+					throw new Error('LLM API error');
+				}
+
+				const extraPreferences = await result.json();
+
+				this.userPreferences = { ...this.userPreferences, ...extraPreferences};
+			
+				const requiredKeys = ["days", "timePerSession", "equipment", "beginnerFriendly", "exerciseVariation", "excludedMuscleGroups", "preferredMuscleGroups"]
+				for (const key of requiredKeys) {
+					if (!(key in this.userPreferences)) {
+						console.log(`Error: no ${key} key in userPreferences object`)
+						this.userPreferences[key] = null;
+					}
+				}
+
+				console.log(JSON.stringify(this.userPreferences, null, 2));
+
+				// Now call lambda func to build programme
+				const response = await fetch('https://dbpabt1af4.execute-api.eu-west-2.amazonaws.com/default/buildProgramme', {
+					method: 'POST',
+					headers: {
+					'Content-Type': 'application/json',
+					},
+					body: JSON.stringify(this.userPreferences),
+				});
+
+				console.log(response.status)
+
+				if (response.status !== 200) {
+						try {
+								const response_body = await response.json();
+								
+								// The body is a JSON string, so we need to parse it again
+								const body_data = JSON.parse(response_body.body);
+								const error_message = body_data.error;
+								
+								if (error_message) {
+										console.error(error_message);
+								} 
+								
+						} finally {
+								// Hide loading overlay
+								document.getElementById("loadingOverlay").style.display = "none";
+								// Show retry modal
+								this.retryModal.style.display = 'flex';
+						}
+				}
+
+				const programme = await response.json();
+
+				console.log(JSON.stringify(programme, null, 2));
+
+				if (response) {
+						localStorage.setItem("generatedProgramme", JSON.stringify(programme));
+
+						// Hide overlay
+						document.getElementById("loadingOverlay").style.display = "none";
+
+						location.href='/programme/'
+				}
+			})(),
+      timeout
+    ]);
+
+		} catch (err) {
+			console.error(err.message);
+			document.getElementById("loadingOverlay").style.display = "none";
+			this.retryModal.style.display = 'flex';
+		}
+
 	}
-	
+
     async sendMessage() {
         const messageText = this.messageInput.value.trim();
         if (!messageText) return;
