@@ -550,7 +550,7 @@ class ChatInterface {
 
 		const extraPreferences = await result.json();
 
-	    this.userPreferences = { ...this.userPreferences, ...extraPreferences};
+	  this.userPreferences = { ...this.userPreferences, ...extraPreferences};
 	
 		const requiredKeys = ["days", "timePerSession", "equipment", "beginnerFriendly", "exerciseVariation", "excludedMuscleGroups", "preferredMuscleGroups"]
 		for (const key of requiredKeys) {
@@ -603,8 +603,27 @@ class ChatInterface {
 				// Hide overlay
 				document.getElementById("loadingOverlay").style.display = "none";
 
-        location.href='/programme/index.html'
+        location.href='/programme/'
 		}
+	}
+
+	// Utility function for fetch with timeout
+	fetchWithTimeout(url, options = {}, timeout = 60000) { // 60s default
+		return new Promise((resolve, reject) => {
+			const timer = setTimeout(() => {
+				reject(new Error("Request timed out. Server might be busy. Please try again."));
+			}, timeout);
+
+			fetch(url, options)
+				.then(response => {
+					clearTimeout(timer);
+					resolve(response);
+				})
+				.catch(err => {
+					clearTimeout(timer);
+					reject(err);
+				});
+		});
 	}
 	
     async sendMessage() {
