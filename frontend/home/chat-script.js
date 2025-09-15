@@ -608,6 +608,7 @@ class ChatInterface {
 		}
 	}*/
 
+	/*
 	async handleBuildProgramme() {
 		// Show overlay
 		document.getElementById("loadingOverlay").style.display = "flex";
@@ -620,7 +621,7 @@ class ChatInterface {
 				const retryMessage = document.querySelector("#retryModal p");
 				retryMessage.textContent = "Server busy. Please try again.";
 				resolve(); // resolve instead of reject to avoid throwing
-			}, 1000) // 60s timeout
+			}, 60000) // 60s timeout
 		);
 
 		try {
@@ -708,6 +709,105 @@ class ChatInterface {
 			this.retryModal.style.display = 'flex';
 		}
 
+	}*/
+
+	async handleBuildProgramme() {
+		// Show overlay
+		document.getElementById("loadingOverlay").style.display = "flex";
+
+		const controller = new AbortController();
+		const signal = controller.signal;
+
+		// Timeout logic: abort fetch if it takes too long
+		const timeout = setTimeout(() => {
+			controller.abort(); // cancel both fetches
+			document.getElementById("loadingOverlay").style.display = "none";
+			this.retryModal.style.display = "flex";
+			const retryMessage = document.querySelector("#retryModal p");
+			retryMessage.textContent = "Server busy. Please try again.";
+		}, 60000); // 60s timeout
+
+		try {
+			// ---- First fetch: extract extra preferences ----
+			const result = await fetch(
+				"https://dbpabt1af4.execute-api.eu-west-2.amazonaws.com/default/populateExtraInfoJSON",
+				{
+					method: "POST",
+					headers: { "Content-Type": "application/json" },
+					body: JSON.stringify(this.chatHistory),
+					signal, // 👈 pass abort signal
+				}
+			);
+
+			if (!result.ok) {
+				throw new Error("LLM API error");
+			}
+
+			const extraPreferences = await result.json();
+			this.userPreferences = { ...this.userPreferences, ...extraPreferences };
+
+			const requiredKeys = [
+				"days",
+				"timePerSession",
+				"equipment",
+				"beginnerFriendly",
+				"exerciseVariation",
+				"excludedMuscleGroups",
+				"preferredMuscleGroups",
+			];
+			for (const key of requiredKeys) {
+				if (!(key in this.userPreferences)) {
+					console.log(`Error: no ${key} key in userPreferences object`);
+					this.userPreferences[key] = null;
+				}
+			}
+
+			console.log(JSON.stringify(this.userPreferences, null, 2));
+
+			// ---- Second fetch: build programme ----
+			const response = await fetch(
+				"https://dbpabt1af4.execute-api.eu-west-2.amazonaws.com/default/buildProgramme",
+				{
+					method: "POST",
+					headers: { "Content-Type": "application/json" },
+					body: JSON.stringify(this.userPreferences),
+					signal, // 👈 pass abort signal
+				}
+			);
+
+			console.log(response.status);
+
+			if (response.status !== 200) {
+				try {
+					const response_body = await response.json();
+					const body_data = JSON.parse(response_body.body);
+					const error_message = body_data.error;
+					if (error_message) console.error(error_message);
+				} finally {
+					document.getElementById("loadingOverlay").style.display = "none";
+					this.retryModal.style.display = "flex";
+				}
+				return; // 👈 stop further execution
+			}
+
+			const programme = await response.json();
+			console.log(JSON.stringify(programme, null, 2));
+
+			// Save + redirect
+			localStorage.setItem("generatedProgramme", JSON.stringify(programme));
+			document.getElementById("loadingOverlay").style.display = "none";
+			location.href = "/programme/";
+		} catch (err) {
+			if (err.name === "AbortError") {
+				console.warn("Fetch aborted due to timeout");
+			} else {
+				console.error(err.message);
+				document.getElementById("loadingOverlay").style.display = "none";
+				this.retryModal.style.display = "flex";
+			}
+		} finally {
+			clearTimeout(timeout);
+		}
 	}
 
     async sendMessage() {
