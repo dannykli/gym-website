@@ -617,6 +617,8 @@ class ChatInterface {
 			setTimeout(() => {
 				document.getElementById("loadingOverlay").style.display = "none";
 				this.retryModal.style.display = 'flex';
+				const retryMessage = document.querySelector("#retryModal p");
+				retryMessage.textContent = "Server busy. Please try again.";
 				resolve(); // resolve instead of reject to avoid throwing
 			}, 1000) // 60s timeout
 		);
