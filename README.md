@@ -112,6 +112,11 @@ You can visit it [here](https://myfitnessprogrammebuilder.com).
 
 ---
 
+## Acknowledgements
+I did use AI tools such as ChatGPT and Claude in the building of this project. They were primarily used to accelerate setup and provide guidance in unfamiliar areas of web development and cloud configuration. The programme generation logic and the entirety of the backend code were written entirely by me. Aside from using AI tools to learn about various technologies and services during development, the only portion of AI-generated code in this project was the initial front-end template, which I subsequently modified extensively.
+
+---
+
 ## Deployment
 
 The application is currently deployed on **AWS Amplify**.  
