@@ -1,8 +1,7 @@
-let supabase;
-
 class ExerciseBrowseDisplay {
     
-    constructor() {
+    constructor(supabaseClient) {
+        this.supabaseClient = supabaseClient;
         this.exerciseList = document.getElementById('exerciseList');
         this.exerciseSearch = document.getElementById('exerciseSearch');
         this.exerciseDetailModal = document.getElementById('exerciseDetailModal');
@@ -80,7 +79,7 @@ class ExerciseBrowseDisplay {
 
 
         try {
-            const { data, error } = await supabase
+            const { data, error } = await this.supabaseClient
                 .from('exercises')
                 .select('id, name, primary_muscle, beginner_friendly, equipment, rep_range')
                 .eq('hidden', false) 
@@ -147,7 +146,7 @@ class ExerciseBrowseDisplay {
             const exercise = await result.json();
             }*/
 
-            const { data: exercise, error } = await supabase
+            const { data: exercise, error } = await this.supabaseClient
                 .from('exercises')
                 .select('*')
                 .eq('id', exerciseId)  
@@ -297,7 +296,7 @@ class ExerciseBrowseDisplay {
 document.addEventListener('DOMContentLoaded', () => {
     const PROJECT_URL = 'https://kufcgisrdhtdrggoovan.supabase.co';
     const ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imt1ZmNnaXNyZGh0ZHJnZ29vdmFuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTY3NjMyNDEsImV4cCI6MjA3MjMzOTI0MX0.-GvscoYdhH5teJkuDcB0a9JVlyX-5fHibuP2pCfSpdE';
-    supabase = window.supabase.createClient(PROJECT_URL, ANON_KEY);
-    const programmeDisplay = new ExerciseBrowseDisplay();
+    const supabaseClient = window.supabase.createClient(PROJECT_URL, ANON_KEY);
+    const programmeDisplay = new ExerciseBrowseDisplay(supabaseClient);
 });
 
