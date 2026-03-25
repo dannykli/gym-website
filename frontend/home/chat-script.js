@@ -549,49 +549,17 @@ class ChatInterface {
 		}, 60000); // 60s timeout
 
 		try {
-			// ---- First fetch: extract extra preferences ----
-			const result = await fetch(
-				"https://dbpabt1af4.execute-api.eu-west-2.amazonaws.com/default/populateExtraInfoJSON",
-				{
-					method: "POST",
-					headers: { "Content-Type": "application/json" },
-					body: JSON.stringify(this.chatHistory),
-					signal, // pass abort signal
-				}
-			);
-
-			if (!result.ok) {
-				throw new Error("LLM API error");
+			const payload = {
+				preferences: this.userPreferences,
+				chatHistory: this.chatHistory
 			}
 
-			const extraPreferences = await result.json();
-			this.userPreferences = { ...this.userPreferences, ...extraPreferences };
-
-			const requiredKeys = [
-				"days",
-				"timePerSession",
-				"equipment",
-				"beginnerFriendly",
-				"exerciseVariation",
-				"excludedMuscleGroups",
-				"preferredMuscleGroups",
-			];
-			for (const key of requiredKeys) {
-				if (!(key in this.userPreferences)) {
-					console.log(`Error: no ${key} key in userPreferences object`);
-					this.userPreferences[key] = null;
-				}
-			}
-
-			console.log(JSON.stringify(this.userPreferences, null, 2));
-
-			// ---- Second fetch: build programme ----
 			const response = await fetch(
 				"https://dbpabt1af4.execute-api.eu-west-2.amazonaws.com/default/buildProgramme",
 				{
 					method: "POST",
 					headers: { "Content-Type": "application/json" },
-					body: JSON.stringify(this.userPreferences),
+					body: JSON.stringify(payload),
 					signal, // pass abort signal
 				}
 			);
