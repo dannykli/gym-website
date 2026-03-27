@@ -3,7 +3,35 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding-top: 70px;
+    padding-top: 110px;
+}
+
+.waitlist-banner {
+    background: linear-gradient(135deg, #059669, #10b981); /* Fresh Green - change to blue if you prefer */
+    color: white;
+    text-align: center;
+    padding: 12px 20px;
+    font-size: 14px;
+    font-weight: 500;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.waitlist-banner a {
+    color: #ffffff;
+    font-weight: bold;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    margin-left: 8px;
+    transition: opacity 0.2s;
+}
+
+.waitlist-banner a:hover {
+    opacity: 0.8;
 }
 
 .mini-status {
@@ -23,7 +51,6 @@ body {
     flex-direction: column;
     overflow: hidden;
     border: 1px solid rgba(255, 255, 255, 0.2);
-    
 }
 
 /* Chat Header */
