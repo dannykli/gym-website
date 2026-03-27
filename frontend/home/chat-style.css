@@ -51,7 +51,8 @@ body {
     flex-direction: column;
     overflow: hidden;
     border: 1px solid rgba(255, 255, 255, 0.2);
-    margin-top: 40px; /* Add margin to push it down nicely from the top */
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
 
 /* Chat Header */
@@ -308,14 +309,10 @@ body {
 }
 
 @media (max-width: 768px) {
-    body {
-        padding: 10px;
-        padding-top: 45px;
-    }
-    
     .chat-container {
         height: calc(100vh - 80px);
         border-radius: 15px;
+        width: 90%;
     }
     
     .message {
@@ -344,14 +341,10 @@ body {
 }
 
 @media (max-width: 420px) {
-    body {
-        padding: 10px;
-        padding-top: 55px;
-    }
-    
     .chat-container {
         height: calc(100vh - 60px);
         border-radius: 15px;
+        width: 90%;
     }
     
     .message {
