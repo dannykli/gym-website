@@ -1,8 +1,9 @@
 body {
-    padding-top: 70px;
-    display: flex;            
-    justify-content: center;   
+    display: flex;
+    flex-direction: column; /* Stack banner, navbar, and content vertically */
+    justify-content: flex-start; /* Start at the top, not the center */
     align-items: center;
+    padding: 0;
 }
 
 .action-btn {
@@ -17,11 +18,14 @@ body {
     transform: translateY(-1px);
 }
 
+#modal {
+    margin-top: 40px
+}
 
 @media (max-width: 768px) {
     body {
-        padding: 10px;
-        padding-top: 50px;
+        padding: 0; /* Keep it 0 so the banner/navbar touch the screen edges */
+        padding-bottom: 20px; /* Safe space at the bottom */
     }
 
     .navbar {
