@@ -1,11 +1,12 @@
 body {
     min-height: 100vh;
-    padding: 0 20px 40px 20px; /* Adds space on the sides and bottom */
+    padding-bottom: 40px;
 }
 
 .programme-container {
     max-width: 1600px;
-    margin: 40px auto 0; /* Adds 40px space between the sticky navbar and the container */
+    width: 92%;
+    margin: 40px auto 0; /* Centers it and keeps the 40px top gap */
     background: white;
     border-radius: 20px;
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
@@ -289,11 +290,12 @@ body {
 
 @media (max-width: 768px) {
     body {
-        padding: 0 10px 20px 10px;
+        padding-bottom: 20px; /* Only bottom padding */
     }
     
     .programme-container {
-        margin-top: 20px;
+        width: 95%; /* Slightly wider on mobile so text isn't squished */
+        margin: 20px auto 0;
     }
 
     .navbar {
