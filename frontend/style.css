@@ -52,16 +52,32 @@ body {
   cursor: pointer;
 }
 
-a.site-name:hover #domain-part1 { color: #333; }
-a.site-name:hover #domain-part2 { color: #333; }
-a.site-name:hover #domain-part3 { color: #333; }
-a.site-name:hover #domain-part4 { color: #333; }
-a.site-name:hover #domain-part5 { color: #333; }
+.waitlist-banner {
+    background: linear-gradient(135deg, #059669, #10b981);
+    color: white;
+    text-align: center;
+    padding: 12px 20px;
+    font-size: 14px;
+    font-weight: 500;
+    position: relative; /* Changed from fixed! */
+    width: 100%;
+    z-index: 9999;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    flex-shrink: 0; /* Prevents flexbox from squishing it */
+}
 
-a.home:hover #home-part1 { color: #333; }
-a.home:hover #home-part2 { color: #333; }
-a.home:hover #home-part3 { color: #333; }
-a.home:hover #home-part4 { color: #333; }
+.waitlist-banner a {
+    color: #ffffff;
+    font-weight: bold;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    margin-left: 8px;
+    transition: opacity 0.2s;
+}
+
+.waitlist-banner a:hover {
+    opacity: 0.8;
+}
 
 /* Website name styling */
 .site-name {
@@ -72,17 +88,6 @@ a.home:hover #home-part4 { color: #333; }
   font-size: 1.2em;
   display: none;
 }
-
-#domain-part1 { color: #ff6666; }  /* light rosy red */
-#domain-part2 { color: #ff8f66; }  /* soft coral */
-#domain-part3 { color: #ffb266; }  /* orange-peach */
-#domain-part4 { color: #ffd966; }  /* warm yellow */
-#domain-part5 { color: #fff5b7; }  /* pale yellow for .com */
-
-#home-part1 { color: #ff8f66; }  
-#home-part2 { color: #ffb266; }  
-#home-part3 { color: #ffd966; }
-#home-part4 { color: #fff5b7; }  
 
 .action-btn {
     background: rgba(255, 255, 255, 0.2);
