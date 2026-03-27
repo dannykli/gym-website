@@ -18,8 +18,8 @@ body {
     transform: translateY(-1px);
 }
 
-#modal {
-    margin-top: 80px
+#browse-modal {
+    margin-top: 40px
 }
 
 @media (max-width: 768px) {
