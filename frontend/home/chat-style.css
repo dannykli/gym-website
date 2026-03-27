@@ -1,24 +1,24 @@
 body {
     height: 100vh;
     display: flex;
-    justify-content: center;
+    flex-direction: column; /* Stack banner and chat vertically */
+    justify-content: flex-start; /* Start from the top instead of center */
     align-items: center;
-    padding-top: 110px;
+    padding-top: 0; /* Remove the 110px padding */
 }
 
 .waitlist-banner {
-    background: linear-gradient(135deg, #059669, #10b981); /* Fresh Green - change to blue if you prefer */
+    background: linear-gradient(135deg, #1d4ed8, #3b82f6); /* Clean Utility Blue */
     color: white;
     text-align: center;
     padding: 12px 20px;
     font-size: 14px;
     font-weight: 500;
-    position: fixed;
-    top: 0;
-    left: 0;
+    position: relative; /* Changed from fixed! */
     width: 100%;
-    z-index: 1000;
+    z-index: 9999;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    flex-shrink: 0; /* Prevents flexbox from squishing it */
 }
 
 .waitlist-banner a {
@@ -42,7 +42,7 @@ body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
     width: 100%;
     max-width: 500px;
-    height: 100%;             /* take full height of parent */
+    height: 100%;
     max-height: 800px;      
     background: white;
     border-radius: 20px;
@@ -51,11 +51,12 @@ body {
     flex-direction: column;
     overflow: hidden;
     border: 1px solid rgba(255, 255, 255, 0.2);
+    margin-top: 40px; /* Add margin to push it down nicely from the top */
 }
 
 /* Chat Header */
 .chat-header {
-    background: linear-gradient(135deg, #4f46e5, #7c3aed);
+    background: linear-gradient(135deg, #1d4ed8, #3b82f6);
     color: white;
     padding: 20px;
     display: flex;
@@ -151,7 +152,7 @@ body {
     width: 35px;
     height: 35px;
     border-radius: 50%;
-    background: #4f46e5;
+    background: #1d4ed8;
     color: white;
     display: flex;
     align-items: center;
@@ -251,9 +252,9 @@ body {
 }
 
 .chat-input:focus-within {
-    border-color: #4f46e5;
+    border-color: #1d4ed8;
     background: white;
-    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+    box-shadow: 0 0 0 3px rgba(29, 78, 216, 0.1);
 }
 
 #messageInput {
@@ -270,7 +271,7 @@ body {
 }
 
 .send-btn {
-    background: #4f46e5;
+    background: #1d4ed8; /* Matching Blue */
     color: white;
     border: none;
     width: 40px;
@@ -285,7 +286,7 @@ body {
 }
 
 .send-btn:hover {
-    background: #4338ca;
+    background: #1e40af; /* Darker hover state */
     transform: scale(1.05);
 }
 
