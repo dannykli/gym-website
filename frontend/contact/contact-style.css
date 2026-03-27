@@ -1,6 +1,7 @@
 body {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    justify-content: flex-start;
     align-items: center;
 }
 
@@ -10,6 +11,9 @@ body {
     border-radius: 12px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     text-align: center;
+    margin-top: 80px; /* Pushes it down nicely from the navbar */
+    width: 90%;
+    max-width: 600px;
 }
 
 .contact-container h1 {
@@ -53,8 +57,8 @@ body {
 
 @media (max-width: 768px) {
     body {
-        padding: 10px;
-        padding-top: 50px;
+        padding: 0; /* Remove side and top padding so banner goes edge-to-edge */
+        padding-bottom: 20px; /* Safe space at the bottom */
     }
 
     .navbar {
@@ -70,8 +74,8 @@ body {
     }
 
     .contact-container {
-      padding: 20px 30px;
-      max-width: 500px;
+        padding: 20px 30px;
+        margin-top: 40px; /* Slightly smaller top gap for mobile */
     }
 }
 
